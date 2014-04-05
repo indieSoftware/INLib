@@ -1,6 +1,6 @@
 # INLib
 
-A little iOS Objective-C Library used by the indie-Software.
+A little iOS Library with Objective-C code used in projects from the indie-Software company.
 
 [![CocoaDocs](http://cocoapod-badges.herokuapp.com/v/INLib/badge.png)](http://cocoadocs.org/docsets/INLib)
 
