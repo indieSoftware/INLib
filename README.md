@@ -1,12 +1,8 @@
-INLib
-=====
+# INLib
 
 A little iOS Objective-C Library used by the indie-Software.
 
-# INLib
-
-[![Version](http://cocoapod-badges.herokuapp.com/v/INLib/badge.png)](http://cocoadocs.org/docsets/INLib)
-[![Platform](http://cocoapod-badges.herokuapp.com/p/INLib/badge.png)](http://cocoadocs.org/docsets/INLib)
+[![CocoaDocs](http://cocoapod-badges.herokuapp.com/v/INLib/badge.png)](http://cocoadocs.org/docsets/INLib)
 
 ## Usage
 
@@ -20,10 +16,6 @@ INLib is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile:
 
     pod "INLib"
-
-## Author
-
-, 
 
 ## License
 
