@@ -1,4 +1,4 @@
 INLib
 =====
 
-A little Objective-C Library used by the indie-Software.
+A little iOS Objective-C Library used by the indie-Software.
