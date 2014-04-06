@@ -1,4 +1,4 @@
-// INLib.h
+// NSBundle+INExtensions.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,14 +21,20 @@
 // THE SOFTWARE.
 
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@interface NSBundle (INExtensions)
+
+/// Returns the main bundle version, i.e. "1.0". Uses the flag CFBundleVersion.
+/// @return The bundle version number.
++ (NSString*)bundleVersion;
+
+/// Returns the main bundle identifier, i.e. "de.indie-software.indielib".
+/// @return The bundle identifier.
++ (NSString*)bundleIdentifier;
+
+/// Returns a value from the main bundle for a given key. Calls objectForInfoDictionaryKey on the main bundle.
+/// @param key A key in the bundle dictionary.
+/// @return The Value for the given key.
++ (NSString*)bundleValueForKey:(NSString*)key;
 
 
-#ifndef _INLIB_
-    #define _INLIB_
-
-    #import "INMacros.h"
-    #import "INCategories.h"
-
-#endif /* _INLIB_ */
+@end

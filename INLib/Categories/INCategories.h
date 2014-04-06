@@ -1,4 +1,4 @@
-// INLib.h
+// INCategories.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,14 +21,10 @@
 // THE SOFTWARE.
 
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
-
-#ifndef _INLIB_
-    #define _INLIB_
-
-    #import "INMacros.h"
-    #import "INCategories.h"
-
-#endif /* _INLIB_ */
+#import "NSArray+INExtensions.h"
+#import "NSBundle+INExtensions.h"
+#import "NSDate+INExtensions.h"
+#import "NSDictionary+INExtensions.h"
+#import "NSLocale+INExtensions.h"
+#import "NSObject+INExtension.h"
+#import "NSString+INExtensions.h"

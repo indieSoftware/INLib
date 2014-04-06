@@ -1,4 +1,4 @@
-// INLib.h
+// NSObject+INExtension.m
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,14 +21,25 @@
 // THE SOFTWARE.
 
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "NSObject+INExtension.h"
+#import <objc/runtime.h>
 
 
-#ifndef _INLIB_
-    #define _INLIB_
+static const char *bagKey = "objectBag";
 
-    #import "INMacros.h"
-    #import "INCategories.h"
 
-#endif /* _INLIB_ */
+@implementation NSObject (INExtension)
+
+- (id)bag {
+    return objc_getAssociatedObject(self, bagKey);
+}
+
+- (void)setBag:(id)oBag {
+    objc_setAssociatedObject(self, bagKey, oBag, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)isNull {
+	return [self isKindOfClass:[NSNull class]];
+}
+
+@end

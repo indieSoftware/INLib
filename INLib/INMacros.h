@@ -1,4 +1,4 @@
-// INLib.h
+// INMacros.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -22,9 +22,7 @@
 
 
 
-// macros for asserting
-
-/// Fails and terminates the app in DEBUG mode, by calling NSAssert(false). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
+/// Fails and terminates the app in DEBUG mode only, by calling NSAssert(false). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
 #ifdef DEBUG
     #define DFail(_message_) NSAssert(false, _message_)
 #else
@@ -37,9 +35,6 @@
 #else
     #define DAssert(_condition_) { /* */ }
 #endif
-
-
-// macros for logging
 
 /// Prints the given parameter onto the console in DEBUG mode, by calling NSLog(). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
 #ifdef DEBUG
@@ -61,5 +56,29 @@
 #define STRINGIFY_MACRO(f) #f
 /// Prints the macro's value into a string so it can be accessed like [NSString stringWithFormat:@"%s", STRINGIFY_MACROVALUE(MY_MACRO)] resulting in @"Foo" if MY_MACRO's value is defined as Foo.
 #define STRINGIFY_MACROVALUE(f) STRINGIFY_MACRO(f)
+
+
+/// Declaration part for a singleton.
+/// This macro goes to the class interface declaration in the h file.
+/// Creates the methods shareInstance and destroySharedInstance.
+#define ISingletonDeclaration \
++ (id)sharedInstance; \
+\
++ (void)destroySharedInstance;
+
+/// Definition part for a singleton.
+/// This macro goes to the class implementation in the m/mm file.
+#define ISingletonDefinition \
+static id __singletonInstance = nil; \
++ (id)sharedInstance { \
+if (__singletonInstance == nil) { \
+__singletonInstance = [[self alloc] init]; \
+} \
+return __singletonInstance; \
+} \
+\
++ (void)destroySharedInstance { \
+__singletonInstance = nil; \
+}
 
 

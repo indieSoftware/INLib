@@ -10,5 +10,54 @@
       <FileRef
          location = "group:INMacros.h">
       </FileRef>
+      <Group
+         location = "group:Categories"
+         name = "Categories">
+         <FileRef
+            location = "group:INCategories.h">
+         </FileRef>
+         <FileRef
+            location = "group:NSArray+INExtensions.h">
+         </FileRef>
+         <FileRef
+            location = "group:NSArray+INExtensions.m">
+         </FileRef>
+         <FileRef
+            location = "group:NSBundle+INExtensions.h">
+         </FileRef>
+         <FileRef
+            location = "group:NSBundle+INExtensions.m">
+         </FileRef>
+         <FileRef
+            location = "group:NSDate+INExtensions.h">
+         </FileRef>
+         <FileRef
+            location = "group:NSDate+INExtensions.m">
+         </FileRef>
+         <FileRef
+            location = "group:NSDictionary+INExtensions.h">
+         </FileRef>
+         <FileRef
+            location = "group:NSDictionary+INExtensions.m">
+         </FileRef>
+         <FileRef
+            location = "group:NSLocale+INExtensions.h">
+         </FileRef>
+         <FileRef
+            location = "group:NSLocale+INExtensions.m">
+         </FileRef>
+         <FileRef
+            location = "group:NSObject+INExtension.h">
+         </FileRef>
+         <FileRef
+            location = "group:NSObject+INExtension.m">
+         </FileRef>
+         <FileRef
+            location = "group:NSString+INExtensions.h">
+         </FileRef>
+         <FileRef
+            location = "group:NSString+INExtensions.m">
+         </FileRef>
+      </Group>
    </Group>
 </Workspace>

@@ -1,4 +1,4 @@
-// INLib.h
+// NSBundle+INExtensions.m
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,14 +21,21 @@
 // THE SOFTWARE.
 
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "NSBundle+INExtensions.h"
 
 
-#ifndef _INLIB_
-    #define _INLIB_
+@implementation NSBundle (INExtensions)
 
-    #import "INMacros.h"
-    #import "INCategories.h"
++ (NSString*)bundleVersion {
+	return [NSBundle bundleValueForKey:@"CFBundleVersion"];
+}
 
-#endif /* _INLIB_ */
++ (NSString*)bundleIdentifier {
+	return [[NSBundle mainBundle] bundleIdentifier];
+}
+
++ (NSString*)bundleValueForKey:(NSString*)key {
+	return (NSString*)[[NSBundle mainBundle] objectForInfoDictionaryKey:key];
+}
+
+@end

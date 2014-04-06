@@ -4,11 +4,13 @@ A little iOS Library with Objective-C code used in projects from the indie-Softw
 
 [![CocoaDocs](http://cocoapod-badges.herokuapp.com/v/INLib/badge.png)](http://cocoadocs.org/docsets/INLib)
 
-## Usage
+## Examples
 
 To run the example project; clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+
+iOS 6+, ARC enabled
 
 ## Installation
 

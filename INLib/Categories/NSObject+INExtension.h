@@ -1,4 +1,4 @@
-// INLib.h
+// NSObject+INExtension.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,14 +21,13 @@
 // THE SOFTWARE.
 
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@interface NSObject (INExtension)
 
+/// A bag for storing an object associated to an NSObject.
+@property (nonatomic, strong) id bag;
 
-#ifndef _INLIB_
-    #define _INLIB_
+/// Checks whether this object is the null object or not.
+/// @return True if this object is NSNull, otherwise false.
+- (BOOL)isNull;
 
-    #import "INMacros.h"
-    #import "INCategories.h"
-
-#endif /* _INLIB_ */
+@end
