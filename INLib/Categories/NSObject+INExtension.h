@@ -30,4 +30,23 @@
 /// @return True if this object is NSNull, otherwise false.
 - (BOOL)isNull;
 
+/**
+ Invokes a selector on this object with the given parameters.
+ 
+ This is a replacement for NSObject's performSelector:withObject: which brings up compiler warnings when using.
+ The compiler warning can be silenced with
+ 
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [self performSelector:@selector(aSelector:) withObject:anObject];
+    #pragma clang diagnostic pop
+ 
+ but it is better to use NSInvocation what this method does.
+ At plus it is possible to pass any number of parameters to the invoked method.
+ 
+ @param selector The selector to call.
+ @param parameters The parameters to pass. The number of parameters has to equal the selector's signature.
+ */
+- (void)performSelector:(SEL)selector withParameters:(NSArray *)parameters;
+
 @end

@@ -7,6 +7,7 @@ A little iOS Library with Objective-C code used in projects from the indie-Softw
 ## Examples
 
 To run the example project; clone the repo, and run `pod install` from the Example directory first.
+Then you can open the workspace file INLibExample.xcworkspace and run the tests or the iOS app.
 
 ## Requirements
 

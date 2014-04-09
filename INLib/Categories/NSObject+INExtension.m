@@ -42,4 +42,21 @@ static const char *bagKey = "objectBag";
 	return [self isKindOfClass:[NSNull class]];
 }
 
+- (void)performSelector:(SEL)selector withParameters:(NSArray *)parameters {
+    NSMethodSignature *methodSig = [[self class] instanceMethodSignatureForSelector:selector];
+    NSAssert(methodSig != nil, @"Method signature not found on object");
+    if (methodSig != nil) {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSig];
+        invocation.target = self;
+        invocation.selector = selector;
+        NSUInteger argumentIndex = 2;
+        for (__unsafe_unretained id object in parameters) {
+            [invocation setArgument:&object atIndex:argumentIndex];
+            argumentIndex++;
+        }
+        [invocation invoke];
+    }
+}
+
+
 @end
