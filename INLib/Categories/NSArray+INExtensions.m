@@ -54,8 +54,8 @@
     NSMutableArray *section = nil;
     for (id object in self) {
         NSString *value = [object valueForKey:key];
-        BOOL valueEmpty = [value isEmpty];
-        BOOL sectionCharEmpty = [sectionChar isEmpty];
+        BOOL valueEmpty = ![value hasElements];
+        BOOL sectionCharEmpty = ![sectionChar hasElements];
         if (valueEmpty) {
             if (sectionChar == nil || !sectionCharEmpty) {
                 sectionChar = @"";
@@ -92,11 +92,11 @@
 - (NSArray *)arrayWithSectionHeadersForKey:(NSString *)key {
     NSMutableArray *headers = [[NSMutableArray alloc] init];
     for (NSArray *section in self) {
-        if ([section isEmpty]) continue;
+        if (![section hasElements]) continue;
         id object = [section firstObject];
         NSString *value = [object valueForKey:key];
         NSString *string = nil;
-        if (![value isEmpty]) {
+        if ([value hasElements]) {
             string = [[value firstCharacter] capitalizedString];
         }
         if (string == nil) {
