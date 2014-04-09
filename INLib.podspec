@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name             = "INLib"
   s.version          = "0.1.0"
-  s.summary          = "A little Objective-C Library used by indie-Software."
+  s.summary          = "A little iOS Library with common tasks."
   s.homepage         = "https://github.com/indieSoftware/INLib"
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { "Sven Korset" => "Sven.Korset@indie-Software.de" }
+  s.author           = "Sven Korset"
 
   s.platform         = :ios
   s.ios.deployment_target = '6.0'

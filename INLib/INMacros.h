@@ -22,21 +22,27 @@
 
 
 
-/// Fails and terminates the app in DEBUG mode only, by calling NSAssert(false). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
+/**
+ Fails and terminates the app in DEBUG mode only, by calling NSAssert(false). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
+ */
 #ifdef DEBUG
     #define DFail(_message_) NSAssert(false, _message_)
 #else
     #define DFail(_message_) { /* */ }
 #endif
 
-/// Asserts a condition in DEBUG mode, by calling NSAssert(). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
+/**
+ Asserts a condition in DEBUG mode, by calling NSAssert(). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
+ */
 #ifdef DEBUG
     #define DAssert(_condition_) NSAssert((_condition_), @"Assert failed")
 #else
     #define DAssert(_condition_) { /* */ }
 #endif
 
-/// Prints the given parameter onto the console in DEBUG mode, by calling NSLog(). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
+/**
+ Prints the given parameter onto the console in DEBUG mode, by calling NSLog(). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
+ */
 #ifdef DEBUG
     #define DLog(...) NSLog(__VA_ARGS__)
 #else
@@ -44,31 +50,83 @@
 #endif
 
 
-/// Prints the given NSRect struct onto the console via DLog().
+/**
+ Prints the given NSRect struct onto the console via DLog().
+ */
 #define DLogRect(_rect_) DLog(@"X:%.0f Y:%.0f W:%.0f H:%.0f", _rect_.origin.x, _rect_.origin.y, _rect_.size.width, _rect_.size.height)
-/// Prints the given NSSize struct onto the console via DLog().
+
+/**
+ Prints the given NSSize struct onto the console via DLog().
+ */
 #define DLogSize(_size_) DLog(@"W:%.0f H:%.0f", _size_.width, _size_.height)
-/// Prints the given NSPoint struct onto the console via DLog().
+
+/**
+ Prints the given NSPoint struct onto the console via DLog().
+ */
 #define DLogPoint(_point_) DLog(@"X:%.0f Y:%.0f", _point_.x, _point_.y)
 
 
-/// Prints the parameter into a string, so calling STRINGIFY_MACRO(MY_MACRO) will return "MY_MACRO".
+/**
+ Prints the parameter into a string, so calling STRINGIFY_MACRO(MY_MACRO) will return @"MY_MACRO".
+ */
 #define STRINGIFY_MACRO(f) #f
-/// Prints the macro's value into a string so it can be accessed like [NSString stringWithFormat:@"%s", STRINGIFY_MACROVALUE(MY_MACRO)] resulting in @"Foo" if MY_MACRO's value is defined as Foo.
+
+/**
+ Prints the macro's value into a string so it can be accessed in code.
+ 
+    #define MY_MACRO Foo
+    NSString *string = [NSString stringWithFormat:@"%s", STRINGIFY_MACROVALUE(MY_MACRO)];
+    // string == @"Foo"
+ 
+ */
 #define STRINGIFY_MACROVALUE(f) STRINGIFY_MACRO(f)
 
 
-/// Declaration part for a singleton.
-/// This macro goes to the class interface declaration in the h file.
-/// Creates the methods shareInstance and destroySharedInstance.
-#define ISingletonDeclaration \
+// ------------------------------------------------------------
+#pragma mark - singleton
+// ------------------------------------------------------------
+/// @name singleton macros
+
+/**
+ Declaration part for a singleton.
+ 
+ This macro goes to the class interface declaration in the h file.
+ Creates the methods shareInstance and destroySharedInstance.
+ 
+    @interface MyClass
+ 
+    INSingletonDeclaration
+ 
+    ...
+ 
+    @end
+ 
+ To get the instance call
+ 
+    instance = [MyClass sharedInstance];
+ 
+ */
+#define INSingletonDeclaration \
 + (id)sharedInstance; \
 \
 + (void)destroySharedInstance;
 
-/// Definition part for a singleton.
-/// This macro goes to the class implementation in the m/mm file.
-#define ISingletonDefinition \
+
+/**
+ Definition part for a singleton.
+ 
+ This macro goes to the class implementation in the m/mm file.
+
+    @implementation MyClass
+ 
+    INSingletonDefinition
+ 
+    ...
+ 
+    @end
+ 
+ */
+#define INSingletonDefinition \
 static id __singletonInstance = nil; \
 + (id)sharedInstance { \
 if (__singletonInstance == nil) { \

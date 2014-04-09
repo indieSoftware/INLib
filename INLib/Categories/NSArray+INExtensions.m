@@ -27,8 +27,8 @@
 
 @implementation NSArray (INExtensions)
 
-- (BOOL)isEmpty {
-    return self.count == 0;
+- (BOOL)hasElements {
+    return self.count > 0;
 }
 
 - (NSArray *)arrayCloned {

@@ -31,12 +31,6 @@
 /// @return A new trimmed string.
 - (NSString *)trim;
 
-/// Flag showing whether this string is empty or not.
-/// Have in mind that if this object is nil, calling this method on nil will return false. Use hasText instead.
-/// @return True if the string is the empty string @"" or has only spaces and new line characters in it, otherwise false.
-/// @see hasText
-- (BOOL)isEmpty;
-
 /// Flag showing wheter this string is empty or not.
 /// Contrary to the method isEmpty it is not necessary to check for nil, because calling the method on nil returns false, the same when there is no text in this string.
 /// @return True if the string has any characters in it, otherwise false.
@@ -55,10 +49,6 @@
 /// @param otherString The string to compare the first character with.
 /// @return True if the first character of this string equals the first character of the given string.
 - (BOOL)firstCharacterEquals:(NSString *)otherString;
-
-/// Creates a MD5 has from this string.
-/// @return A MD5 hash representation of the string.
-- (NSString *)md5;
 
 
 /// Compares version number strings with each other, i.e. "3.2" > "3.1.2".

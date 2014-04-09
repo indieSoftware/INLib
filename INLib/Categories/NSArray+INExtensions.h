@@ -23,9 +23,9 @@
 
 @interface NSArray (INExtensions)
 
-/// Returns true if there are no elements in this array, otherwise false.
-/// @return YES if the array is empty, otherwise NO.
-- (BOOL)isEmpty;
+/// Returns true if there are elements in this array, otherwise false.
+/// @return NO if the array is empty, otherwise YES.
+- (BOOL)hasElements;
 
 
 /// Creates a deep copy of the array by copying the elements.
