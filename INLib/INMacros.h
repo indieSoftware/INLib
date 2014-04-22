@@ -49,7 +49,6 @@
     #define DLog(...) { /* */ }
 #endif
 
-
 /**
  Prints the given NSRect struct onto the console via DLog().
  */
