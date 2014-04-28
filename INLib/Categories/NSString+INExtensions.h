@@ -41,8 +41,11 @@
 /// @return True if the two strings are case insensitive equal, otherwise false.
 - (BOOL)isEqualToCaseInsesitiveString:(NSString *)string;
 
-/// Returns the first character of this string.
-/// @return The string's first character as a new string.
+/**
+ Returns the first character of this string.
+ 
+ @return The string's first character as a new string. If the string is empty an empty string will be returned.
+ */
 - (NSString *)firstCharacter;
 
 /// Checks if this string starts with a given character.

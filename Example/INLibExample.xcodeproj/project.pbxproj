@@ -24,7 +24,8 @@
 		2636576D18F1D41700503925 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2636574C18F1D41700503925 /* Foundation.framework */; };
 		2636576E18F1D41700503925 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2636575018F1D41700503925 /* UIKit.framework */; };
 		2636577618F1D41700503925 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2636577418F1D41700503925 /* InfoPlist.strings */; };
-		2636577818F1D41700503925 /* INLibExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2636577718F1D41700503925 /* INLibExampleTests.m */; };
+		269184DB1906849A009D12C3 /* NSArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 269184DA1906849A009D12C3 /* NSArrayTests.m */; };
+		EEEC9F53D9E944CC8F6F9F8A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0F2A436171B41D394B58264 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +60,7 @@
 		2636576B18F1D41700503925 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2636577318F1D41700503925 /* INLibExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "INLibExampleTests-Info.plist"; sourceTree = "<group>"; };
 		2636577518F1D41700503925 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		2636577718F1D41700503925 /* INLibExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INLibExampleTests.m; sourceTree = "<group>"; };
+		269184DA1906849A009D12C3 /* NSArrayTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayTests.m; sourceTree = "<group>"; };
 		66E098F7DAE44E9FAEC3F93D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F0F2A436171B41D394B58264 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -83,6 +84,7 @@
 				2636576C18F1D41700503925 /* XCTest.framework in Frameworks */,
 				2636576E18F1D41700503925 /* UIKit.framework in Frameworks */,
 				2636576D18F1D41700503925 /* Foundation.framework in Frameworks */,
+				EEEC9F53D9E944CC8F6F9F8A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,7 +187,7 @@
 		2636577118F1D41700503925 /* INLibExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				2636577718F1D41700503925 /* INLibExampleTests.m */,
+				269184DA1906849A009D12C3 /* NSArrayTests.m */,
 				2636577218F1D41700503925 /* Supporting Files */,
 			);
 			path = INLibExampleTests;
@@ -226,9 +228,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2636577E18F1D41700503925 /* Build configuration list for PBXNativeTarget "INLibExampleTests" */;
 			buildPhases = (
+				5ADE75D5FF02469587D23E94 /* Check Pods Manifest.lock */,
 				2636576618F1D41700503925 /* Sources */,
 				2636576718F1D41700503925 /* Frameworks */,
 				2636576818F1D41700503925 /* Resources */,
+				99AD4FAFE4A34428B15875F2 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -313,6 +317,36 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		5ADE75D5FF02469587D23E94 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		99AD4FAFE4A34428B15875F2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AC3A5FED29FD45538A541603 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -345,7 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2636577818F1D41700503925 /* INLibExampleTests.m in Sources */,
+				269184DB1906849A009D12C3 /* NSArrayTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +521,7 @@
 		};
 		2636577F18F1D41700503925 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 66E098F7DAE44E9FAEC3F93D /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/INLibExample.app/INLibExample";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -509,6 +544,7 @@
 		};
 		2636578018F1D41700503925 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 66E098F7DAE44E9FAEC3F93D /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/INLibExample.app/INLibExample";
 				FRAMEWORK_SEARCH_PATHS = (

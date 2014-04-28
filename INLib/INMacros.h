@@ -23,7 +23,8 @@
 
 
 /**
- Fails and terminates the app in DEBUG mode only, by calling NSAssert(false). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
+ Fails and terminates the app in DEBUG mode only, by calling NSAssert(false).
+ On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
  */
 #ifdef DEBUG
     #define DFail(_message_) NSAssert(false, _message_)
@@ -32,7 +33,8 @@
 #endif
 
 /**
- Asserts a condition in DEBUG mode, by calling NSAssert(). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
+ Asserts a condition in DEBUG mode, by calling NSAssert().
+ On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
  */
 #ifdef DEBUG
     #define DAssert(_condition_) NSAssert((_condition_), @"Assert failed")
@@ -41,7 +43,8 @@
 #endif
 
 /**
- Prints the given parameter onto the console in DEBUG mode, by calling NSLog(). On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
+ Prints the given parameter onto the console in DEBUG mode, by calling NSLog().
+ On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
  */
 #ifdef DEBUG
     #define DLog(...) NSLog(__VA_ARGS__)
