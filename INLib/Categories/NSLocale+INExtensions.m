@@ -24,7 +24,7 @@
 #import "NSLocale+INExtensions.h"
 
 
-static NSString *__cachedSupportedLanguage = nil;
+static NSString *__INExtensionsCachedSupportedLanguage = nil;
 
 @implementation NSLocale (INExtensions)
 
@@ -41,31 +41,37 @@ static NSString *__cachedSupportedLanguage = nil;
 }
 
 + (NSString *)preferredSupportedLanguage:(NSArray *)supportedLanguages defaultLanguage:(NSString *)defaultLanguage {
-	if (__cachedSupportedLanguage != nil) return __cachedSupportedLanguage;
+	if (__INExtensionsCachedSupportedLanguage != nil) {
+        return __INExtensionsCachedSupportedLanguage;
+    }
+    
 	NSArray *languages = [self preferredLanguages];
-	if (languages == nil || [languages count] == 0) return nil;
+	if (languages == nil || [languages count] == 0) {
+        return nil;
+    }
+    
     if (defaultLanguage == nil) {
         NSString *firstMatch = [languages firstObjectCommonWithArray:supportedLanguages];
         if (firstMatch == nil) {
             NSString *emptyString = @"";
-            __cachedSupportedLanguage = [[NSString alloc] initWithString:emptyString];
+            __INExtensionsCachedSupportedLanguage = [[NSString alloc] initWithString:emptyString];
         } else {
-            __cachedSupportedLanguage = [[NSString alloc] initWithString:firstMatch];
+            __INExtensionsCachedSupportedLanguage = [[NSString alloc] initWithString:firstMatch];
         }
     } else {
         NSString *activeLanguage = [languages firstObject];
         NSUInteger index = [supportedLanguages indexOfObject:activeLanguage];
         if (index == NSNotFound) {
-            __cachedSupportedLanguage = [[NSString alloc] initWithString:defaultLanguage];
+            __INExtensionsCachedSupportedLanguage = [[NSString alloc] initWithString:defaultLanguage];
         } else {
-            __cachedSupportedLanguage = [[NSString alloc] initWithString:activeLanguage];
+            __INExtensionsCachedSupportedLanguage = [[NSString alloc] initWithString:activeLanguage];
         }
     }
-	return __cachedSupportedLanguage;
+	return __INExtensionsCachedSupportedLanguage;
 }
 
 + (NSString *)preferredSupportedLanguage {
-	return __cachedSupportedLanguage;
+	return __INExtensionsCachedSupportedLanguage;
 }
 
 @end

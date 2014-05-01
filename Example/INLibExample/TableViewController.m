@@ -61,7 +61,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    
+    NSString *controllerName = [self.tableContent objectAtIndex:indexPath.row];
+    UIViewController *controller = [[NSClassFromString(controllerName) alloc] init];
+    controller.title = controllerName;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 

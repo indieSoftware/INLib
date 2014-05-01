@@ -26,19 +26,19 @@
 
 @implementation NSString (INExtensions)
 
-- (NSString *)capitalizedFirstCharacterString {
+- (NSString *)stringWithFirstCharacterCapitalized {
 	if ([self length] == 0) return @"";
 	
 	NSString *uppercaseCharacter = [[self firstCharacter] capitalizedString];
     return [self stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:uppercaseCharacter];
 }
 
-- (NSString *)trim {
+- (NSString *)stringTrimmed {
 	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 - (BOOL)hasText {
-    return [[self trim] length] != 0;
+    return [[self stringTrimmed] length] > 0;
 }
 
 - (BOOL)isEqualToCaseInsesitiveString:(NSString *)string {

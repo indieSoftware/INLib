@@ -26,7 +26,6 @@
 
 @implementation NSDictionary (INExtensions)
 
-
 - (BOOL)boolForKey:(id)key {
 	id object = [self objectForKey:key];
     NSAssert(object == nil || [object isKindOfClass:[NSNumber class]], @"NSNumber expected");
@@ -86,73 +85,5 @@
 	return (NSNumber *)object;
 }
 
-@end
-
-
-#pragma mark -
-
-
-@implementation NSMutableDictionary (IExtensions)
-
-
-- (void)setBool:(BOOL)value forKey:(id)key {
-	NSNumber *number = [[NSNumber alloc] initWithBool:value];
-	[self setObject:number forKey:key];
-}
-
-- (void)setInt:(int)value forKey:(id)key {
-	NSNumber *number = [[NSNumber alloc] initWithInt:value];
-	[self setObject:number forKey:key];
-}
-
-- (void)setFloat:(float)value forKey:(id)key {
-	NSNumber *number = [[NSNumber alloc] initWithFloat:value];
-	[self setObject:number forKey:key];
-}
-
-- (void)setDouble:(double)value forKey:(id)key {
-	NSNumber *number = [[NSNumber alloc] initWithDouble:value];
-	[self setObject:number forKey:key];
-}
-
-- (void)setLong:(long)value forKey:(id)key {
-	NSNumber *number = [[NSNumber alloc] initWithLong:value];
-	[self setObject:number forKey:key];
-}
-
-- (void)setString:(NSString *)value forKey:(id)key {
-	if (value == nil) {
-		[self removeObjectForKey:key];
-	} else {
-		[self setObject:value forKey:key];
-	}
-}
-
-- (void)setArray:(NSArray *)value forKey:(id)key {
-	if (value == nil) {
-		[self removeObjectForKey:key];
-	} else {
-		[self setObject:value forKey:key];
-	}
-}
-
-- (void)setDict:(NSDictionary *)value forKey:(id)key {
-	if (value == nil) {
-		[self removeObjectForKey:key];
-	} else {
-		[self setObject:value forKey:key];
-	}
-}
-
-- (void)setNumber:(NSNumber *)value forKey:(id)key {
-    if (value == nil) {
-        [self removeObjectForKey:key];
-    } else {
-        [self setObject:value forKey:key];
-    }
-}
-
 
 @end
-
-

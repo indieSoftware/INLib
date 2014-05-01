@@ -29,6 +29,8 @@
     #define _INLIB_
 
     #import "INMacros.h"
+    #import "INCMethods.h"
     #import "INCategories.h"
+    #import "INClasses.h"
 
 #endif /* _INLIB_ */

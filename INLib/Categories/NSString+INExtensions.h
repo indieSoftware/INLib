@@ -25,14 +25,16 @@
 
 /// Capitalizes the first character of this string.
 /// @return A new string with the first character capitalized.
-- (NSString *)capitalizedFirstCharacterString;
+- (NSString *)stringWithFirstCharacterCapitalized;
 
 /// Trims a string. Any spaces and new lines from the start and the ending of the receiver will be removed.
 /// @return A new trimmed string.
-- (NSString *)trim;
+- (NSString *)stringTrimmed;
 
 /// Flag showing wheter this string is empty or not.
-/// Contrary to the method isEmpty it is not necessary to check for nil, because calling the method on nil returns false, the same when there is no text in this string.
+/// A string only with whitespaces, tabs and new lines is treated as empty. See `[NSCharacterSet whitespaceAndNewlineCharacterSet]` for exact definition.
+/// With this method it is not necessary to check for nil, because calling the method on nil returns false,
+/// the same when there is no text in this string.
 /// @return True if the string has any characters in it, otherwise false.
 - (BOOL)hasText;
 

@@ -1,4 +1,4 @@
-// NSObject+INExtension.h
+// INCurrentOS.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,32 +21,18 @@
 // THE SOFTWARE.
 
 
-@interface NSObject (INExtension)
+/**
+ Static class which determines the device's current OS version.
+ */
+@interface INCurrentOS : NSObject
 
-/// A bag for storing an object associated to an NSObject.
-@property (nonatomic, strong) id bag;
-
-/// Checks whether this object is the null object or not.
-/// @return True if this object is NSNull, otherwise false.
-- (BOOL)isNull;
 
 /**
- Invokes a selector on this object with the given parameters.
+ Returns the iOS version number, i.e. "7.0".
  
- This is a replacement for NSObject's performSelector:withObject: which brings up compiler warnings when using.
- The compiler warning can be silenced with
- 
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self performSelector:@selector(aSelector:) withObject:anObject];
-    #pragma clang diagnostic pop
- 
- but it is better to use NSInvocation what this method does.
- At plus it is possible to pass any number of parameters to the invoked method.
- 
- @param selector The selector to call.
- @param parameters The parameters to pass. The number of parameters has to equal the selector's signature.
+ @return The iOS version number as a string representation.
  */
-- (void)performSelector:(SEL)selector withParameters:(NSArray *)parameters;
++ (NSString *)versionNumber;
+
 
 @end

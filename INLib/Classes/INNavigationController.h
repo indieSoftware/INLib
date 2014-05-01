@@ -1,4 +1,4 @@
-// INCategories.h
+// INNavigationController.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,15 +21,18 @@
 // THE SOFTWARE.
 
 
-#import "NSArray+INExtensions.h"
-#import "NSBundle+INExtensions.h"
-#import "NSDate+INExtensions.h"
-#import "NSDictionary+INExtensions.h"
-#import "NSMutableDictionary+INExtensions.h"
-#import "NSLocale+INExtensions.h"
-#import "NSObject+INExtensions.h"
-#import "NSString+INExtensions.h"
-#import "UIColor+INExtensions.h"
-#import "UIDevice+INExtensions.h"
-#import "UIImage+INExtensions.h"
-#import "UIView+INExtensions.h"
+/**
+ A UINavigationController substitution which forwards all rotation requests to the current top view controller.
+ */
+@interface INNavigationController : UINavigationController
+
+
+/**
+ When set to YES the navigation forwards any rotation requests to the navigation controller's top view controller instead of using the own default rotation behavior. Defaults to YES.
+ 
+ This forwarding is handy when the navigation controller should be used as the window's root controller and the app allows different rotations, otherwise there will be no possibility for the root controller to restrict to selected rotations.
+ */
+@property (nonatomic, assign) BOOL forwardRotation;
+
+
+@end

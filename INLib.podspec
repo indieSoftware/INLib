@@ -13,8 +13,20 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/indieSoftware/INLib.git", :tag => "0.1.0" }
   s.source_files     = 'INLib/*.h'
 
+  s.subspec 'Macros' do |macros|
+    macros.source_files = 'INLib/Macros/**/*.{h,m}'
+  end
+  
   s.subspec 'Categories' do |categories|
     categories.source_files = 'INLib/Categories/**/*.{h,m}'
+  end
+  
+  s.subspec 'Classes' do |classes|
+    classes.source_files = 'INLib/Classes/**/*.{h,m}'
+  end
+  
+  s.subspec 'CMethods' do |cmethods|
+    cmethods.source_files = 'INLib/CMethods/**/*.{h,m}'
   end
   
 end

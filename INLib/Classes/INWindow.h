@@ -1,4 +1,4 @@
-// INCategories.h
+// INWindow.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,15 +21,48 @@
 // THE SOFTWARE.
 
 
-#import "NSArray+INExtensions.h"
-#import "NSBundle+INExtensions.h"
-#import "NSDate+INExtensions.h"
-#import "NSDictionary+INExtensions.h"
-#import "NSMutableDictionary+INExtensions.h"
-#import "NSLocale+INExtensions.h"
-#import "NSObject+INExtensions.h"
-#import "NSString+INExtensions.h"
-#import "UIColor+INExtensions.h"
-#import "UIDevice+INExtensions.h"
-#import "UIImage+INExtensions.h"
-#import "UIView+INExtensions.h"
+/**
+ The delegate protocol to ask for event dropping.
+ */
+@protocol INWindowDelegate <NSObject>
+
+@optional
+
+/**
+ An optional call back method which will be called when the window object receives an event.
+ 
+ @param window The INWindow object which received the event.
+ @param event The event which will be dropped or delivered to the window's view.
+ @return Should return YES when the event has to be ignored, otherwise return NO.
+ */
+- (BOOL)window:(UIWindow *)window shouldIgnoreEvent:(UIEvent *)event;
+
+@end
+
+
+
+/**
+ A UIWindow subclass which can ignore special events received by asking a delegate.
+ */
+@interface INWindow : UIWindow
+
+
+/**
+ A not retained window delegate.
+ */
+@property (nonatomic, weak) id<INWindowDelegate> windowDelegate;
+
+
+/**
+ Returns the lastly created INWindow object.
+ 
+ When using INWindow as the app's main window it is normally a short cut for writing:
+ 
+    [[UIApplication sharedApplication] keyWindow]
+ 
+ @return The window object.
+ */
++ (INWindow *)mainWindow;
+
+
+@end

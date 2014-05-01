@@ -1,4 +1,4 @@
-// INCategories.h
+// NSObject+INExtensions.m
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,15 +21,42 @@
 // THE SOFTWARE.
 
 
-#import "NSArray+INExtensions.h"
-#import "NSBundle+INExtensions.h"
-#import "NSDate+INExtensions.h"
-#import "NSDictionary+INExtensions.h"
-#import "NSMutableDictionary+INExtensions.h"
-#import "NSLocale+INExtensions.h"
 #import "NSObject+INExtensions.h"
-#import "NSString+INExtensions.h"
-#import "UIColor+INExtensions.h"
-#import "UIDevice+INExtensions.h"
-#import "UIImage+INExtensions.h"
-#import "UIView+INExtensions.h"
+#import <objc/runtime.h>
+
+
+static const char *bagKey = "INExtensions_objectBag";
+
+
+@implementation NSObject (INExtensions)
+
+- (id)bag {
+    return objc_getAssociatedObject(self, bagKey);
+}
+
+- (void)setBag:(id)bag {
+    objc_setAssociatedObject(self, bagKey, bag, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)isNull {
+	return [self isKindOfClass:[NSNull class]];
+}
+
+- (void)performSelector:(SEL)selector withParameters:(NSArray *)parameters {
+    NSMethodSignature *methodSig = [[self class] instanceMethodSignatureForSelector:selector];
+    NSAssert(methodSig != nil, @"Method signature not found on object");
+    if (methodSig != nil) {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSig];
+        invocation.target = self;
+        invocation.selector = selector;
+        NSUInteger argumentIndex = 2;
+        for (__unsafe_unretained id object in parameters) {
+            [invocation setArgument:&object atIndex:argumentIndex];
+            argumentIndex++;
+        }
+        [invocation invoke];
+    }
+}
+
+
+@end

@@ -1,4 +1,4 @@
-// INCategories.h
+// UIDevice+INExtensions.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,15 +21,13 @@
 // THE SOFTWARE.
 
 
-#import "NSArray+INExtensions.h"
-#import "NSBundle+INExtensions.h"
-#import "NSDate+INExtensions.h"
-#import "NSDictionary+INExtensions.h"
-#import "NSMutableDictionary+INExtensions.h"
-#import "NSLocale+INExtensions.h"
-#import "NSObject+INExtensions.h"
-#import "NSString+INExtensions.h"
-#import "UIColor+INExtensions.h"
-#import "UIDevice+INExtensions.h"
-#import "UIImage+INExtensions.h"
-#import "UIView+INExtensions.h"
+
+@interface UIDevice (INExtensions)
+
+
+/// Flag indicating whether this device is an iPad or not.
+/// @return True if the code runs on an iPad, otherwise false and it may be an iPhone or iPod touch or something unknown.
+- (BOOL)isIPad;
+
+
+@end

@@ -72,6 +72,31 @@ static NSMutableDictionary *__cachedDateFormatters;
 
 #pragma mark - public methods
 
++ (NSInteger)secondsForDays:(NSInteger)days hours:(NSInteger)hours minutes:(NSInteger)minutes seconds:(NSInteger)seconds {
+	return (days * 86400 + hours * 3600 + minutes * 60 + seconds);
+}
+
++ (NSInteger)secondsForHours:(NSInteger)hours minutes:(NSInteger)minutes seconds:(NSInteger)seconds {
+	return [self secondsForDays:0 hours:hours minutes:minutes seconds:seconds];
+}
+
++ (NSString *)stringRepresentationForSeconds:(NSInteger)seconds printSign:(BOOL)printSign printSeconds:(BOOL)printSeconds {
+	int hour = (seconds / 3600) % 24;
+	int rest = seconds % 3600;
+	int min = rest / 60;
+	int secs = rest % 60;
+	NSString *prefix = @"";
+	if (printSign && seconds >= 0) prefix = @"+";
+	else if (printSign && seconds < 0) prefix = @"-";
+	NSString *time = nil;
+	if (printSeconds) {
+		time = [NSString stringWithFormat:@"%@%.2d:%.2d:%.2d", prefix, abs(hour), abs(min), abs(secs)];
+	} else {
+		time = [NSString stringWithFormat:@"%@%.2d:%.2d", prefix, abs(hour), abs(min)];
+	}
+	return time;
+}
+
 + (NSDateFormatter *)cachedDateFormatterForFormat:(NSString *)format {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -454,20 +479,13 @@ static NSMutableDictionary *__cachedDateFormatters;
 	NSInteger endMonth = [lastDate monthNumber];
 	NSInteger totalMonths = 0;
     
-	if (endYear - startYear > 1) {
+	if (endYear > startYear) {
 		totalMonths += (endYear - startYear - 1) * 12;
 	}
 	if (endMonth > startMonth) {
-		totalMonths += endMonth - startMonth + 1;
-		if (endYear > startYear) {
-			totalMonths += 12;
-		}
+		totalMonths += endMonth - startMonth;
 	} else if (endMonth < startMonth) {
-		totalMonths += 12 - (startMonth - endMonth - 1);
-	} else {
-		if (endYear > startYear) {
-			totalMonths += 12;
-		}
+		totalMonths += 12 - (startMonth - endMonth);
 	}
     
 	return totalMonths;
@@ -503,31 +521,6 @@ static NSMutableDictionary *__cachedDateFormatters;
 	return date;
 }
 
-- (instancetype)dateWithYearReplaced:(NSInteger)year {
-    NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date = nil;
-    @synchronized(dateFormatter) {
-        NSString *string = [dateFormatter stringFromDate:self];
-        NSString *yearString = [[NSString alloc] initWithFormat:@"%ld", (long)year];
-        string = [string stringByReplacingCharactersInRange:NSMakeRange(0, 4) withString:yearString];
-        date = [dateFormatter dateFromString:string];
-    }
-    return date;
-}
-
-- (instancetype)dateWithSecondsReplaced:(NSInteger)seconds {
-    NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date = nil;
-    @synchronized(dateFormatter) {
-        [dateFormatter setLocale:[NSLocale currentLocale]];
-        NSString *string = [dateFormatter stringFromDate:self];
-        NSString *secondsString = [[NSString alloc] initWithFormat:@"%.2ld", (long)seconds];
-        string = [string stringByReplacingCharactersInRange:NSMakeRange(17, 2) withString:secondsString];
-        date = [dateFormatter dateFromString:string];
-    }
-    return date;
-}
-
 - (instancetype)dateWithTimeZeroed {
     NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"yyyy-MM-dd"];
     NSDate *date = nil;
@@ -536,15 +529,6 @@ static NSMutableDictionary *__cachedDateFormatters;
         date = [dateFormatter dateFromString:string];
     }
     return date;
-}
-
-- (instancetype)dateWithTimeReplaced:(NSDate *)time {
-    IDateInformation dateInfo = [self dateInformation];
-    IDateInformation timeInfo = [time dateInformation];
-    dateInfo.hour = timeInfo.hour;
-    dateInfo.minute = timeInfo.minute;
-    dateInfo.second = timeInfo.second;
-    return [NSDate dateWithDateInformation:dateInfo];
 }
 
 - (NSDate *)dateWithDaysAdded:(NSInteger)days {

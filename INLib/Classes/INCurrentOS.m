@@ -1,4 +1,4 @@
-// INCategories.h
+// INCurrentOS.m
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,15 +21,13 @@
 // THE SOFTWARE.
 
 
-#import "NSArray+INExtensions.h"
-#import "NSBundle+INExtensions.h"
-#import "NSDate+INExtensions.h"
-#import "NSDictionary+INExtensions.h"
-#import "NSMutableDictionary+INExtensions.h"
-#import "NSLocale+INExtensions.h"
-#import "NSObject+INExtensions.h"
-#import "NSString+INExtensions.h"
-#import "UIColor+INExtensions.h"
-#import "UIDevice+INExtensions.h"
-#import "UIImage+INExtensions.h"
-#import "UIView+INExtensions.h"
+#import "INCurrentOS.h"
+
+
+@implementation INCurrentOS
+
++ (NSString *)versionNumber {
+	return [[UIDevice currentDevice] systemVersion];
+}
+
+@end

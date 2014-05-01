@@ -1,4 +1,4 @@
-// INCategories.h
+// NSObject+INExtensions.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,15 +21,34 @@
 // THE SOFTWARE.
 
 
-#import "NSArray+INExtensions.h"
-#import "NSBundle+INExtensions.h"
-#import "NSDate+INExtensions.h"
-#import "NSDictionary+INExtensions.h"
-#import "NSMutableDictionary+INExtensions.h"
-#import "NSLocale+INExtensions.h"
-#import "NSObject+INExtensions.h"
-#import "NSString+INExtensions.h"
-#import "UIColor+INExtensions.h"
-#import "UIDevice+INExtensions.h"
-#import "UIImage+INExtensions.h"
-#import "UIView+INExtensions.h"
+@interface NSObject (INExtensions)
+
+/// A bag for storing an object associated to an NSObject.
+- (id)bag;
+- (void)setBag:(id)bag;
+
+
+/// Checks whether this object is the null object or not.
+/// @return True if this object is NSNull, otherwise false.
+- (BOOL)isNull;
+
+/**
+ Invokes a selector on this object with the given parameters.
+ 
+ This is a replacement for NSObject's performSelector:withObject: which brings up compiler warnings when using.
+ The compiler warning can be silenced with
+ 
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [self performSelector:@selector(aSelector:) withObject:anObject];
+    #pragma clang diagnostic pop
+ 
+ but it is better to use NSInvocation what this method does.
+ At plus it is possible to pass any number of parameters to the invoked method.
+ 
+ @param selector The selector to call.
+ @param parameters The parameters to pass. The number of parameters has to match up with the selector's signature.
+ */
+- (void)performSelector:(SEL)selector withParameters:(NSArray *)parameters;
+
+@end

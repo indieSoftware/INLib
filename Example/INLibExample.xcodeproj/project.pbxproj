@@ -18,13 +18,18 @@
 		2636575718F1D41700503925 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2636575518F1D41700503925 /* InfoPlist.strings */; };
 		2636575918F1D41700503925 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2636575818F1D41700503925 /* main.m */; };
 		2636575D18F1D41700503925 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2636575C18F1D41700503925 /* AppDelegate.m */; };
-		2636576018F1D41700503925 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2636575E18F1D41700503925 /* Main.storyboard */; };
 		2636576518F1D41700503925 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2636576418F1D41700503925 /* Images.xcassets */; };
 		2636576C18F1D41700503925 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2636576B18F1D41700503925 /* XCTest.framework */; };
 		2636576D18F1D41700503925 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2636574C18F1D41700503925 /* Foundation.framework */; };
 		2636576E18F1D41700503925 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2636575018F1D41700503925 /* UIKit.framework */; };
 		2636577618F1D41700503925 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2636577418F1D41700503925 /* InfoPlist.strings */; };
+		264E3E8B1911244B0093B056 /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 264E3E891911244B0093B056 /* AlertViewController.m */; };
+		264E3E8C1911244B0093B056 /* AlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 264E3E8A1911244B0093B056 /* AlertViewController.xib */; };
 		269184DB1906849A009D12C3 /* NSArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 269184DA1906849A009D12C3 /* NSArrayTests.m */; };
+		26A7E4BE1912758B0012027B /* LocalizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A7E4BC1912758B0012027B /* LocalizerViewController.m */; };
+		26A7E4BF1912758B0012027B /* LocalizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26A7E4BD1912758B0012027B /* LocalizerViewController.xib */; };
+		26A7E4C01912761A0012027B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26A7E4C21912761A0012027B /* Localizable.strings */; };
+		26A7E4C7191278690012027B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A7E4C6191278690012027B /* Main.storyboard */; };
 		EEEC9F53D9E944CC8F6F9F8A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0F2A436171B41D394B58264 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -54,13 +59,22 @@
 		2636575A18F1D41700503925 /* INLibExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "INLibExample-Prefix.pch"; sourceTree = "<group>"; };
 		2636575B18F1D41700503925 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2636575C18F1D41700503925 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2636575F18F1D41700503925 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2636576418F1D41700503925 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2636576A18F1D41700503925 /* INLibExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = INLibExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2636576B18F1D41700503925 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2636577318F1D41700503925 /* INLibExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "INLibExampleTests-Info.plist"; sourceTree = "<group>"; };
 		2636577518F1D41700503925 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		264E3E881911244B0093B056 /* AlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewController.h; sourceTree = "<group>"; };
+		264E3E891911244B0093B056 /* AlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewController.m; sourceTree = "<group>"; };
+		264E3E8A1911244B0093B056 /* AlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertViewController.xib; sourceTree = "<group>"; };
 		269184DA1906849A009D12C3 /* NSArrayTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayTests.m; sourceTree = "<group>"; };
+		26A7E4BB1912758B0012027B /* LocalizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizerViewController.h; sourceTree = "<group>"; };
+		26A7E4BC1912758B0012027B /* LocalizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizerViewController.m; sourceTree = "<group>"; };
+		26A7E4BD1912758B0012027B /* LocalizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocalizerViewController.xib; sourceTree = "<group>"; };
+		26A7E4C3191276210012027B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		26A7E4C4191276710012027B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		26A7E4C5191276790012027B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		26A7E4C6191278690012027B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		66E098F7DAE44E9FAEC3F93D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F0F2A436171B41D394B58264 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -115,7 +129,7 @@
 			children = (
 				2636575B18F1D41700503925 /* AppDelegate.h */,
 				2636575C18F1D41700503925 /* AppDelegate.m */,
-				2636575E18F1D41700503925 /* Main.storyboard */,
+				26A7E4C6191278690012027B /* Main.storyboard */,
 				260C5EA51906742A000AA177 /* TableViewController.h */,
 				260C5EA61906742A000AA177 /* TableViewController.m */,
 			);
@@ -126,6 +140,12 @@
 			isa = PBXGroup;
 			children = (
 				260C5EA91906770D000AA177 /* ViewControllers.plist */,
+				264E3E881911244B0093B056 /* AlertViewController.h */,
+				264E3E891911244B0093B056 /* AlertViewController.m */,
+				264E3E8A1911244B0093B056 /* AlertViewController.xib */,
+				26A7E4BB1912758B0012027B /* LocalizerViewController.h */,
+				26A7E4BC1912758B0012027B /* LocalizerViewController.m */,
+				26A7E4BD1912758B0012027B /* LocalizerViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -179,6 +199,7 @@
 				2636575418F1D41700503925 /* INLibExample-Info.plist */,
 				2636575518F1D41700503925 /* InfoPlist.strings */,
 				2636575818F1D41700503925 /* main.m */,
+				26A7E4C21912761A0012027B /* Localizable.strings */,
 				2636575A18F1D41700503925 /* INLibExample-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -265,6 +286,8 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
+				de,
 			);
 			mainGroup = 2636574018F1D41700503925;
 			productRefGroup = 2636574A18F1D41700503925 /* Products */;
@@ -286,8 +309,11 @@
 				260C5EA319067373000AA177 /* indie_banner_small.jpg in Resources */,
 				260C5EA219067373000AA177 /* indie_banner.jpg in Resources */,
 				2636575718F1D41700503925 /* InfoPlist.strings in Resources */,
-				2636576018F1D41700503925 /* Main.storyboard in Resources */,
+				26A7E4C01912761A0012027B /* Localizable.strings in Resources */,
 				260C5EAA1906770D000AA177 /* ViewControllers.plist in Resources */,
+				26A7E4C7191278690012027B /* Main.storyboard in Resources */,
+				26A7E4BF1912758B0012027B /* LocalizerViewController.xib in Resources */,
+				264E3E8C1911244B0093B056 /* AlertViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +398,8 @@
 				2636575D18F1D41700503925 /* AppDelegate.m in Sources */,
 				2636575918F1D41700503925 /* main.m in Sources */,
 				260C5EA71906742A000AA177 /* TableViewController.m in Sources */,
+				264E3E8B1911244B0093B056 /* AlertViewController.m in Sources */,
+				26A7E4BE1912758B0012027B /* LocalizerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,20 +430,22 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		2636575E18F1D41700503925 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2636575F18F1D41700503925 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2636577418F1D41700503925 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2636577518F1D41700503925 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		26A7E4C21912761A0012027B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				26A7E4C3191276210012027B /* en */,
+				26A7E4C4191276710012027B /* fr */,
+				26A7E4C5191276790012027B /* de */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

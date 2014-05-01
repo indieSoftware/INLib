@@ -1,4 +1,4 @@
-// INCategories.h
+// UIDevice+INExtensions.m
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,15 +21,18 @@
 // THE SOFTWARE.
 
 
-#import "NSArray+INExtensions.h"
-#import "NSBundle+INExtensions.h"
-#import "NSDate+INExtensions.h"
-#import "NSDictionary+INExtensions.h"
-#import "NSMutableDictionary+INExtensions.h"
-#import "NSLocale+INExtensions.h"
-#import "NSObject+INExtensions.h"
-#import "NSString+INExtensions.h"
-#import "UIColor+INExtensions.h"
 #import "UIDevice+INExtensions.h"
-#import "UIImage+INExtensions.h"
-#import "UIView+INExtensions.h"
+
+
+@implementation UIDevice (INExtensions)
+
+- (BOOL)isIPad {
+#ifdef UI_USER_INTERFACE_IDIOM
+    return UI_USER_INTERFACE_IDIOM();
+#else
+    return NO;
+#endif
+}
+
+
+@end

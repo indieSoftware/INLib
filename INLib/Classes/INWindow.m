@@ -1,4 +1,4 @@
-// INCategories.h
+// INWindow.m
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,15 +21,57 @@
 // THE SOFTWARE.
 
 
-#import "NSArray+INExtensions.h"
-#import "NSBundle+INExtensions.h"
-#import "NSDate+INExtensions.h"
-#import "NSDictionary+INExtensions.h"
-#import "NSMutableDictionary+INExtensions.h"
-#import "NSLocale+INExtensions.h"
-#import "NSObject+INExtensions.h"
-#import "NSString+INExtensions.h"
-#import "UIColor+INExtensions.h"
-#import "UIDevice+INExtensions.h"
-#import "UIImage+INExtensions.h"
-#import "UIView+INExtensions.h"
+#import "INWindow.h"
+
+
+static __weak INWindow *__INWindowInstance = nil;
+
+
+@implementation INWindow
+
++ (INWindow *)mainWindow {
+    return __INWindowInstance;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self != nil) {
+        __INWindowInstance = self;
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self != nil) {
+        __INWindowInstance = self;
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self != nil) {
+        __INWindowInstance = self;
+    }
+    return self;
+}
+
+- (void)dealloc {
+    if (__INWindowInstance == self) {
+        __INWindowInstance = nil;
+    }
+}
+
+- (void)sendEvent:(UIEvent *)event {
+    BOOL ignoreEvent = NO;
+    if ([self.windowDelegate respondsToSelector:@selector(window:shouldIgnoreEvent:)]) {
+        ignoreEvent = [self.windowDelegate window:self shouldIgnoreEvent:event];
+
+    }
+    if (!ignoreEvent) {
+        [super sendEvent:event];
+    }
+}
+
+@end
