@@ -1,4 +1,4 @@
-// INCurrentOS.m
+// Localizer2ViewController.m
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,13 +21,12 @@
 // THE SOFTWARE.
 
 
-#import "INCurrentOS.h"
+#import "Localizer2ViewController.h"
 
+@interface Localizer2ViewController ()
 
-@implementation INCurrentOS
+@end
 
-+ (NSString *)versionNumber {
-	return [[UIDevice currentDevice] systemVersion];
-}
+@implementation Localizer2ViewController
 
 @end

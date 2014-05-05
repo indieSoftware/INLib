@@ -1,15 +1,15 @@
 # INLib
 
-A little iOS Library used in projects from the indie-Software company.
+A little iOS Library used in projects by the indie-Software company.
 
 [![CocoaDocs](http://cocoapod-badges.herokuapp.com/v/INLib/badge.png)](http://cocoadocs.org/docsets/INLib)
 
 ## Examples
 
-**TODO** Add something to show in example project
-
 To run the example project; clone the repo, and run `pod install` from the Example directory first.
 Then you can open the workspace file INLibExample.xcworkspace and run the tests or the iOS app.
+
+**TODO** Add more examples and tests
 
 
 ## Requirements

@@ -25,7 +25,6 @@
 #import "INBasicViewController.h"
 #import "INBasicTableViewCell.h"
 #import "INBasicTableViewHeaderFooterCell.h"
-#import "INCurrentOS.h"
 #import "INLocalizer.h"
 #import "INNavigationController.h"
 #import "INWindow.h"

@@ -1,4 +1,4 @@
-// INCurrentOS.h
+// Localizer2ViewController.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,18 +21,6 @@
 // THE SOFTWARE.
 
 
-/**
- Static class which determines the device's current OS version.
- */
-@interface INCurrentOS : NSObject
-
-
-/**
- Returns the iOS version number, i.e. "7.0".
- 
- @return The iOS version number as a string representation.
- */
-+ (NSString *)versionNumber;
-
+@interface Localizer2ViewController : INBasicViewController
 
 @end

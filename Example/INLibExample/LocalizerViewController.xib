@@ -59,14 +59,26 @@
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oa-LO-RTB">
+                    <rect key="frame" x="116" y="340" width="89" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Push 2. View">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btn2ViewPressed" destination="-1" eventType="touchUpInside" id="45m-XE-rqh"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="X5s-MB-TrL" firstAttribute="top" secondItem="GjI-QJ-CUb" secondAttribute="top" id="5jE-TX-RxN"/>
                 <constraint firstItem="Ltk-HP-GBJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="7XV-8J-FtX"/>
+                <constraint firstAttribute="centerX" secondItem="5oa-LO-RTB" secondAttribute="centerX" constant="-0.5" id="8ar-Mr-xDH"/>
                 <constraint firstItem="Ltk-HP-GBJ" firstAttribute="top" secondItem="GjI-QJ-CUb" secondAttribute="top" id="II9-d7-863"/>
                 <constraint firstItem="X5s-MB-TrL" firstAttribute="width" secondItem="GjI-QJ-CUb" secondAttribute="width" id="IeJ-il-3xj"/>
                 <constraint firstItem="I8I-eK-vNH" firstAttribute="top" secondItem="gI9-nv-djh" secondAttribute="bottom" constant="79" id="Ohi-Yv-tem"/>
+                <constraint firstItem="5oa-LO-RTB" firstAttribute="top" secondItem="I8I-eK-vNH" secondAttribute="bottom" constant="106" id="SeJ-kH-BdJ"/>
                 <constraint firstItem="I8I-eK-vNH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="XEs-xk-KMN"/>
                 <constraint firstItem="Ltk-HP-GBJ" firstAttribute="width" secondItem="GjI-QJ-CUb" secondAttribute="width" id="XaR-yG-RRd"/>
                 <constraint firstItem="Ltk-HP-GBJ" firstAttribute="height" secondItem="GjI-QJ-CUb" secondAttribute="height" id="Xzf-ap-dyO"/>

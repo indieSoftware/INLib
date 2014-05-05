@@ -25,8 +25,11 @@
 @interface UIDevice (INExtensions)
 
 
-/// Flag indicating whether this device is an iPad or not.
-/// @return True if the code runs on an iPad, otherwise false and it may be an iPhone or iPod touch or something unknown.
+/**
+ Flag indicating whether this device is an iPad or not.
+ 
+ @return True if the code runs on an iPad, otherwise false and it may be an iPhone or iPod touch or something unknown.
+ */
 - (BOOL)isIPad;
 
 
