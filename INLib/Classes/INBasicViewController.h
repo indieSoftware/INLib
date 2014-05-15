@@ -68,7 +68,7 @@ static NSString * const INBasicViewControllerShouldUpdateNotification = @"INBasi
  @see updateView
  @see updateParentViewOnAppear
  */
-@property (nonatomic) BOOL updateViewOnAppear;
+@property (nonatomic, assign) BOOL updateViewOnAppear;
 
 
 /**
@@ -77,7 +77,7 @@ static NSString * const INBasicViewControllerShouldUpdateNotification = @"INBasi
  When set to YES, updateView will always be called when viewWillAppear: is called independently of the flag updateViewOnAppear.
  Default is NO.
  */
-@property (nonatomic) BOOL updateViewAlwaysOnAppear;
+@property (nonatomic, assign) BOOL updateViewAlwaysOnAppear;
 
 
 /**

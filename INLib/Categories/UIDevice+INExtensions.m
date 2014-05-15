@@ -34,5 +34,11 @@
 #endif
 }
 
+- (void)simulateMemoryWarning {
+#ifdef DEBUG
+    CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),    (CFStringRef)@"UISimulatedMemoryWarningNotification", NULL, NULL, true);
+#endif
+}
+
 
 @end

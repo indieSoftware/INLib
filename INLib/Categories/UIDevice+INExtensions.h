@@ -33,4 +33,13 @@
 - (BOOL)isIPad;
 
 
+/**
+ Posts a memory warning message.
+ 
+ This can be used on devices to simulate memory warnings.
+ The notification only works on a DEBUG environment, does nothing on RELEASE.
+ */
+- (void)simulateMemoryWarning;
+
+
 @end
