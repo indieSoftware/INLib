@@ -22,6 +22,7 @@
 
 
 #import "NSArray+INExtensions.h"
+#import "INRandom.h"
 
 
 @implementation NSArray (INExtensions)
@@ -66,6 +67,48 @@
         obj = [self objectAtIndex:index];
     }
     return obj;
+}
+
+- (NSArray *)arrayWithRandomElementsRemoved:(NSUInteger)numberOfElements {
+    if (numberOfElements >= self.count) {
+        return [NSArray array];
+    }
+    if (numberOfElements == 0) {
+        return [NSArray arrayWithArray:self];
+    }
+    
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:self];
+    for (NSUInteger i = 0; i < numberOfElements; i++) {
+        [mutableArray removeObjectAtIndex:[INRandom integerWithin:0 and:mutableArray.count - 1]];
+    }
+    return mutableArray;
+}
+
+- (NSArray *)arrayWithRandomElementsChosen:(NSUInteger)numberOfElements {
+    if (numberOfElements >= self.count) {
+        return [NSArray arrayWithArray:self];
+    }
+    if (numberOfElements == 0) {
+        return [NSArray array];
+    }
+    
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:self];
+    for (NSUInteger i = 0; i < self.count - numberOfElements; i++) {
+        [mutableArray removeObjectAtIndex:[INRandom integerWithin:0 and:mutableArray.count - 1]];
+    }
+    return mutableArray;
+}
+
+- (NSArray *)arrayWithRandomizedOrder {
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:self];
+    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithCapacity:self.count];
+    for (NSUInteger i = 0; i < self.count; i++) {
+        NSUInteger randomIndex = [INRandom integerWithin:0 and:mutableArray.count - 1];
+        id element = [mutableArray objectAtIndex:randomIndex];
+        [resultArray addObject:element];
+        [mutableArray removeObjectAtIndex:randomIndex];
+    }
+    return resultArray;
 }
 
 

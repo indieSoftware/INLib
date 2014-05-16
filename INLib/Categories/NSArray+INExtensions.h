@@ -96,5 +96,36 @@
 - (id)firstObjectPassingTest:(BOOL (^)(id obj))predicate;
 
 
+/**
+ Returns a new array with randomly chosen elements removed from this array. The order of the elements remains unchanged.
+ 
+ Uses INRandom for generating random values.
+ 
+ @param numberOfElements How many elements should be removed. If the number is equal or higher than the array has elements in it an empty array will be returned.
+ @return A new array with a subset of this one.
+ */
+- (NSArray *)arrayWithRandomElementsRemoved:(NSUInteger)numberOfElements;
+
+
+/**
+ Returns a new array with randomly chosen elements added from this array. The order of the elements remains unchanged.
+ 
+ Uses INRandom for generating random values.
+
+ @param numberOfElements How many elements should be chosen. If the number is equal or higher than the array has elements in it a copy of the array will be returned.
+ @return A new array with a subset of the given one.
+ */
+- (NSArray *)arrayWithRandomElementsChosen:(NSUInteger)numberOfElements;
+
+
+/**
+ Returns a new array with the elements in random order.
+ 
+ Uses INRandom for generating random values.
+
+ @return A new array with the same objects, but in random order.
+ */
+- (NSArray *)arrayWithRandomizedOrder;
+
 
 @end

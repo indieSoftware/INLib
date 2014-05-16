@@ -1,4 +1,4 @@
-// INClasses.h
+// INRandom.m
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,11 +21,29 @@
 // THE SOFTWARE.
 
 
-#import "INAlertView.h"
-#import "INBasicViewController.h"
-#import "INBasicTableViewCell.h"
-#import "INBasicTableViewHeaderFooterCell.h"
-#import "INLocalizer.h"
-#import "INNavigationController.h"
 #import "INRandom.h"
-#import "INWindow.h"
+
+@implementation INRandom
+
++ (NSUInteger)integer {
+    return arc4random();
+}
+
++ (NSUInteger)integerWithin:(NSUInteger)min and:(NSUInteger)max {
+    return arc4random_uniform((u_int32_t)(max - min + 1)) + min;
+}
+
++ (CGFloat)float {
+    return (CGFloat)arc4random() / INRANDOM_MAX_VALUE;
+}
+
++ (CGFloat)floatWithin:(CGFloat)min and:(CGFloat)max {
+    return ((CGFloat)arc4random() / INRANDOM_MAX_VALUE) * (max - min) + min;
+}
+
++ (NSInteger)sign {
+    return ((arc4random_uniform(2) == 0) ? 1.0 : -1.0);
+}
+
+
+@end
