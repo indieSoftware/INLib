@@ -42,4 +42,28 @@
 - (void)simulateMemoryWarning;
 
 
+/**
+ Returns true if this device has a retina diplay.
+ 
+ @return YES when the UIScreen's scale property is 2, otherwise NO.
+ */
+- (BOOL)hasRetinaDisplay;
+
+
+/**
+ Returns true if this device has a 3.5" display.
+ 
+ @return YES if the UIScreen's bounds are 320x480, otherwise NO.
+ */
+- (BOOL)has3Dot5InchesDisplay;
+
+
+/**
+ Returns true if this device has a 4" display.
+ 
+ @return YES if the UIScreen's bounds are 320x568, otherwise NO.
+ */
+- (BOOL)has4InchesDisplay;
+
+
 @end
