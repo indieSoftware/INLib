@@ -49,7 +49,7 @@
     return [[self reverseObjectEnumerator] allObjects];
 }
 
-- (NSArray *)arraySortedWithKey:(NSString *)key ascending:(BOOL)ascending {
+- (NSArray *)arraySortedByKey:(NSString *)key ascending:(BOOL)ascending {
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:key ascending:ascending];
 	NSArray *descriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	NSArray *sortedArray = [self sortedArrayUsingDescriptors:descriptors];

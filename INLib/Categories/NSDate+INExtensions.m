@@ -24,8 +24,8 @@
 #import "NSDate+INExtensions.h"
 
 
-IDateInformation IDateInformationMake(NSInteger year, NSInteger month, NSInteger day, NSInteger hour, NSInteger minute, NSInteger second) {
-    IDateInformation info;
+INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteger day, NSInteger hour, NSInteger minute, NSInteger second) {
+    INDateInformation info;
     info.year = year;
     info.month = month;
     info.day = day;
@@ -146,8 +146,8 @@ static NSMutableDictionary *__cachedDateFormatters;
 } 
 
 
-- (IDateInformation)dateInformation {
-	IDateInformation info;
+- (INDateInformation)dateInformation {
+	INDateInformation info;
 	
     NSUInteger components = NSMonthCalendarUnit | NSMinuteCalendarUnit | NSYearCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSSecondCalendarUnit;
     NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
@@ -166,8 +166,8 @@ static NSMutableDictionary *__cachedDateFormatters;
 	return info;
 }
 
-- (IDateInformation)dateInformationWithTimeZone:(NSTimeZone *)timeZone {
-	IDateInformation info;
+- (INDateInformation)dateInformationWithTimeZone:(NSTimeZone *)timeZone {
+	INDateInformation info;
 	
 	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     [gregorian setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
@@ -186,7 +186,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 	return info;
 }
 
-+ (NSDate *)dateWithDateInformation:(IDateInformation)dateInfo timeZone:(NSTimeZone*)timeZone {
++ (NSDate *)dateWithDateInformation:(INDateInformation)dateInfo timeZone:(NSTimeZone*)timeZone {
     NSDateComponents *comps = [[NSDateComponents alloc] init];
     [comps setYear:dateInfo.year];
     [comps setMonth:dateInfo.month];
@@ -205,7 +205,7 @@ static NSMutableDictionary *__cachedDateFormatters;
     return date;
 }
 
-+ (NSDate *)dateWithDateInformation:(IDateInformation)dateInfo {
++ (NSDate *)dateWithDateInformation:(INDateInformation)dateInfo {
     NSDateComponents *comps = [[NSDateComponents alloc] init];
     [comps setYear:dateInfo.year];
     [comps setMonth:dateInfo.month];
@@ -224,7 +224,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSDate *)dateWithFirstOfMonth {
-	IDateInformation info = [self dateInformation];
+	INDateInformation info = [self dateInformation];
 	info.day = 1;
 	info.minute = 0;
 	info.second = 0;
@@ -233,7 +233,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSDate *)dateWithLastOfMonth {
-	IDateInformation info = [self dateInformation];
+	INDateInformation info = [self dateInformation];
     NSDate *temp;
     for (int i = 0; i < 4; i++) {
         info.day = 31 - i;
@@ -249,7 +249,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSDate *)dateWithNextMonth {
-	IDateInformation info = [self dateInformation];
+	INDateInformation info = [self dateInformation];
 	info.month++;
 	if (info.month > 12) {
 		info.month = 1;
@@ -264,7 +264,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSDate *)dateWithPrevMonth {
-	IDateInformation info = [self dateInformation];
+	INDateInformation info = [self dateInformation];
 	info.month--;
 	if (info.month < 1) {
 		info.month = 12;
@@ -279,7 +279,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSDate *)dateWithWeekstart:(NSInteger)daynumber {
-    IDateInformation dateInfo = [self dateInformation];
+    INDateInformation dateInfo = [self dateInformation];
     NSInteger daysToSub = (dateInfo.weekday - daynumber + 7) % 7;
     NSDate *date = [self dateWithDaysAdded:-daysToSub];
     return date;
@@ -501,7 +501,7 @@ static NSMutableDictionary *__cachedDateFormatters;
     return [comps day];
 }
 
-+ (instancetype)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
++ (NSDate *)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
     NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"yyyy-MM-dd"];
     NSDate *date = nil;
     @synchronized(dateFormatter) {
@@ -511,7 +511,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 	return date;
 }
 
-+ (instancetype)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second {
++ (NSDate *)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second {
     NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = nil;
     @synchronized(dateFormatter) {
@@ -521,7 +521,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 	return date;
 }
 
-- (instancetype)dateWithTimeZeroed {
+- (NSDate *)dateWithTimeZeroed {
     NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"yyyy-MM-dd"];
     NSDate *date = nil;
     @synchronized(dateFormatter) {
@@ -542,7 +542,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 	return newDate;
 }
 
-- (instancetype)dateWithMonthsAdded:(NSInteger)months {
+- (NSDate *)dateWithMonthsAdded:(NSInteger)months {
 	NSDateComponents *components = [[NSDateComponents alloc] init];
 	[components setMonth:months];
 	NSDate *newDate;
@@ -553,7 +553,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 	return newDate;
 }
 
-- (instancetype)dateWithYearsAdded:(NSInteger)years {
+- (NSDate *)dateWithYearsAdded:(NSInteger)years {
 	NSDateComponents *components = [[NSDateComponents alloc] init];
 	[components setYear:years];
 	NSDate *newDate;

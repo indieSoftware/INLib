@@ -44,27 +44,4 @@
 + (NSString *)systemCountryCode;
 
 
-/**
- Returns the preferred language, which is also supported.
- 
- The return value is cached for later calls of this method or to `preferredSupportedLanguage`.
- Returns always the previously determined language so calling it multiple times with different paramaters makes no sense.
- Normally this method is called once at app start for set up and afterwards all views and view controllers only call preferredSupportedLanguage to get the cached value.
- 
- @param supportedLanguages An array of language identifier which are supported by the app, i.e. @["en", "de"].
- @param defaultLanguage If not nil, it will be returned if the current selected language is not in the supportedLanguages array, otherwise the current selected language will be returned. If defaultLanguage is nil the first match in preferredLanguages and supportedLanguages will be returned otherwise the empty string.
- @return The preferred language.
- */
-+ (NSString *)preferredSupportedLanguage:(NSArray *)supportedLanguages defaultLanguage:(NSString *)defaultLanguage;
-
-
-/**
- Returns the cached return value from preferredSupportedLanguage: or nil if preferredSupportedLanguage: has not yet been called.
-
- @return The preferred supported language.
- @see preferredSupportedLanguage:defaultLanguage:
- */
-+ (NSString *)preferredSupportedLanguage;
-
-
 @end

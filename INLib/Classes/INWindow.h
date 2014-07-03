@@ -56,7 +56,7 @@
 /**
  Returns the lastly created INWindow object.
  
- When using INWindow as the app's main window it is normally a short cut for writing:
+ When using INWindow as the app's main window it is normally a shortcut for writing:
  
     [[UIApplication sharedApplication] keyWindow]
  

@@ -23,14 +23,33 @@
 
 @interface NSObject (INExtensions)
 
-/// A bag for storing an object associated to an NSObject.
-- (id)bag;
+/**
+ Stores a NSObject at runtime to a bag.
+ 
+ Uses objc_setAssociatedObject.
+ 
+ @param bag A NSObject to hold.
+ */
 - (void)setBag:(id)bag;
 
 
-/// Checks whether this object is the null object or not.
-/// @return True if this object is NSNull, otherwise false.
+/**
+ Retrieves the stored NSObject bag.
+ 
+ Uses objc_getAssociatedObject.
+ 
+ @return The stored NSObject or nil.
+ */
+- (id)bag;
+
+
+/**
+ Checks whether this object is the null object or not.
+ 
+ @return True if this object is NSNull, otherwise false.
+ */
 - (BOOL)isNull;
+
 
 /**
  Invokes a selector on this object with the given parameters.
@@ -47,7 +66,7 @@
  At plus it is possible to pass any number of parameters to the invoked method.
  
  @param selector The selector to call.
- @param parameters The parameters to pass. The number of parameters has to match up with the selector's signature.
+ @param parameters The parameters to pass. The number of parameters has to match the selector's signature.
  */
 - (void)performSelector:(SEL)selector withParameters:(NSArray *)parameters;
 

@@ -28,7 +28,9 @@
 
 
 /**
- A class which returns all kinds of randomness. The class uses arc4random() for creating random numbers.
+ A class which returns all kinds of randomness.
+ 
+ The class uses arc4random() for creating random numbers so no seeding is needed.
  */
 @interface INRandom : NSObject
 

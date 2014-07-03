@@ -49,12 +49,12 @@
 /// @name Useful additions
 
 /**
- Returns YES if there are any elements in this array, otherwise NO.
+ Returns true if there are any elements in this array, otherwise false.
  
  This method can even be used when the array itself may be nil,
  because calling a method on nil will return NO and then the array has definetly no elements.
  
- @return YES if the array is not nil and contains any elements.
+ @return True if the array is not nil and contains any elements.
  */
 - (BOOL)hasElements;
 
@@ -78,7 +78,7 @@
  @param ascending YES if the new array should be sorted ascending or NO if it should be sorted descending.
  @return A new sorted array with the same objects sorted by the key.
  */
-- (NSArray *)arraySortedWithKey:(NSString *)key ascending:(BOOL)ascending;
+- (NSArray *)arraySortedByKey:(NSString *)key ascending:(BOOL)ascending;
 
 
 /**

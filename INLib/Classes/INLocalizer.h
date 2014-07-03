@@ -25,7 +25,8 @@
 
 
 /**
- Shortcut macro for localizing a string.
+ Shortcut macro for localizing a string with INLocalizer.
+ 
  @param _string_ The NSString to localize.
  @return A localized NSString.
  */
@@ -35,6 +36,7 @@
 
 /**
  The localizer uses the current bundle language for localizing strings, but may also be switched to a different language during runtime of the app.
+ 
  By default does the same as NSLocalizedString(string, string).
  Changing the language affects only the strings localized with localizeString:.
  UIImage objects or UINib files are not localized this way.

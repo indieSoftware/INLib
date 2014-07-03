@@ -22,14 +22,15 @@
 
 
 #import "UIColor+INExtensions.h"
+#import "INRandom.h"
 
 
 @implementation UIColor (INExtensions)
 
 + (UIColor *)randomColor {
-	CGFloat red = (CGFloat)arc4random() / 0xFFFFFFFFu;
-	CGFloat green = (CGFloat)arc4random() / 0xFFFFFFFFu;
-	CGFloat blue = (CGFloat)arc4random() / 0xFFFFFFFFu;
+	CGFloat red = [INRandom float];
+	CGFloat green = [INRandom float];
+	CGFloat blue = [INRandom float];
 	return [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
 }
 
@@ -41,10 +42,6 @@
 	self = [self initWithRed:red/255.0f green:green/255.0f blue:blue/255.0f alpha:alpha/255.0f];
 	if (self == nil) return self;
 	return self;
-}
-
-+ (UIColor *)colorWithHex:(NSUInteger)hex {
-	return [UIColor colorWithHex:hex alpha:1.0];
 }
 
 + (UIColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha {

@@ -26,18 +26,21 @@
 
 
 /**
- Flag indicating whether this device is an iPad or not.
+ True if this device is an iPad.
  
- @return True if the code runs on an iPad, otherwise false and it may be an iPhone or iPod touch or something unknown.
+ If returning false the device may be an iPhone or iPod touch or something unknown.
+ Uses UI_USER_INTERFACE_IDIOM.
+ 
+ @return True if the code runs on an iPad, otherwise false.
  */
 - (BOOL)isIPad;
 
 
 /**
- Posts a memory warning message.
+ Posts a memory warning message on DEBUG mode.
  
  This can be used on devices to simulate memory warnings.
- The notification only works on a DEBUG environment, does nothing on RELEASE.
+ The notification is only send in a DEBUG environment, does nothing on non-DEBUG (release) modes.
  */
 - (void)simulateMemoryWarning;
 
@@ -45,7 +48,7 @@
 /**
  Returns true if this device has a retina diplay.
  
- @return YES when the UIScreen's scale property is 2, otherwise NO.
+ @return True when the UIScreen's scale property is 2, otherwise false.
  */
 - (BOOL)hasRetinaDisplay;
 
@@ -53,7 +56,7 @@
 /**
  Returns true if this device has a 3.5" display.
  
- @return YES if the UIScreen's bounds are 320x480, otherwise NO.
+ @return True if the UIScreen's bounds are 320x480, otherwise false.
  */
 - (BOOL)has3Dot5InchesDisplay;
 
@@ -61,7 +64,7 @@
 /**
  Returns true if this device has a 4" display.
  
- @return YES if the UIScreen's bounds are 320x568, otherwise NO.
+ @return True if the UIScreen's bounds are 320x568, otherwise false.
  */
 - (BOOL)has4InchesDisplay;
 

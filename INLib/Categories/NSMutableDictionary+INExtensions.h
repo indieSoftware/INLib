@@ -23,49 +23,84 @@
 
 @interface NSMutableDictionary (INExtensions)
 
-/// Sets a primitive values to the dictionary wrapping it in a NSNumber.
-/// @param value The bool value to add.
-/// @param key The key under which the value will be added.
+/**
+ Sets a primitive values to the dictionary wrapping it in a NSNumber.
+ 
+ @param value The bool value to add.
+ @param key The key for which the value will be added.
+ */
 - (void)setBool:(BOOL)value forKey:(id)key;
 
-/// Sets a primitive values to the dictionary wrapping it in a NSNumber.
-/// @param value The int value to add.
-/// @param key The key under which the value will be added.
+
+/**
+ Sets a primitive values to the dictionary wrapping it in a NSNumber.
+ 
+ @param value The int value to add.
+ @param key The key for which the value will be added.
+ */
 - (void)setInt:(int)value forKey:(id)key;
 
-/// Sets a primitive values to the dictionary wrapping it in a NSNumber.
-/// @param value The float value to add.
-/// @param key The key under which the value will be added.
+
+/**
+ Sets a primitive values to the dictionary wrapping it in a NSNumber.
+ 
+ @param value The float value to add.
+ @param key The key for which the value will be added.
+ */
 - (void)setFloat:(float)value forKey:(id)key;
 
-/// Sets a primitive values to the dictionary wrapping it in a NSNumber.
-/// @param value The double value to add.
-/// @param key The key under which the value will be added.
+
+/**
+ Sets a primitive values to the dictionary wrapping it in a NSNumber.
+
+ @param value The double value to add.
+ @param key The key for which the value will be added.
+ */
 - (void)setDouble:(double)value forKey:(id)key;
 
-/// Sets a primitive values to the dictionary wrapping it in a NSNumber.
-/// @param value The long value to add.
-/// @param key The key under which the value will be added.
+
+/**
+ Sets a primitive values to the dictionary wrapping it in a NSNumber.
+ 
+ @param value The long value to add.
+ @param key The key for which the value will be added.
+ */
 - (void)setLong:(long)value forKey:(id)key;
 
-/// Puts a string to the dictionary.
-/// @param value The string to add. nil will remove an old value from the dictionary.
-/// @param key The key under which the value will be added.
+
+/**
+ Puts a string to the dictionary.
+ 
+ @param value The string to add; nil will remove an old value from the dictionary.
+ @param key The key for which the value will be added.
+ */
 - (void)setString:(NSString *)value forKey:(id)key;
 
-/// Puts an array to the dictionary.
-/// @param value The array to add. nil will remove an old value from the dictionary.
-/// @param key The key under which the value will be added.
+
+/**
+ Puts an array to the dictionary.
+ 
+ @param value The array to add; nil will remove an old value from the dictionary.
+ @param key The key for which the value will be added.
+ */
 - (void)setArray:(NSArray *)value forKey:(id)key;
 
-/// Puts a dictionary to the dictionary.
-/// @param value The dictionary to add. nil will remove an old value from the dictionary.
-/// @param key The key under which the value will be added.
+
+/**
+ Puts a dictionary to the dictionary.
+ 
+ @param value The dictionary to add; nil will remove an old value from the dictionary.
+ @param key The key for which the value will be added.
+ */
 - (void)setDict:(NSDictionary *)value forKey:(id)key;
 
-/// Puts a NSNumber to the dictionary.
-/// @param value The NSNumber to add. nil will remove an old value from the dictionary.
-/// @param key The key under which the value will be added.
+
+/**
+ Puts a NSNumber to the dictionary.
+ 
+ @param value The NSNumber to add; nil will remove an old value from the dictionary.
+ @param key The key for which the value will be added.
+ */
 - (void)setNumber:(NSNumber *)value forKey:(id)key;
 
 

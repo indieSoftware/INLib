@@ -23,49 +23,84 @@
 
 @interface NSDictionary (INExtensions)
 
-/// Returns primitive values from the dictionary.
-/// @param key The dictionary's key to retrieve.
-/// @return The bool value for the key.
+/**
+ Returns primitive values from the dictionary.
+
+ @param key The dictionary's key to retrieve.
+ @return The bool value for the key.
+ */
 - (BOOL)boolForKey:(id)key;
 
-/// Returns primitive values from the dictionary.
-/// @param key The dictionary's key to retrieve.
-/// @return The int value for the key.
+
+/**
+ Returns primitive values from the dictionary.
+ 
+ @param key The dictionary's key to retrieve.
+ @return The int value for the key.
+ */
 - (int)intForKey:(id)key;
 
-/// Returns primitive values from the dictionary.
-/// @param key The dictionary's key to retrieve.
-/// @return The float value for the key.
+
+/**
+ Returns primitive values from the dictionary.
+
+ @param key The dictionary's key to retrieve.
+ @return The float value for the key.
+ */
 - (float)floatForKey:(id)key;
 
-/// Returns primitive values from the dictionary.
-/// @param key The dictionary's key to retrieve.
-/// @return The double value for the key.
+
+/**
+ Returns primitive values from the dictionary.
+
+ @param key The dictionary's key to retrieve.
+ @return The double value for the key.
+ */
 - (double)doubleForKey:(id)key;
 
-/// Returns primitive values from the dictionary.
-/// @param key The dictionary's key to retrieve.
-/// @return The long value for the key.
+
+/**
+ Returns primitive values from the dictionary.
+
+ @param key The dictionary's key to retrieve.
+ @return The long value for the key.
+ */
 - (long)longForKey:(id)key;
 
-/// Returns a string values from the dictionary.
-/// @param key The dictionary's key to retrieve.
-/// @return The string value for the key.
+
+/**
+ Returns a string values from the dictionary.
+
+ @param key The dictionary's key to retrieve.
+ @return The string value for the key.
+ */
 - (NSString *)stringForKey:(id)key;
 
-/// Returns an array from the dictionary.
-/// @param key The dictionary's key to retrieve.
-/// @return The array value for the key.
+
+/**
+ Returns an array from the dictionary.
+
+ @param key The dictionary's key to retrieve.
+ @return The array value for the key.
+ */
 - (NSArray *)arrayForKey:(id)key;
 
-/// Returns a dictionary from the dictionary.
-/// @param key The dictionary's key to retrieve.
-/// @return The dictionary value for the key.
+
+/**
+ Returns a dictionary from the dictionary.
+ 
+ @param key The dictionary's key to retrieve.
+ @return The dictionary value for the key.
+ */
 - (NSDictionary *)dictForKey:(id)key;
 
-/// Returns a NSNumber from the dictionary.
-/// @param key The dictionary's key to retrieve.
-/// @return The number value for the key.
+
+/**
+ Returns a NSNumber from the dictionary.
+
+ @param key The dictionary's key to retrieve.
+ @return The number value for the key.
+ */
 - (NSNumber *)numberForKey:(id)key;
 
 

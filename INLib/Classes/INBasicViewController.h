@@ -108,12 +108,13 @@ static NSString * const INBasicViewControllerShouldUpdateNotification = @"INBasi
 
 
 // ------------------------------------------------------------
-/// @name Methods for overriding.
+#pragma mark - Methods for overriding
+/// @name Methods for overriding
 
 /**
  Called in viewWillAppear: if the flag updateViewOnAppear is set to YES or if the controller is active and the appropriate notification is received.
  
- This method does nothing and should be overridden by subclasses.
+ This method does nothing and can be overridden by subclasses.
  A controller should handle here the updating of it's view because of the change of some model's data.
  This method should not be called by other controllers or it may be called unnecessarily multiple times, instead set the flag updateViewOnAppear to true or send a notification of the type INBasicViewControllerShouldUpdateNotification.
  However a controller may call it's own updateView method if needed.

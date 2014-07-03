@@ -24,10 +24,7 @@
 #import "NSLocale+INExtensions.h"
 
 
-static NSString *__INExtensionsCachedSupportedLanguage = nil;
-
 @implementation NSLocale (INExtensions)
-
 
 + (NSString *)systemLanguage {
 	NSArray *languages = [self preferredLanguages];
@@ -40,38 +37,5 @@ static NSString *__INExtensionsCachedSupportedLanguage = nil;
     return [locale objectForKey:NSLocaleCountryCode];
 }
 
-+ (NSString *)preferredSupportedLanguage:(NSArray *)supportedLanguages defaultLanguage:(NSString *)defaultLanguage {
-	if (__INExtensionsCachedSupportedLanguage != nil) {
-        return __INExtensionsCachedSupportedLanguage;
-    }
-    
-	NSArray *languages = [self preferredLanguages];
-	if (languages == nil || [languages count] == 0) {
-        return nil;
-    }
-    
-    if (defaultLanguage == nil) {
-        NSString *firstMatch = [languages firstObjectCommonWithArray:supportedLanguages];
-        if (firstMatch == nil) {
-            NSString *emptyString = @"";
-            __INExtensionsCachedSupportedLanguage = [[NSString alloc] initWithString:emptyString];
-        } else {
-            __INExtensionsCachedSupportedLanguage = [[NSString alloc] initWithString:firstMatch];
-        }
-    } else {
-        NSString *activeLanguage = [languages firstObject];
-        NSUInteger index = [supportedLanguages indexOfObject:activeLanguage];
-        if (index == NSNotFound) {
-            __INExtensionsCachedSupportedLanguage = [[NSString alloc] initWithString:defaultLanguage];
-        } else {
-            __INExtensionsCachedSupportedLanguage = [[NSString alloc] initWithString:activeLanguage];
-        }
-    }
-	return __INExtensionsCachedSupportedLanguage;
-}
-
-+ (NSString *)preferredSupportedLanguage {
-	return __INExtensionsCachedSupportedLanguage;
-}
 
 @end

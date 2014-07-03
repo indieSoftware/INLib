@@ -23,17 +23,32 @@
 
 @interface NSBundle (INExtensions)
 
-/// Returns the main bundle version, i.e. "1.0". Uses the flag CFBundleVersion.
-/// @return The bundle version number.
+/**
+ Returns the main bundle version, i.e. "1.0".
+ 
+ Uses the flag CFBundleVersion.
+
+ @return The bundle version number.
+ */
 + (NSString*)bundleVersion;
 
-/// Returns the main bundle identifier, i.e. "de.indie-software.indielib".
-/// @return The bundle identifier.
+
+/**
+ Returns the main bundle identifier, i.e. "de.indie-software.INLib".
+ 
+ @return The bundle identifier.
+ */
 + (NSString*)bundleIdentifier;
 
-/// Returns a value from the main bundle for a given key. Calls objectForInfoDictionaryKey on the main bundle.
-/// @param key A key in the bundle dictionary.
-/// @return The Value for the given key.
+
+/**
+ Returns a value from the main bundle for a given key.
+ 
+ Calls objectForInfoDictionaryKey on the main bundle.
+ 
+ @param key A key in the bundle dictionary.
+ @return The Value for the given key.
+ */
 + (NSString*)bundleValueForKey:(NSString*)key;
 
 

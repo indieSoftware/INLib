@@ -30,12 +30,12 @@ extern "C" {
  Returns the absolute path to the Documents directory: <Application_Home>/Documents
  
  The returned path is without the ending slash '/'. The Documents directory is backed up by iTunes and iCloud.
- See https://developer.apple.com/icloud/documentation/data-storage/ for Apple's guidelines for data storage.
  Only documents and other data that is user-generated, or that cannot otherwise be recreated by your application, should be stored in this directory and will be automatically backed up by iCloud.
+ See [Apple's guidelines for data storage](https://developer.apple.com/icloud/documentation/data-storage).
 
  @return The absolute path to the Documents directory.
  */
-static inline NSString *INDocumentDirectory(void) {
+static inline NSString *INDirectoryDocuments(void) {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 }
     
@@ -45,11 +45,12 @@ static inline NSString *INDocumentDirectory(void) {
 
  This directory will not be backed up by the system and may be cleaned by the system any time.
  This directory should be used for recreatable non-user data.
- Data that can be downloaded again or regenerated should be stored in this directory. Examples of files you should put in the Caches directory include database cache files and downloadable content, such as that used by magazine, newspaper, and map applications.
+ Data that can be downloaded again or regenerated should be stored in this directory.
+ Examples of files you should put in the Caches directory include database cache files and downloadable content, such as that used by magazine, newspaper, and map applications.
 
  @return The absolute path to the Caches directory.
  */
-static inline NSString *INCacheDirectory(void) {
+static inline NSString *INDirectoryCaches(void) {
     return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 }
 
@@ -58,11 +59,12 @@ static inline NSString *INCacheDirectory(void) {
  Returns the tmp directory: <Application_Home>/tmp
 
  This directory will not be backed up or managed in any way by the system.
- Data that is used only temporarily should be stored in this directory. Although these files are not backed up to iCloud, remember to delete those files when you are done with them so that they do not continue to consume space on the user’s device.
+ Data that is used only temporarily should be stored in this directory.
+ Although these files are not backed up to iCloud, remember to delete those files when you are done with them so that they do not continue to consume space on the user’s device.
 
  @return The absolute path to the tmp directory.
  */
-static inline NSString *INTempDirectory(void) {
+static inline NSString *INDirectoryTmp(void) {
     return NSTemporaryDirectory();
 }
 

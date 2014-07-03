@@ -37,7 +37,6 @@
 	self.layer.borderColor = borderColor.CGColor;
 }
 
-
 - (UIImage *)imageFromView {
     CGSize size = self.bounds.size;
     UIGraphicsBeginImageContextWithOptions(size, self.isOpaque, 0.f);
@@ -52,18 +51,6 @@
     [self setHidden:hidden];
     
     return image;
-}
-
-- (UIView *)snapshotFromView {
-    if ([self respondsToSelector:@selector(snapshotViewAfterScreenUpdates:)]) {
-        // iOS 7
-        return [self snapshotViewAfterScreenUpdates:NO];
-    } else {
-        // iOS 6 fallback
-        UIImage *image = [self imageFromView];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        return imageView;
-    }
 }
 
 

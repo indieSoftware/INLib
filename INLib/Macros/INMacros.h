@@ -23,26 +23,6 @@
 
 
 /**
- Fails and terminates the app in DEBUG mode only, by calling NSAssert(false).
- On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
- */
-#ifdef DEBUG
-    #define DFail(_message_) NSAssert(false, _message_)
-#else
-    #define DFail(_message_) { /* */ }
-#endif
-
-/**
- Asserts a condition in DEBUG mode, by calling NSAssert().
- On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
- */
-#ifdef DEBUG
-    #define DAssert(_condition_) NSAssert((_condition_), @"Assert failed")
-#else
-    #define DAssert(_condition_) { /* */ }
-#endif
-
-/**
  Prints the given parameter onto the console in DEBUG mode, by calling NSLog().
  On non-DEBUG mode (release) this macro does nothing (will be replaced by a comment).
  */
@@ -51,21 +31,6 @@
 #else
     #define DLog(...) { /* */ }
 #endif
-
-/**
- Prints the given NSRect struct onto the console via DLog().
- */
-#define DLogRect(_rect_) DLog(@"X:%.0f Y:%.0f W:%.0f H:%.0f", _rect_.origin.x, _rect_.origin.y, _rect_.size.width, _rect_.size.height)
-
-/**
- Prints the given NSSize struct onto the console via DLog().
- */
-#define DLogSize(_size_) DLog(@"W:%.0f H:%.0f", _size_.width, _size_.height)
-
-/**
- Prints the given NSPoint struct onto the console via DLog().
- */
-#define DLogPoint(_point_) DLog(@"X:%.0f Y:%.0f", _point_.x, _point_.y)
 
 
 /**
@@ -102,10 +67,11 @@
     ...
  
     @end
- 
- To get the instance call
- 
-    instance = [MyClass sharedInstance];
+
+ This defines the methods
+
+    + (id)sharedInstance; // to get the singleton instance
+    + (void)destroySharedInstance; // to destroy the singleton instance if needed
  
  */
 #define INSingletonDeclaration \
