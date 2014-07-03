@@ -37,19 +37,19 @@
 
 - (IBAction)btnShowINAlertViewPressed {
     [INAlertView showAlertWithTitle:@"INAlertView" message:@"Press home and start the app again, the INAlertView will dismiss automatically with the single button pressed." buttonTitle:@"Dismiss" dismissHandler:^(NSInteger pressedButtonIndex) {
-        DLog(@"INAlertView dismissed with button index %d pressed", pressedButtonIndex);
+        DLog(@"INAlertView dismissed with button index %ld pressed", (long)pressedButtonIndex);
     }];
 }
 
 - (IBAction)btnShowINAlertView2ButtonPressed {
     [INAlertView showAlertWithTitle:@"INAlertView" message:@"Press home and start the app again, the INAlertView will dismiss automatically with the cancel button pressed." firstButtonTitle:@"First button" secondButtonTitle:@"Second button (Cancel)" firstButtonIsCancelButton:NO dismissHandler:^(NSInteger pressedButtonIndex) {
-        DLog(@"INAlertView with 2 buttons dismissed with button index %d pressed", pressedButtonIndex);
+        DLog(@"INAlertView with 2 buttons dismissed with button index %ld pressed", (long)pressedButtonIndex);
     }];
 }
 
 - (IBAction)btnShowINAlertView3ButtonPressed {
     [INAlertView showAlertWithTitle:@"INAlertView" message:@"Press home and start the app again, the INAlertView will dismiss automatically with the cancel button pressed." firstButtonTitle:@"First button" secondButtonTitle:@"Second button" thirdButtonTitle:@"Third button (Cancel)" cancelButtonIndex:2 dismissHandler:^(NSInteger pressedButtonIndex) {
-        DLog(@"INAlertView with 3 buttons dismissed with button index %d pressed", pressedButtonIndex);
+        DLog(@"INAlertView with 3 buttons dismissed with button index %ld pressed", (long)pressedButtonIndex);
     }];
 }
 

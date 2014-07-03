@@ -95,7 +95,7 @@
     XCTAssert(reversedArray.count == array.count, @"The returned and original array do not have the same amount of elements");
     for (NSUInteger i = 0; i < reversedArray.count; i++) {
         Helper *object = reversedArray[i];
-        XCTAssert(object.value == i, @"The element on index %d in the sorted array is %d, but should be %d", i, i, object.value);
+        XCTAssert(object.value == i, @"The element on index %ld in the sorted array is %ld, but should be %ld", (long)i, (long)i, (long)object.value);
     }
 }
 
@@ -117,77 +117,77 @@
 
 #pragma mark - arraySortedWithKey:ascending:
 
-- (void)test_arraySortedWithKey_ascending_onUnsortedArray_returnsSortedArray {
+- (void)test_arraySortedByKey_ascending_onUnsortedArray_returnsSortedArray {
     NSArray *expectedArray = @[[Helper helperWithValue:1], [Helper helperWithValue:2], [Helper helperWithValue:3], [Helper helperWithValue:4]];
     NSArray *originalArray = @[expectedArray[3], expectedArray[1], expectedArray[2], expectedArray[0]];
-    NSArray *sortedArray = [originalArray arraySortedWithKey:@"value" ascending:YES];
+    NSArray *sortedArray = [originalArray arraySortedByKey:@"value" ascending:YES];
     XCTAssert([expectedArray isEqualToArray:sortedArray], @"The array is not sorted as expected");
 
     expectedArray = @[[Helper helperWithValue:4], [Helper helperWithValue:3], [Helper helperWithValue:2], [Helper helperWithValue:1]];
     originalArray = @[expectedArray[2], expectedArray[1], expectedArray[3], expectedArray[0]];
-    sortedArray = [originalArray arraySortedWithKey:@"value" ascending:NO];
+    sortedArray = [originalArray arraySortedByKey:@"value" ascending:NO];
     XCTAssert([expectedArray isEqualToArray:sortedArray], @"The array is not sorted as expected");
 }
 
 - (void)test_arraySortedWithKey_ascending_onArrayWithOneElement_returnsArrayWithTheElement {
     NSArray *expectedArray = @[[Helper helperWithValue:1]];
     NSArray *originalArray = @[expectedArray[0]];
-    NSArray *sortedArray = [originalArray arraySortedWithKey:@"value" ascending:YES];
+    NSArray *sortedArray = [originalArray arraySortedByKey:@"value" ascending:YES];
     XCTAssert([expectedArray isEqualToArray:sortedArray], @"The array is not sorted as expected");
     
-    sortedArray = [originalArray arraySortedWithKey:@"value" ascending:NO];
+    sortedArray = [originalArray arraySortedByKey:@"value" ascending:NO];
     XCTAssert([expectedArray isEqualToArray:sortedArray], @"The array is not sorted as expected");
 }
 
 - (void)test_arraySortedWithKey_ascending_onEmptyArray_returnsEmptyArray {
     NSArray *expectedArray = @[];
     NSArray *originalArray = @[];
-    NSArray *sortedArray = [originalArray arraySortedWithKey:@"value" ascending:YES];
+    NSArray *sortedArray = [originalArray arraySortedByKey:@"value" ascending:YES];
     XCTAssert([expectedArray isEqualToArray:sortedArray], @"The array is not sorted as expected");
     
-    sortedArray = [originalArray arraySortedWithKey:@"value" ascending:NO];
+    sortedArray = [originalArray arraySortedByKey:@"value" ascending:NO];
     XCTAssert([expectedArray isEqualToArray:sortedArray], @"The array is not sorted as expected");
 }
 
 - (void)test_arraySortedWithKey_ascending_onArrayWithUnknownKey_throwsException {
     NSArray *array = @[[Helper helperWithValue:2], [Helper helperWithValue:3]];
-    XCTAssertThrows([array arraySortedWithKey:@"unknownProperty" ascending:YES], @"The method should throw an exception because the property is unknown for sorting");
-    XCTAssertThrows([array arraySortedWithKey:@"unknownProperty" ascending:YES], @"The method should throw an exception because the property is unknown for sorting");
+    XCTAssertThrows([array arraySortedByKey:@"unknownProperty" ascending:YES], @"The method should throw an exception because the property is unknown for sorting");
+    XCTAssertThrows([array arraySortedByKey:@"unknownProperty" ascending:YES], @"The method should throw an exception because the property is unknown for sorting");
 }
 
 - (void)test_arraySortedWithKey_ascending_onArrayWithNilOrEmptyKey_throwsException {
     NSArray *array = @[[Helper helperWithValue:2], [Helper helperWithValue:3]];
-    XCTAssertThrows([array arraySortedWithKey:nil ascending:YES], @"The method should throw an exception because the property is unknown for sorting");
-    XCTAssertThrows([array arraySortedWithKey:nil ascending:NO], @"The method should throw an exception because the property is unknown for sorting");
-    XCTAssertThrows([array arraySortedWithKey:@"" ascending:YES], @"The method should throw an exception because the property is unknown for sorting");
-    XCTAssertThrows([array arraySortedWithKey:@"" ascending:NO], @"The method should throw an exception because the property is unknown for sorting");
+    XCTAssertThrows([array arraySortedByKey:nil ascending:YES], @"The method should throw an exception because the property is unknown for sorting");
+    XCTAssertThrows([array arraySortedByKey:nil ascending:NO], @"The method should throw an exception because the property is unknown for sorting");
+    XCTAssertThrows([array arraySortedByKey:@"" ascending:YES], @"The method should throw an exception because the property is unknown for sorting");
+    XCTAssertThrows([array arraySortedByKey:@"" ascending:NO], @"The method should throw an exception because the property is unknown for sorting");
 }
 
 - (void)test_arraySortedWithKey_ascending_onArrayWithAscendingSortedElements_andAscendingSort_returnsArrayWithSameOrder {
     NSArray *expectedArray = @[[Helper helperWithValue:1], [Helper helperWithValue:2], [Helper helperWithValue:3], [Helper helperWithValue:4]];
     NSArray *originalArray = [NSArray arrayWithArray:expectedArray];
-    NSArray *sortedArray = [originalArray arraySortedWithKey:@"value" ascending:YES];
+    NSArray *sortedArray = [originalArray arraySortedByKey:@"value" ascending:YES];
     XCTAssert([expectedArray isEqualToArray:sortedArray], @"The array is not sorted as expected");
 }
 
 - (void)test_arraySortedWithKey_ascending_onArrayWithDescendingSortedElements_andDescendingSort_returnsArrayWithSameOrder {
     NSArray *expectedArray = @[[Helper helperWithValue:4], [Helper helperWithValue:3], [Helper helperWithValue:2], [Helper helperWithValue:1]];
     NSArray *originalArray = [NSArray arrayWithArray:expectedArray];
-    NSArray *sortedArray = [originalArray arraySortedWithKey:@"value" ascending:NO];
+    NSArray *sortedArray = [originalArray arraySortedByKey:@"value" ascending:NO];
     XCTAssert([expectedArray isEqualToArray:sortedArray], @"The array is not sorted as expected");
 }
 
 - (void)test_arraySortedWithKey_ascending_onArrayWithAscendingSortedElements_andDescendingSort_returnsInvertedArray {
     NSArray *originalArray = @[[Helper helperWithValue:1], [Helper helperWithValue:2], [Helper helperWithValue:3], [Helper helperWithValue:4]];
     NSArray *expectedArray = [originalArray arrayReversed];
-    NSArray *sortedArray = [originalArray arraySortedWithKey:@"value" ascending:NO];
+    NSArray *sortedArray = [originalArray arraySortedByKey:@"value" ascending:NO];
     XCTAssert([expectedArray isEqualToArray:sortedArray], @"The array is not sorted as expected");
 }
 
 - (void)test_arraySortedWithKey_ascending_onArrayWithDescendingSortedElements_andAscendingSort_returnsInvertedArray {
     NSArray *originalArray = @[[Helper helperWithValue:4], [Helper helperWithValue:3], [Helper helperWithValue:2], [Helper helperWithValue:1]];
     NSArray *expectedArray = [originalArray arrayReversed];
-    NSArray *sortedArray = [originalArray arraySortedWithKey:@"value" ascending:YES];
+    NSArray *sortedArray = [originalArray arraySortedByKey:@"value" ascending:YES];
     XCTAssert([expectedArray isEqualToArray:sortedArray], @"The array is not sorted as expected");
 }
 
@@ -201,7 +201,7 @@
         if (((Helper *)obj).value == 2) return YES;
         return NO;
     }];
-    XCTAssert(result == expectedResult, @"The returned object with value %d is not that one which was expected (value of %d)", result.value, expectedResult.value);
+    XCTAssert(result == expectedResult, @"The returned object with value %ld is not that one which was expected (value of %ld)", (long)result.value, (long)expectedResult.value);
 }
 
 - (void)test_firstObjectPassingTest_onFilledArrayWithTwoElements_returnsFirstElement {
@@ -211,7 +211,7 @@
         if (((Helper *)obj).value == 2) return YES;
         return NO;
     }];
-    XCTAssert(result == expectedResult, @"The returned object with value %d is not that one which was expected (value of %d)", result.value, expectedResult.value);
+    XCTAssert(result == expectedResult, @"The returned object with value %ld is not that one which was expected (value of %ld)", (long)result.value, (long)expectedResult.value);
 }
 
 - (void)test_firstObjectPassingTest_onFilledArrayWithoutElement_returnsNil {
@@ -221,7 +221,7 @@
         if (((Helper *)obj).value == 0) return YES;
         return NO;
     }];
-    XCTAssert(result == expectedResult, @"The returned object with value %d is not that one which was expected (nil)", result.value);
+    XCTAssert(result == expectedResult, @"The returned object with value %ld is not that one which was expected (nil)", (long)result.value);
 }
 
 - (void)test_firstObjectPassingTest_onEmptyArray_returnsNil {
@@ -231,7 +231,7 @@
         if (((Helper *)obj).value == 0) return YES;
         return NO;
     }];
-    XCTAssert(result == expectedResult, @"The returned object with value %d is not that one which was expected (nil)", result.value);
+    XCTAssert(result == expectedResult, @"The returned object with value %ld is not that one which was expected (nil)", (long)result.value);
 }
 
 
