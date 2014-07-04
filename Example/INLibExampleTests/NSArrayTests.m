@@ -39,6 +39,14 @@
     return helper;
 }
 
+- (BOOL)isEqual:(id)object {
+    if (![object isKindOfClass:self.class]) {
+        return NO;
+    }
+    Helper *helper = object;
+    return helper.value == self.value;
+}
+
 @end
 
 
@@ -237,7 +245,83 @@
 
 #pragma mark - random
 
-// TODO add tests
+- (void)test_arrayWithRandomizedOrder_onEmptyArray_returnsEmptyArray {
+    NSArray *array = @[];
+    NSArray *result = [array arrayWithRandomizedOrder];
+    XCTAssert(result != nil, @"The result should not be nil");
+    XCTAssertEqual(result.count, 0, @"The result array should have 0 elements");
+}
+
+- (void)test_arrayWithRandomizedOrder_withOneElement_returnsArrayWithSameElement {
+    NSArray *array = @[[Helper helperWithValue:1]];
+    NSArray *result = [array arrayWithRandomizedOrder];
+    XCTAssert(result != nil, @"The result should not be nil");
+    XCTAssertEqual(result.count, 1, @"The result array should have 1 element");
+    XCTAssertEqual(result[0], array[0], @"The result array should have 1 element");
+}
+
+- (void)test_arrayWithRandomizedOrder_withSomeElements_returnsArrayWithSameNumberOfElement {
+    NSArray *array = @[[Helper helperWithValue:1], [Helper helperWithValue:2], [Helper helperWithValue:3]];
+    NSArray *result = [array arrayWithRandomizedOrder];
+    XCTAssert(result != nil, @"The result should not be nil");
+    XCTAssertEqual(result.count, array.count, @"The result array should have the same number of elements");
+}
+
+- (void)test_arrayWithRandomElementsRemoved_withSomeElements_andANumberInBounds_returnsAnArrayWithCorrectNumberOfElements {
+    NSArray *array = @[[Helper helperWithValue:1], [Helper helperWithValue:2], [Helper helperWithValue:3], [Helper helperWithValue:4]];
+    NSUInteger amoundToRemove = 2;
+    NSArray *result = [array arrayWithRandomElementsRemoved:amoundToRemove];
+    XCTAssert(result != nil, @"The result should not be nil");
+    XCTAssertEqual(result.count, array.count - amoundToRemove, @"The result array should have the correct number of elements");
+    amoundToRemove = 3;
+    result = [array arrayWithRandomElementsRemoved:amoundToRemove];
+    XCTAssertEqual(result.count, array.count - amoundToRemove, @"The result array should have the correct number of elements");
+}
+
+- (void)test_arrayWithRandomElementsRemoved_withSomeElements_andZeroToRemove_returnsTheSameArray {
+    NSArray *array = @[[Helper helperWithValue:1], [Helper helperWithValue:2], [Helper helperWithValue:3], [Helper helperWithValue:4]];
+    NSUInteger amoundToRemove = 0;
+    NSArray *result = [array arrayWithRandomElementsRemoved:amoundToRemove];
+    XCTAssert(result != nil, @"The result should not be nil");
+    XCTAssertEqual(result.count, array.count - amoundToRemove, @"The result array should have the correct number of elements");
+    XCTAssert([array isEqualToArray:result], @"The order should be unchanged");
+}
+
+- (void)test_arrayWithRandomElementsRemoved_withSomeElements_andTheSameAmountToRemove_returnsAnEmptyArray {
+    NSArray *array = @[[Helper helperWithValue:1], [Helper helperWithValue:2], [Helper helperWithValue:3], [Helper helperWithValue:4]];
+    NSUInteger amoundToRemove = array.count;
+    NSArray *result = [array arrayWithRandomElementsRemoved:amoundToRemove];
+    XCTAssert(result != nil, @"The result should not be nil");
+    XCTAssertEqual(result.count, 0, @"The result array should be empty");
+}
+
+- (void)test_arrayWithRandomElementsChosen_withSomeElements_andANumberInBounds_returnsAnArrayWithCorrectNumberOfElements {
+    NSArray *array = @[[Helper helperWithValue:1], [Helper helperWithValue:2], [Helper helperWithValue:3], [Helper helperWithValue:4]];
+    NSUInteger amoundToKeep = 2;
+    NSArray *result = [array arrayWithRandomElementsChosen:amoundToKeep];
+    XCTAssert(result != nil, @"The result should not be nil");
+    XCTAssertEqual(result.count, amoundToKeep, @"The result array should have the correct number of elements");
+    amoundToKeep = 3;
+    result = [array arrayWithRandomElementsChosen:amoundToKeep];
+    XCTAssertEqual(result.count, amoundToKeep, @"The result array should have the correct number of elements");
+}
+
+- (void)test_arrayWithRandomElementsChosen_withSomeElements_andAllToKeep_returnsTheSameArray {
+    NSArray *array = @[[Helper helperWithValue:1], [Helper helperWithValue:2], [Helper helperWithValue:3], [Helper helperWithValue:4]];
+    NSUInteger amoundToKeep = array.count;
+    NSArray *result = [array arrayWithRandomElementsChosen:amoundToKeep];
+    XCTAssert(result != nil, @"The result should not be nil");
+    XCTAssertEqual(result.count, amoundToKeep, @"The result array should have the correct number of elements");
+    XCTAssert([array isEqualToArray:result], @"The order should be unchanged");
+}
+
+- (void)test_arrayWithRandomElementsChosen_withSomeElements_andZeroToKeep_returnsAnEmptyArray {
+    NSArray *array = @[[Helper helperWithValue:1], [Helper helperWithValue:2], [Helper helperWithValue:3], [Helper helperWithValue:4]];
+    NSUInteger amoundToKeep = 0;
+    NSArray *result = [array arrayWithRandomElementsChosen:amoundToKeep];
+    XCTAssert(result != nil, @"The result should not be nil");
+    XCTAssertEqual(result.count, 0, @"The result array should be empty");
+}
 
 
 @end
