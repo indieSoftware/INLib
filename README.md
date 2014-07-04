@@ -67,6 +67,11 @@ Include the INLib.h header file into your project to get access to all additions
 [CHANGELOG.md](./CHANGELOG.md)
 
 
+## TODO
+
+Many more tests...
+
+
 ## License
 
 INLib is available under the MIT license. See the LICENSE file for more info.
