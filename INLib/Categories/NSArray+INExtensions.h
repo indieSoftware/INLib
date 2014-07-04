@@ -23,7 +23,7 @@
 
 @interface NSArray (INExtensions)
 
-// ------------------------------------------------------------
+#pragma mark - Initializing with Sets
 /// @name Initializing with Sets
 
 /**
@@ -45,8 +45,8 @@
 - (instancetype)initWithSet:(NSSet *)set;
 
 
-// ------------------------------------------------------------
-/// @name Useful additions
+#pragma mark - Array tests
+/// @name Array tests
 
 /**
  Returns true if there are any elements in this array, otherwise false.
@@ -58,6 +58,24 @@
  */
 - (BOOL)hasElements;
 
+
+/**
+ Returns the first object which passes the given predicate test.
+ 
+ Internally it uses [NSArray indexOfObjectPassingTest:] method.
+ Use with something like
+ 
+ id object = [array firstObjectPassingTest:^BOOL(id obj) { if (...) return YES; else return NO; }];
+ 
+ @param predicate The test which has to return YES for the element to find.
+ @return The first object which passes the test or nil if none does.
+ @see indexOfObjectPassingTest:
+ */
+- (id)firstObjectPassingTest:(BOOL (^)(id obj))predicate;
+
+
+#pragma mark - Array order manipulation
+/// @name Array order manipulation
 
 /**
  Returns this array in reverse order with the same elements.
@@ -81,20 +99,8 @@
 - (NSArray *)arraySortedByKey:(NSString *)key ascending:(BOOL)ascending;
 
 
-/**
- Returns the first object which passes the given predicate test.
- 
- Internally it uses [NSArray indexOfObjectPassingTest:] method.
- Use with something like
- 
-    id object = [array firstObjectPassingTest:^BOOL(id obj) { if (...) return YES; else return NO; }];
- 
- @param predicate The test which has to return YES for the element to find.
- @return The first object which passes the test or nil if none does.
- @see indexOfObjectPassingTest:
- */
-- (id)firstObjectPassingTest:(BOOL (^)(id obj))predicate;
-
+#pragma mark - Array randomizing
+/// @name Array randomizing
 
 /**
  Returns a new array with randomly chosen elements removed from this array. The order of the elements remains unchanged.
