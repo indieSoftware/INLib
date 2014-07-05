@@ -67,9 +67,10 @@ Include the INLib.h header file into your project to get access to all additions
 [CHANGELOG.md](./CHANGELOG.md)
 
 
-## TODO
+## TODOs
 
-Many more tests...
+- Add many more examples
+- Add many more tests
 
 
 ## License
