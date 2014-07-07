@@ -122,9 +122,9 @@
     }
     // increase component's value
     NSUInteger value = [components[index] integerValue] + 1;
-    components[index] = [NSString stringWithFormat:@"%d", value];
+    components[index] = [NSString stringWithFormat:@"%lu", (unsigned long)value];
     // make sure the first number is at least 0
-    components[0] = [NSString stringWithFormat:@"%d", [components[0] integerValue]];
+    components[0] = [NSString stringWithFormat:@"%ld", (long)[components[0] integerValue]];
     // concat new version string
     NSMutableString *newVersion = [[NSMutableString alloc] initWithString:components[0]];
     for (NSUInteger componentIndex = 1; componentIndex < components.count; ++componentIndex) {
@@ -145,7 +145,7 @@
         [components addObject:@"0"];
     }
     // make sure the first number is at least 0
-    components[0] = [NSString stringWithFormat:@"%d", [components[0] integerValue]];
+    components[0] = [NSString stringWithFormat:@"%ld", (long)[components[0] integerValue]];
     // concat new version string
     NSMutableString *newVersion = [[NSMutableString alloc] initWithString:components[0]];
     for (NSUInteger componentIndex = 1; componentIndex < components.count; ++componentIndex) {
