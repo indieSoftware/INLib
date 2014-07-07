@@ -1,4 +1,4 @@
-// INCategories.h
+// NSDateFormatter+INExtensions.h
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,16 +21,20 @@
 // THE SOFTWARE.
 
 
-#import "NSArray+INExtensions.h"
-#import "NSBundle+INExtensions.h"
-#import "NSDate+INExtensions.h"
-#import "NSDateFormatter+INExtensions.h"
-#import "NSDictionary+INExtensions.h"
-#import "NSMutableDictionary+INExtensions.h"
-#import "NSLocale+INExtensions.h"
-#import "NSObject+INExtensions.h"
-#import "NSString+INExtensions.h"
-#import "UIColor+INExtensions.h"
-#import "UIDevice+INExtensions.h"
-#import "UIImage+INExtensions.h"
-#import "UIView+INExtensions.h"
+@interface NSDateFormatter (INExtensions)
+
+#pragma mark - Caching formatters
+/// @name Caching formatters
+
+/**
+ Returns a cached date formatter object for the given format string.
+ 
+ If there is no date formatter for the given format a new formatter will be created.
+ Creating a new NSDateFormatter is time expensive so use this method for reusing old formatters.
+ 
+ @return A cached date formatter for the given format.
+ */
++ (NSDateFormatter *)cachedDateFormatterForFormat:(NSString *)format;
+
+
+@end

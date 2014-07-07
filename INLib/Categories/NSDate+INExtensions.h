@@ -172,20 +172,6 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 + (NSString *)stringRepresentationForSeconds:(NSInteger)seconds printSign:(BOOL)printSign printSeconds:(BOOL)printSeconds;
 
 
-#pragma mark - Date formatters
-/// @name Date formatters
-
-/**
- Returns a cached date formatter object for the given format string.
-
- If there is no date formatter for the given format a new formatter will be created.
- Creating a new NSDateFormatter is time expensive so use this method for reusing old formatters.
-
- @return A cached date formatter for the given format.
- */
-+ (NSDateFormatter *)cachedDateFormatterForFormat:(NSString *)format;
-
-
 #pragma mark - Comparing methods
 /// @name Comparing methods
 

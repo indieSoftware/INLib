@@ -22,6 +22,7 @@
 
 
 #import "NSDate+INExtensions.h"
+#import "NSDateFormatter+INExtensions.h"
 
 
 INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteger day, NSInteger hour, NSInteger minute, NSInteger second) {
@@ -50,8 +51,6 @@ static NSCalendar *__defaultCachedGregorianCalendar = nil;
 static NSUInteger __lastUsedFirstWeekday = 1; // sunday is apple's default for the U.S.
 // the static date formatter for the weekday calculating method
 static NSDateFormatter *__dateFormatterForWeekday = nil;
-// dict with cached NSDateFormatter objects, keys are the formatter strings
-static NSMutableDictionary *__cachedDateFormatters;
 
 
 @implementation NSDate (IExtensions)
@@ -95,31 +94,6 @@ static NSMutableDictionary *__cachedDateFormatters;
 		time = [NSString stringWithFormat:@"%@%.2d:%.2d", prefix, abs(hour), abs(min)];
 	}
 	return time;
-}
-
-+ (NSDateFormatter *)cachedDateFormatterForFormat:(NSString *)format {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        __cachedDateFormatters = [[NSMutableDictionary alloc] initWithCapacity:10];
-
-        // add observer for clearing the cache
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:[UIApplication sharedApplication] queue:nil usingBlock:^(NSNotification *notification){
-            @synchronized(__cachedDateFormatters) {
-                [__cachedDateFormatters removeAllObjects];
-            }
-        }];
-    });
-    
-    NSDateFormatter *dateFormatter = nil;
-    @synchronized (__cachedDateFormatters) {
-        dateFormatter = [__cachedDateFormatters objectForKey:format];
-        if (dateFormatter == nil) {
-            dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:format];
-            [__cachedDateFormatters setObject:dateFormatter forKey:format];
-        }
-    }
-    return dateFormatter;
 }
 
 - (BOOL)isToday {
@@ -289,7 +263,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 // see http://unicode.org/reports/tr35/tr35-10.html#Date_Format_Patterns
 
 - (NSInteger)yearNumber {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"yyyy"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"yyyy"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -298,7 +272,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSInteger)monthNumber {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"MM"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"MM"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -307,7 +281,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSInteger)quarterNumber {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"q"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"q"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -365,7 +339,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSInteger)weekNumberOfMonth {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"W"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"W"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -374,7 +348,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSInteger)dayNumberOfMonth {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"dd"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"dd"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -383,7 +357,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSInteger)dayNumberOfYear {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"DDD"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"DDD"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -392,7 +366,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSInteger)dayNumberOfWeekInMonth {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"F"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"F"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -401,7 +375,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSInteger)weekdayNumber {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"e"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"e"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -410,7 +384,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSInteger)hourNumber {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"HH"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"HH"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -419,7 +393,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSInteger)minuteNumber {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"mm"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"mm"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -428,7 +402,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSInteger)secondNumber {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"ss"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"ss"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -437,7 +411,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSString *)stringWithMonthName {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"MMMM"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"MMMM"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -446,7 +420,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSString *)stringWithWeekdayName {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"eeee"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"eeee"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -455,7 +429,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSString *)stringWithWeekdayNameShort {
-	NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"eee"];
+	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"eee"];
     NSString *string = nil;
     @synchronized(dateFormatter) {
         string = [dateFormatter stringFromDate:self];
@@ -502,7 +476,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 + (NSDate *)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
-    NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"yyyy-MM-dd"];
+    NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"yyyy-MM-dd"];
     NSDate *date = nil;
     @synchronized(dateFormatter) {
         NSString *string = [[NSString alloc] initWithFormat:@"%ld-%02ld-%02ld", (long)year, (long)month, (long)day];
@@ -512,7 +486,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 + (NSDate *)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second {
-    NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = nil;
     @synchronized(dateFormatter) {
         NSString *string = [[NSString alloc] initWithFormat:@"%ld-%02ld-%02ld %02ld:%02ld:%02ld", (long)year, (long)month, (long)day, (long)hour, (long)minute, (long)second];
@@ -522,7 +496,7 @@ static NSMutableDictionary *__cachedDateFormatters;
 }
 
 - (NSDate *)dateWithTimeZeroed {
-    NSDateFormatter *dateFormatter = [NSDate cachedDateFormatterForFormat:@"yyyy-MM-dd"];
+    NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"yyyy-MM-dd"];
     NSDate *date = nil;
     @synchronized(dateFormatter) {
         NSString *string = [dateFormatter stringFromDate:self];
