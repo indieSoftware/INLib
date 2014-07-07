@@ -41,7 +41,7 @@
     return [[self stringTrimmed] length] > 0;
 }
 
-- (BOOL)isEqualToCaseInsesitiveString:(NSString *)string {
+- (BOOL)isEqualToCaseInsensitiveString:(NSString *)string {
     if (string == nil) return NO;
     NSComparisonResult result = [self compare:string options:NSCaseInsensitiveSearch];
     return result == NSOrderedSame;
@@ -59,38 +59,100 @@
 }
 
 - (BOOL)versionAtLeast:(NSString *)versionNumber {
-	if ([self compare:versionNumber options:NSNumericSearch] == NSOrderedAscending) {
+    NSInteger numberOfComponentsString1 = [self componentsSeparatedByString:@"."].count;
+    NSInteger numberOfComponentsString2 = [versionNumber componentsSeparatedByString:@"."].count;
+    NSString *string1 = [self versionStringWithLength:numberOfComponentsString2];
+    NSString *string2 = [versionNumber versionStringWithLength:numberOfComponentsString1];
+	if ([string1 compare:string2 options:NSNumericSearch] == NSOrderedAscending) {
 		return NO;
 	}
 	return YES;
 }
 
 - (BOOL)versionAtMost:(NSString *)versionNumber {
-	if ([self compare:versionNumber options:NSNumericSearch] == NSOrderedDescending) {
+    NSInteger numberOfComponentsString1 = [self componentsSeparatedByString:@"."].count;
+    NSInteger numberOfComponentsString2 = [versionNumber componentsSeparatedByString:@"."].count;
+    NSString *string1 = [self versionStringWithLength:numberOfComponentsString2];
+    NSString *string2 = [versionNumber versionStringWithLength:numberOfComponentsString1];
+	if ([string1 compare:string2 options:NSNumericSearch] == NSOrderedDescending) {
 		return NO;
 	}
 	return YES;
 }
 
 - (BOOL)versionEqualTo:(NSString *)versionNumber {
-	if ([self compare:versionNumber options:NSNumericSearch] == NSOrderedSame) {
+    NSInteger numberOfComponentsString1 = [self componentsSeparatedByString:@"."].count;
+    NSInteger numberOfComponentsString2 = [versionNumber componentsSeparatedByString:@"."].count;
+    NSString *string1 = [self versionStringWithLength:numberOfComponentsString2];
+    NSString *string2 = [versionNumber versionStringWithLength:numberOfComponentsString1];
+	if ([string1 compare:string2 options:NSNumericSearch] == NSOrderedSame) {
 		return YES;
 	}
 	return NO;
 }
 
 - (BOOL)versionLowerThan:(NSString *)versionNumber {
-	if ([self compare:versionNumber options:NSNumericSearch] == NSOrderedAscending) {
+    NSInteger numberOfComponentsString1 = [self componentsSeparatedByString:@"."].count;
+    NSInteger numberOfComponentsString2 = [versionNumber componentsSeparatedByString:@"."].count;
+    NSString *string1 = [self versionStringWithLength:numberOfComponentsString2];
+    NSString *string2 = [versionNumber versionStringWithLength:numberOfComponentsString1];
+	if ([string1 compare:string2 options:NSNumericSearch] == NSOrderedAscending) {
 		return YES;
 	}
 	return NO;
 }
 
 - (BOOL)versionHigherThan:(NSString *)versionNumber {
-	if ([self compare:versionNumber options:NSNumericSearch] == NSOrderedDescending) {
+    NSInteger numberOfComponentsString1 = [self componentsSeparatedByString:@"."].count;
+    NSInteger numberOfComponentsString2 = [versionNumber componentsSeparatedByString:@"."].count;
+    NSString *string1 = [self versionStringWithLength:numberOfComponentsString2];
+    NSString *string2 = [versionNumber versionStringWithLength:numberOfComponentsString1];
+	if ([string1 compare:string2 options:NSNumericSearch] == NSOrderedDescending) {
 		return YES;
 	}
 	return NO;
+}
+
+- (NSString *)versionStringIncreasedAtIndex:(NSUInteger)index {
+    // separate version components
+    NSMutableArray *components = [self componentsSeparatedByString:@"."].mutableCopy;
+    // fill up 0 components up to the index
+    for (NSUInteger endIndex = components.count; endIndex <= index; ++endIndex) {
+        [components addObject:@"0"];
+    }
+    // increase component's value
+    NSUInteger value = [components[index] integerValue] + 1;
+    components[index] = [NSString stringWithFormat:@"%d", value];
+    // make sure the first number is at least 0
+    components[0] = [NSString stringWithFormat:@"%d", [components[0] integerValue]];
+    // concat new version string
+    NSMutableString *newVersion = [[NSMutableString alloc] initWithString:components[0]];
+    for (NSUInteger componentIndex = 1; componentIndex < components.count; ++componentIndex) {
+        if (componentIndex > index) {
+            break;
+        }
+        [newVersion appendString:@"."];
+        [newVersion appendString:components[componentIndex]];
+    }
+    return newVersion.copy;
+}
+
+- (NSString *)versionStringWithLength:(NSUInteger)numberOfComponents {
+    // separate version components
+    NSMutableArray *components = [self componentsSeparatedByString:@"."].mutableCopy;
+    // fill up 0 components
+    for (NSUInteger endIndex = components.count; endIndex < numberOfComponents; ++endIndex) {
+        [components addObject:@"0"];
+    }
+    // make sure the first number is at least 0
+    components[0] = [NSString stringWithFormat:@"%d", [components[0] integerValue]];
+    // concat new version string
+    NSMutableString *newVersion = [[NSMutableString alloc] initWithString:components[0]];
+    for (NSUInteger componentIndex = 1; componentIndex < components.count; ++componentIndex) {
+        [newVersion appendString:@"."];
+        [newVersion appendString:components[componentIndex]];
+    }
+    return newVersion.copy;
 }
 
 

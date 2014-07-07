@@ -35,7 +35,10 @@
 
 
 /**
- Trims a string. Any spaces and new lines from the start and the ending of the receiver will be removed.
+ Trims a string.
+ 
+ Any spaces and new lines from the start and the ending of the string will be removed.
+ Whitspace characters are U000A - U000D and U0085.
 
  @return A new trimmed string.
  */
@@ -73,7 +76,7 @@
  @param string The other string to compare with.
  @return True if the two strings are case insensitive equal, otherwise false.
  */
-- (BOOL)isEqualToCaseInsesitiveString:(NSString *)string;
+- (BOOL)isEqualToCaseInsensitiveString:(NSString *)string;
 
 
 /**
@@ -132,7 +135,7 @@
  
  Compares version number strings with each other.
  
- [@"2.3" versionLowerThan:@"2.3.1"]; // = YES
+    [@"2.3" versionLowerThan:@"2.3.1"]; // = YES
  
  @param versionNumber A string with a version number to compare with.
  @return True if this version number is lower than the given version, otherwise false.
@@ -145,12 +148,48 @@
  
  Compares version number strings with each other.
  
- [@"2.3.1" versionHigherThan:@"2.3"]; // = YES
+    [@"2.3.1" versionHigherThan:@"2.3"]; // = YES
  
  @param versionNumber A string with a version number to compare with.
  @return True if this version number is higher than the given version, otherwise false.
  */
 - (BOOL)versionHigherThan:(NSString *)versionNumber;
+
+
+#pragma mark - Version manipulation
+/// @name Version manipulation
+
+/**
+ Increases the version number at a specific index.
+ 
+ The version hast to be separated by periods, i.e. "1.2.3".
+ The index points to the number which will be increased by one beginning with index of 0 for the first number.
+ Each number after the index will be truncated and each place without a number before the index will be filled with a 0.
+ 
+    [@"1.2.3" versionStringIncreasedAtIndex:2]; // returns @"1.2.4"
+    [@"1.2.3" versionStringIncreasedAtIndex:1]; // returns @"1.3"
+    [@"1.2.3" versionStringIncreasedAtIndex:0]; // returns @"2"
+    [@"1" versionStringIncreasedAtIndex:2]; // returns @"1.0.1"
+ 
+ @param index The index of the number in the version to increase, beginning at 0.
+ @return A new string with the version increased.
+ */
+- (NSString *)versionStringIncreasedAtIndex:(NSUInteger)index;
+
+
+/**
+ Adds missing components of a version string with zero values.
+ 
+ If a version string has less components than needed the missing will be added with 0 values.
+ 
+    [@"1.2" versionStringWithLength:3]; // returns @"1.2.0"
+    [@"1.2" versionStringWithLength:2]; // returns @"1.2"
+    [@"1" versionStringWithLength:2]; // returns @"1.0"
+ 
+ @param numberOfComponents The number of components the version string should have at least.
+ @return A new version string.
+ */
+- (NSString *)versionStringWithLength:(NSUInteger)numberOfComponents;
 
 
 @end
