@@ -65,7 +65,7 @@
  Internally it uses [NSArray indexOfObjectPassingTest:] method.
  Use with something like
  
- id object = [array firstObjectPassingTest:^BOOL(id obj) { if (...) return YES; else return NO; }];
+    MyClass *object = [array firstObjectPassingTest:^BOOL(MyClass obj) { return obj.testSucceeded; }];
  
  @param predicate The test which has to return YES for the element to find.
  @return The first object which passes the test or nil if none does.
