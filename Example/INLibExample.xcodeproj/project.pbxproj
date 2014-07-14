@@ -28,6 +28,7 @@
 		263B01A019177DF000564FCB /* Localizer2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 263B019E19177DF000564FCB /* Localizer2ViewController.xib */; };
 		264E3E8B1911244B0093B056 /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 264E3E891911244B0093B056 /* AlertViewController.m */; };
 		264E3E8C1911244B0093B056 /* AlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 264E3E8A1911244B0093B056 /* AlertViewController.xib */; };
+		265CB53E1973F6630069B105 /* NSDictionaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 265CB53D1973F6630069B105 /* NSDictionaryTests.m */; };
 		269184DB1906849A009D12C3 /* NSArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 269184DA1906849A009D12C3 /* NSArrayTests.m */; };
 		26A7E4BE1912758B0012027B /* LocalizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A7E4BC1912758B0012027B /* LocalizerViewController.m */; };
 		26A7E4BF1912758B0012027B /* LocalizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26A7E4BD1912758B0012027B /* LocalizerViewController.xib */; };
@@ -74,6 +75,7 @@
 		264E3E881911244B0093B056 /* AlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewController.h; sourceTree = "<group>"; };
 		264E3E891911244B0093B056 /* AlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewController.m; sourceTree = "<group>"; };
 		264E3E8A1911244B0093B056 /* AlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertViewController.xib; sourceTree = "<group>"; };
+		265CB53D1973F6630069B105 /* NSDictionaryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionaryTests.m; sourceTree = "<group>"; };
 		269184DA1906849A009D12C3 /* NSArrayTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayTests.m; sourceTree = "<group>"; };
 		26A7E4BB1912758B0012027B /* LocalizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizerViewController.h; sourceTree = "<group>"; };
 		26A7E4BC1912758B0012027B /* LocalizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizerViewController.m; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			children = (
 				269184DA1906849A009D12C3 /* NSArrayTests.m */,
 				260429D6196AACDA00F0AE9B /* NSStringTests.m */,
+				265CB53D1973F6630069B105 /* NSDictionaryTests.m */,
 				2636577218F1D41700503925 /* Supporting Files */,
 			);
 			path = INLibExampleTests;
@@ -421,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				269184DB1906849A009D12C3 /* NSArrayTests.m in Sources */,
+				265CB53E1973F6630069B105 /* NSDictionaryTests.m in Sources */,
 				260429D7196AACDA00F0AE9B /* NSStringTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

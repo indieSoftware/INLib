@@ -104,4 +104,27 @@
 - (NSNumber *)numberForKey:(id)key;
 
 
+#pragma mark - Printing
+/// @name Printing
+
+/**
+ Returns a string representing this dictionary, but with an own format which can be specified.
+ 
+ With this method it is possible to print a dictionary in another way compared to the default description which may suit more the needs.
+ 
+    NSDictionary *dict = @{@"Key": @"Value"};
+    NSString *description = [dict descriptionWithStart:@"{" pairFormatter:@"%@ = %@," lastPairFormatter:@"%@ = %@" end:@"}" keys:[dict allKeys] printKeysAfterValues:NO];
+    // description == "{Key = Value}"
+ 
+ @param start A leading string only printed once before all other, i.e. "{".
+ @param pairFormatter A formatter string for printing each but the last key-value-pair of the dictionary, i.e. "%@ = %@,". The formatter string must have two "%@" symbols for printing the key and the value.
+ @param lastPairFormatter A formatter string for printing the last key-value-pair of the dictionary, i.e. "%@ = %@". The formatter string must have two "%@" symbols for printing the key and the value.
+ @param end A tailing string only printed once after all elements, i.e "}".
+ @param keys The dictionary's keys which to print and in which order if a deterministic order is needed, otherwise just pass the dictionary's allKeys result array.
+ @param keysAfterValues True if the values should be passed before the keys to the formatter string, false if the keys should be printed before the values.
+ @return A string representation.
+ */
+- (NSString *)descriptionWithStart:(NSString *)start pairFormatter:(NSString *)pairFormatter lastPairFormatter:(NSString *)lastPairFormatter end:(NSString *)end keys:(NSArray *)keys printKeysAfterValues:(BOOL)keysAfterValues;
+
+
 @end

@@ -85,5 +85,28 @@
 	return (NSNumber *)object;
 }
 
+- (NSString *)descriptionWithStart:(NSString *)start pairFormatter:(NSString *)pairFormatter lastPairFormatter:(NSString *)lastPairFormatter end:(NSString *)end keys:(NSArray *)keys printKeysAfterValues:(BOOL)keysAfterValues {
+    NSMutableString *description = [NSMutableString stringWithString:start];
+    for (NSUInteger index = 0; index < keys.count; ++index) {
+        id key = keys[index];
+        id value = [self objectForKey:key];
+        if (index == keys.count-1) {
+            if (keysAfterValues) {
+                [description appendFormat:lastPairFormatter, value, key];
+            } else {
+                [description appendFormat:lastPairFormatter, key, value];
+            }
+        } else {
+            if (keysAfterValues) {
+                [description appendFormat:pairFormatter, value, key];
+            } else {
+                [description appendFormat:pairFormatter, key, value];
+            }
+        }
+    }
+    [description appendString:end];
+    return description.copy;
+}
+
 
 @end
