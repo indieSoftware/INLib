@@ -18,10 +18,10 @@ A little iOS Library with common operations, extensions and UI additions.
 - INWindow: A UIWindow subclass which can ignore special events received by asking a delegate.
 
 ### Categories
-- NSArray: arrayWithSet:, arrayReversed, firstObjectPassingTest:, arrayWithRandomizedOrder
+- NSArray: arrayWithSet:, arrayReversed, firstObjectPassingTest:, arrayWithRandomizedOrder, descriptionWithStart:elementFormatter:lastElementFormatter:end:
 - NSBundle: direct shortcut accessors for the bundle identifier and version
 - NSDate: Date detail accessing, cached formatters, date comparison, date manipulation, date difference calculations
-- NSDictionary / NSMutableDictionary: type safe accessors / setter
+- NSDictionary / NSMutableDictionary: type safe accessors / setter, custom description method
 - NSLocale: shortcut methods for the system's language and country code
 - NSObject: Storing an object at runtime, NSNull comparison, a performSelector implementation
 - NSString: manipulation and comparison methods, comparing and manipulating version strings

@@ -1,5 +1,12 @@
 # INLib CHANGELOG
 
+## 2.1
+
+- Added descriptionWithStart:elementFormatter:lastElementFormatter:end: to NSArray+INExtensions.
+- Added descriptionWithStart:pairFormatter:lastPairFormatter:end:keys:printKeysAfterValues: to NSDictionary+INExtensions.
+- Added tests for NSDictionary+INExtensions.
+
+
 ## 2.0
 
 - Typo correction in a method name of NSString+INExtensions.
