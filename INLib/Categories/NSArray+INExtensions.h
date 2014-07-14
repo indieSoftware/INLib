@@ -84,7 +84,7 @@
  
  @param start A leading string only printed once before all other, i.e. "(".
  @param elementFormatter A formatter string for printing each but the last element in the array, i.e. "%@,". The formatter string must have one "%@" symbol for printing the element.
- @param elementFormatter A formatter string for printing the last element in the array, i.e. "%@". The formatter string must have one "%@" symbol for printing the element.
+ @param lastElementFormatter A formatter string for printing the last element in the array, i.e. "%@". The formatter string must have one "%@" symbol for printing the element.
  @param end A tailing string only printed once after all elements, i.e ")".
  @return A string representation.
  */
