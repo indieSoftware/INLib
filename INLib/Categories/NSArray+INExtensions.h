@@ -74,6 +74,23 @@
 - (id)firstObjectPassingTest:(BOOL (^)(id obj))predicate;
 
 
+#pragma mark - Printing
+/// @name Printing
+
+/**
+ Returns a string representing this array, but with an own format which can be specified.
+ 
+ With this method it is possible to print an array in another way compared to the default description which may suit more the needs.
+ 
+ @param start A leading string only printed once before all other, i.e. "(".
+ @param elementFormatter A formatter string for printing each but the last element in the array, i.e. "%@,". The formatter string must have one "%@" symbol for printing the element.
+ @param elementFormatter A formatter string for printing the last element in the array, i.e. "%@". The formatter string must have one "%@" symbol for printing the element.
+ @param end A tailing string only printed once after all elements, i.e ")".
+ @return A string representation.
+ */
+- (NSString *)descriptionWithStart:(NSString *)start elementFormatter:(NSString *)elementFormatter lastElementFormatter:(NSString *)lastElementFormatter end:(NSString *)end;
+
+
 #pragma mark - Array order manipulation
 /// @name Array order manipulation
 

@@ -94,6 +94,34 @@
 }
 
 
+#pragma mark - descriptionWithStart:elementFormatter:lastElementFormatter:end:
+
+- (void)test_descriptionWithStart_elementFormatter_lastElementFormatter_end {
+    NSString *start = @"A";
+    NSString *elementFormatter = @"B%@C";
+    NSString *lastElementFormatter = @"D%@E";
+    NSString *end = @"F";
+    NSArray *array = @[@"1", @"2", @"3"];
+    NSString *expected = @"AB1CB2CD3EF";
+    NSString *result = [array descriptionWithStart:start elementFormatter:elementFormatter lastElementFormatter:lastElementFormatter end:end];
+    XCTAssert([result isEqualToString:expected], @"Result string '%@' is not as expected '%@'", result, expected);
+
+    array = @[];
+    expected = @"AF";
+    result = [array descriptionWithStart:start elementFormatter:elementFormatter lastElementFormatter:lastElementFormatter end:end];
+    XCTAssert([result isEqualToString:expected], @"Result string '%@' is not as expected '%@'", result, expected);
+
+    start = @"(\n";
+    elementFormatter = @"    %@,\n";
+    lastElementFormatter = @"    %@\n";
+    end = @")";
+    array = @[@"Foo", @"Bar"];
+    expected = [array description];
+    result = [array descriptionWithStart:start elementFormatter:elementFormatter lastElementFormatter:lastElementFormatter end:end];
+    XCTAssert([result isEqualToString:expected], @"Result string '%@' is not as expected '%@'", result, expected);
+}
+
+
 #pragma mark - arrayReversed
 
 - (void)test_arrayReversed_onArrayWithElements_returnsReversedArray {

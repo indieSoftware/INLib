@@ -45,6 +45,19 @@
     return self.count > 0;
 }
 
+- (NSString *)descriptionWithStart:(NSString *)start elementFormatter:(NSString *)elementFormatter lastElementFormatter:(NSString *)lastElementFormatter end:(NSString *)end {
+    NSMutableString *description = [NSMutableString stringWithString:start];
+    for (NSUInteger index = 0; index < self.count; ++index) {
+        if (index == self.count-1) {
+            [description appendFormat:lastElementFormatter, self[index]];
+        } else {
+            [description appendFormat:elementFormatter, self[index]];
+        }
+    }
+    [description appendString:end];
+    return description.copy;
+}
+
 - (NSArray *)arrayReversed {
     return [[self reverseObjectEnumerator] allObjects];
 }
