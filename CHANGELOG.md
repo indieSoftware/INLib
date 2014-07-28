@@ -1,5 +1,10 @@
 # INLib CHANGELOG
 
+## 2.2
+
+- Added the property `forwardSegueForUnwinding` to INNavigationController and the default behavior to forward any call of segueForUnwindingToViewController:fromViewController:identifier: to the correct controller.
+
+
 ## 2.1
 
 - Added descriptionWithStart:elementFormatter:lastElementFormatter:end: to NSArray+INExtensions.

@@ -22,7 +22,7 @@
 
 
 /**
- A UINavigationController substitution which forwards all rotation requests to the current top view controller and any segue for unwinding to the destination segue.
+ A UINavigationController substitution which forwards all rotation requests to the current top view controller and any segue for unwinding calls to the destination segue.
  */
 @interface INNavigationController : UINavigationController
 
