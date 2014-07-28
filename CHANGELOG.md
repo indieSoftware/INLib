@@ -2,7 +2,7 @@
 
 ## 2.2
 
-- Added the property `forwardSegueForUnwinding` to INNavigationController and the default behavior to forward any call of segueForUnwindingToViewController:fromViewController:identifier: to the correct controller.
+- Added the property `forwardSegueForUnwinding` to INNavigationController and the possibility to forward any call of segueForUnwindingToViewController:fromViewController:identifier: to the destination controller.
 
 
 ## 2.1

@@ -22,7 +22,7 @@
 
 
 /**
- A UINavigationController substitution which forwards all rotation requests to the current top view controller and any segue for unwinding calls to the destination segue.
+ A UINavigationController substitution which forwards all rotation requests to the current top view controller and may forward any segue for unwinding calls to the destination segue.
  */
 @interface INNavigationController : UINavigationController
 
@@ -36,11 +36,14 @@
 
 
 /**
- When set to YES the navigation controller forwards the segueForUnwindingToViewController:fromViewController:identifier: calls to the `toViewController`. Defaults to YES.
+ When set to YES the navigation controller forwards the segueForUnwindingToViewController:fromViewController:identifier: calls to the `toViewController`. Defaults to NO so the default UINavigationController's behavior applies.
  
- A forwarding to the appropriate view controller is what will be the expected behavior and seems to be a bug in iOS not to do so.
- Just by using this navigation controller should fix this.
- Assigning NO to this property will reset the behavior to the default of a UINavigationController.
+ A forwarding to the appropriate view controller is what will be the expected behavior, but each unwinded view controller then also needs to implement the method:
+ 
+    - (UIStoryboardSegue *)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier;
+ 
+ If using a navigation controller and setting this property to YES without the destination controller overrides segueForUnwindingToViewController:fromViewController:identifier: and returning a custom segue the unwinding won't work.
+ To recreate the default behavior for navigation controllers the destination controller has to return a custom segue which calls popViewControllerAnimated: on this navigation controller.
  */
 @property (nonatomic, assign) BOOL forwardSegueForUnwinding;
 

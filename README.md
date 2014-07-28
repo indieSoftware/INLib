@@ -13,7 +13,7 @@ A little iOS Library with common operations, extensions and UI additions.
 - INBasicTableViewHeaderFooterView: A basic table header/footer view class for deriving from instead of UITableViewHeaderFooterView which adds some static methods for creation and determination.
 - INBasicViewController: A basic view controller which introduces a updateView method for subclasses, has a parentController property and can be loaded from a xib file with a static method.
 - INLocalizer: A class for switching the language during runtime and retrieving the corresponding strings from a Localizable.strings file.
-- INNavigationController: A UINavigationController substitution which forwards all rotation requests to the current top view controller and any segue for unwinding calls to the destination segue.
+- INNavigationController: A UINavigationController substitution which forwards all rotation requests to the current top view controller and may forward any segue for unwinding calls to the destination segue.
 - INRandom: A randomizer class which uses arc4random().
 - INWindow: A UIWindow subclass which can ignore special events received by asking a delegate.
 

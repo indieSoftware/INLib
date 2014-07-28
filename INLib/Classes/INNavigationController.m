@@ -60,7 +60,7 @@
 
 - (void)setupINNavigationController {
     self.forwardRotation = YES;
-    self.forwardSegueForUnwinding = YES;
+    self.forwardSegueForUnwinding = NO;
 }
 
 - (BOOL)shouldAutorotate {
