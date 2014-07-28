@@ -22,17 +22,27 @@
 
 
 /**
- A UINavigationController substitution which forwards all rotation requests to the current top view controller.
+ A UINavigationController substitution which forwards all rotation requests to the current top view controller and any segue for unwinding to the destination segue.
  */
 @interface INNavigationController : UINavigationController
 
 
 /**
- When set to YES the navigation forwards any rotation requests to the navigation controller's top view controller instead of using the own default rotation behavior. Defaults to YES.
+ When set to YES the navigation controller forwards any rotation requests to the navigation controller's top view controller instead of using the own default rotation behavior. Defaults to YES.
  
  This forwarding is handy when the navigation controller should be used as the window's root controller and the app allows different rotations, otherwise there will be no possibility for the root controller to restrict to selected rotations.
  */
 @property (nonatomic, assign) BOOL forwardRotation;
+
+
+/**
+ When set to YES the navigation controller forwards the segueForUnwindingToViewController:fromViewController:identifier: calls to the `toViewController`. Defaults to YES.
+ 
+ A forwarding to the appropriate view controller is what will be the expected behavior and seems to be a bug in iOS not to do so.
+ Just by using this navigation controller should fix this.
+ Assigning NO to this property will reset the behavior to the default of a UINavigationController.
+ */
+@property (nonatomic, assign) BOOL forwardSegueForUnwinding;
 
 
 @end

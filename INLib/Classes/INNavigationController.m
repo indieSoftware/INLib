@@ -60,6 +60,7 @@
 
 - (void)setupINNavigationController {
     self.forwardRotation = YES;
+    self.forwardSegueForUnwinding = YES;
 }
 
 - (BOOL)shouldAutorotate {
@@ -83,6 +84,14 @@
         return [self.topViewController preferredInterfaceOrientationForPresentation];
     } else {
         return [super preferredInterfaceOrientationForPresentation];
+    }
+}
+
+- (UIStoryboardSegue *)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier {
+    if (self.forwardSegueForUnwinding && [toViewController respondsToSelector:@selector(segueForUnwindingToViewController:fromViewController:identifier:)]) {
+        return [toViewController segueForUnwindingToViewController:toViewController fromViewController:fromViewController identifier:identifier];
+    } else {
+        return [super segueForUnwindingToViewController:toViewController fromViewController:fromViewController identifier:identifier];
     }
 }
 
