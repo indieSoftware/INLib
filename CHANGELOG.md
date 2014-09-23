@@ -1,8 +1,9 @@
 # INLib CHANGELOG
 
-## 2.2
+## 3a
 
 - Added the property `forwardSegueForUnwinding` to INNavigationController and the possibility to forward any call of segueForUnwindingToViewController:fromViewController:identifier: to the destination controller.
+- Removed methods from UIDevice+INExtensions: hasRetinaDisplay, has3Dot5InchesDisplay, has4InchesDisplay
 
 
 ## 2.1

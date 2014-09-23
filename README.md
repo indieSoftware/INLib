@@ -26,7 +26,7 @@ A little iOS Library with common operations, extensions and UI additions.
 - NSObject: Storing an object at runtime, NSNull comparison, a performSelector implementation
 - NSString: manipulation and comparison methods, comparing and manipulating version strings
 - UIColor: randomColor, colorWithHex:, RGB parts determination
-- UIDevice: iPad determination, get display type, simulate a memory warning
+- UIDevice: iPad determination, simulate a memory warning
 - UIImage: shortcuts for saving as PNG or JPEG, image flipping, masking, scaling
 - UIView: rounded corners, borders, image capturing
 

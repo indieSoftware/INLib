@@ -40,19 +40,5 @@
 #endif
 }
 
-- (BOOL)hasRetinaDisplay {
-	if ([UIScreen mainScreen].scale == 2.0f) return YES;
-	return NO;
-}
-
-- (BOOL)has3Dot5InchesDisplay {
-    // iPhone 3GS, 4, 4S Display
-    return [UIScreen mainScreen].bounds.size.height == 480.f && [UIScreen mainScreen].bounds.size.width == 320.f;
-}
-
-- (BOOL)has4InchesDisplay {
-    // iPhone 5+ Display
-    return [UIScreen mainScreen].bounds.size.height == 568.f && [UIScreen mainScreen].bounds.size.width == 320.f;
-}
 
 @end
