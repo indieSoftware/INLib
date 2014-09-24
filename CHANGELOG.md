@@ -4,7 +4,7 @@
 
 - Added the property `forwardSegueForUnwinding` to INNavigationController and the possibility to forward any call of segueForUnwindingToViewController:fromViewController:identifier: to the destination controller.
 - Removed methods from UIDevice+INExtensions: hasRetinaDisplay, has3Dot5InchesDisplay, has4InchesDisplay
-- Changed the INBasicTableViewCell parentController property's type from UIViewController* to id
+- Changed the INBasicTableViewCell parentController property's name to controller and the type from UIViewController* to id
 
 
 ## 2.1

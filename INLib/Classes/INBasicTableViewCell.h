@@ -66,12 +66,12 @@
 
 
 /**
- A weak reference to a parent contoller.
+ A weak reference to a contoller.
  
- May be used to pass button events back to the controller or other callbacks.
+ May be used to pass button events or other callbacks back to a controller object.
  This property is not used by this class and any UIViewController or other NSObject may be assigned to it.
  */
-@property (nonatomic, weak) id parentController;
+@property (nonatomic, weak) id controller;
 
 
 @end
