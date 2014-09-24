@@ -62,7 +62,7 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         // create the calendar
-        __defaultCachedGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        __defaultCachedGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         [__defaultCachedGregorianCalendar setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
     });
     return __defaultCachedGregorianCalendar;
@@ -100,7 +100,7 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
 
-    NSUInteger components = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSUInteger components = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
     NSDateComponents *comp1 = [calendar components:components fromDate:self];
     NSDateComponents *comp2 = [calendar components:components fromDate:[NSDate date]];
 
@@ -112,7 +112,7 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
 	NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
     
-    NSUInteger components = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSUInteger components = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
 	NSDateComponents *comp1 = [calendar components:components fromDate:self];
 	NSDateComponents *comp2 = [calendar components:components fromDate:otherDate];
     
@@ -123,7 +123,7 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
 - (INDateInformation)dateInformation {
 	INDateInformation info;
 	
-    NSUInteger components = NSMonthCalendarUnit | NSMinuteCalendarUnit | NSYearCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSSecondCalendarUnit;
+    NSUInteger components = NSCalendarUnitMonth | NSCalendarUnitMinute | NSCalendarUnitYear | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitSecond;
     NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
     @synchronized(gregorian) {
         NSDateComponents *comp = [gregorian components:components fromDate:self];
@@ -143,10 +143,10 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
 - (INDateInformation)dateInformationWithTimeZone:(NSTimeZone *)timeZone {
 	INDateInformation info;
 	
-	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     [gregorian setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
 	[gregorian setTimeZone:timeZone];
-    NSUInteger components = NSMonthCalendarUnit | NSMinuteCalendarUnit | NSYearCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSSecondCalendarUnit;
+    NSUInteger components = NSCalendarUnitMonth | NSCalendarUnitMinute | NSCalendarUnitYear | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitSecond;
 	NSDateComponents *comp = [gregorian components:components fromDate:self];
     
 	info.year = [comp year];
@@ -295,7 +295,7 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
         // create the date formatter
         __dateFormatterForWeekday = [[NSDateFormatter alloc] init];
         [__dateFormatterForWeekday setDateFormat:@"ww"];
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         [gregorian setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
         [gregorian setLocale:[NSLocale currentLocale]]; // use to determine first weekday
         __lastUsedFirstWeekday = gregorian.firstWeekday;
@@ -469,7 +469,7 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
     NSDateComponents *comps;
     NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
     @synchronized(gregorian) {
-        comps = [gregorian components:NSDayCalendarUnit fromDate:self toDate:otherDate options:0];
+        comps = [gregorian components:NSCalendarUnitDay fromDate:self toDate:otherDate options:0];
     }
     
     return [comps day];
