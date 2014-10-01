@@ -76,8 +76,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self localizeStrings];
     self.updateViewOnAppear = YES;
+    [self localizeStrings];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -95,14 +95,6 @@
     [super viewWillDisappear:animated];
 
     self.activeController = NO;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return UIInterfaceOrientationIsPortrait(interfaceOrientation);
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (void)dealloc {
@@ -129,7 +121,18 @@
 #pragma mark - methods to override
 
 - (void)updateView {
-    // to implement
+    // to implement by subclasses
+}
+
+
+#pragma mark - default interface rotation support
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 

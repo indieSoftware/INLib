@@ -40,6 +40,9 @@ static NSString * const INBasicViewControllerShouldUpdateNotification = @"INBasi
  When the view has loaded every string will automatically be localized by `INLocalizer`.
  An instance of a child class can be created with the static `controller` method.
  
+ By default the controller only supports the portrait orientation mode, therefore any subclasses should override 
+ `shouldAutorotateToInterfaceOrientation:` and `supportedInterfaceOrientations` to change this behavior if needed.
+
  @see INLocalizer
  @see controller
  */
