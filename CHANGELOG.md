@@ -1,5 +1,10 @@
 # INLib CHANGELOG
 
+## 3.0.1a
+
+- Added a dispatch_once call to the singleton macro
+
+
 ## 3.0
 
 - Added the property `forwardSegueForUnwinding` to INNavigationController and the possibility to forward any call of segueForUnwindingToViewController:fromViewController:identifier: to the destination controller.
