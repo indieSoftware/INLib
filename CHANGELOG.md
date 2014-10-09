@@ -1,8 +1,10 @@
 # INLib CHANGELOG
 
-## 3.0.1a
+## 3.1a
 
 - Added a dispatch_once call to the singleton macro
+- Fixes INBasicTableViewHeaderFooterView for iOS 8 and Xcode 6
+- Added a `controller` property to INBasicTableViewHeaderFooterView
 
 
 ## 3.0

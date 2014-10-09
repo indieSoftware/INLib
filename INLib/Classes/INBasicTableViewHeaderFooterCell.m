@@ -48,8 +48,14 @@ static NSMutableDictionary *__dictINBasicTableViewHeaderFooterViewStats;
 @implementation INBasicTableViewHeaderFooterView
 
 + (instancetype)view {
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil];
-	id view = [nib objectAtIndex:0];
+    INBasicTableViewHeaderFooterView *sectionHeaderFooter = [[self alloc] initWithReuseIdentifier:[self viewIdentifier]];
+    return sectionHeaderFooter;
+}
+
++ (UIView *)contentViewFromNibForOwner:(id)owner {
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
+    UIView *view = [nib objectAtIndex:0];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
     return view;
 }
 
@@ -73,22 +79,32 @@ static NSMutableDictionary *__dictINBasicTableViewHeaderFooterViewStats;
     INBasicTableViewHeaderFooterViewStats *viewStats = [__dictINBasicTableViewHeaderFooterViewStats objectForKey:className];
     if (viewStats == nil) {
         viewStats = [[INBasicTableViewHeaderFooterViewStats alloc] init];
-        INBasicTableViewHeaderFooterView *view = [self view];
+        INBasicTableViewHeaderFooterView *dummyOwner = [[self alloc] initWithReuseIdentifier:nil];
+        UIView *view = [self contentViewFromNibForOwner:dummyOwner];
         [viewStats setViewHeight:view.frame.size.height];
-        if (view.reuseIdentifier != nil) {
-            [viewStats setViewIdentifier:view.reuseIdentifier];
-        } else {
-            // each view should have set a reuseIdentifier by the nib-file
-            // just in case it has not, create a default string for returning
-            [viewStats setViewIdentifier:className];
-        }
+        [viewStats setViewIdentifier:className];
         [__dictINBasicTableViewHeaderFooterViewStats setObject:viewStats forKey:className];
     }
     return viewStats;
 }
 
 + (void)registerAtTableView:(UITableView *)tableView {
-    [tableView registerNib:[UINib nibWithNibName:NSStringFromClass(self) bundle:nil] forHeaderFooterViewReuseIdentifier:[self viewIdentifier]];
+    // register class instead of nibs, because with Xcode 6 it's not possible to create table header footer views in nibs
+    // and using table view cells instead doesn't resize the contentView according to any constraints
+    [tableView registerClass:self forHeaderFooterViewReuseIdentifier:[self viewIdentifier]];
+}
+
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithReuseIdentifier:reuseIdentifier];
+    if (self == nil) return self;
+    
+    UIView *content = [self.class contentViewFromNibForOwner:self];
+    [self.contentView addSubview:content];
+    NSDictionary *bindings = NSDictionaryOfVariableBindings(content);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:0 views:bindings]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[content]|" options:0 metrics:0 views:bindings]];
+    
+    return self;
 }
 
 

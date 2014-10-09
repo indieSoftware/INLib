@@ -26,9 +26,9 @@
  
  This view class has some static accessor methods for retrieving the reuse identifier which is class dependant.
  At plus the default's height can be read from the nib file.
- These table view header footer cells can be used together with UITableView's `registerNib:forHeaderFooterViewReuseIdentifier:`.
+ These table view header footer cells can be used together with UITableView's `registerClass:forHeaderFooterViewReuseIdentifier:` or just use the class method `registerAtTableView:`.
  
- @warning *Instances of this class need to have an associated nib file to it which has to be named exactly the same as the class itself and have a single header/footer view in it with the reuse identifier set.*
+ @warning *Instances of this class need to have an associated nib file to it which has to be named exactly the same as the class itself and have a single UIView in it which will be added to the header-footer's contentView. Set the file's owner to your header-footer subclass if outlets are needed.*
  */
 @interface INBasicTableViewHeaderFooterView : UITableViewHeaderFooterView
 
@@ -63,6 +63,15 @@
  @param tableView The table view instance which wants this header/footer view to be registered.
  */
 + (void)registerAtTableView:(UITableView *)tableView;
+
+
+/**
+ A weak reference to a contoller.
+ 
+ May be used to pass button events or other callbacks back to a controller object.
+ This property is not used by this class and any UIViewController or other NSObject may be assigned to it.
+ */
+@property (nonatomic, weak) id controller;
 
 
 @end
