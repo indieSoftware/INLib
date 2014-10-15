@@ -67,9 +67,23 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 /**
  Creates a date information struct from this NSDate.
  
+ This method initializes the struct fully with all components.
+ Same as:
+ 
+    NSUInteger components = NSCalendarUnitMonth | NSCalendarUnitMinute | NSCalendarUnitYear | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitSecond;
+    [self dateInformationForComponents:components];
+ 
  @return The date information struct.
  */
 - (INDateInformation)dateInformation;
+
+
+/**
+ Creates a date information struct from this NSDate only initialized with the given components.
+
+ @return The date information struct.
+ */
+- (INDateInformation)dateInformationForComponents:(NSUInteger)components;
 
 
 /**

@@ -121,13 +121,17 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
 
 
 - (INDateInformation)dateInformation {
-	INDateInformation info;
-	
     NSUInteger components = NSCalendarUnitMonth | NSCalendarUnitMinute | NSCalendarUnitYear | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitSecond;
+    return [self dateInformationForComponents:components];
+}
+
+- (INDateInformation)dateInformationForComponents:(NSUInteger)components {
+    INDateInformation info;
+    
     NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
     @synchronized(gregorian) {
         NSDateComponents *comp = [gregorian components:components fromDate:self];
-    
+        
         info.year = [comp year];
         info.month = [comp month];
         info.day = [comp day];
@@ -137,7 +141,7 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
         info.second = [comp second];
     }
     
-	return info;
+    return info;
 }
 
 - (INDateInformation)dateInformationWithTimeZone:(NSTimeZone *)timeZone {

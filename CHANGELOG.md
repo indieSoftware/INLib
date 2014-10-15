@@ -5,6 +5,7 @@
 - Fixes INBasicTableViewHeaderFooterView for iOS 8 and Xcode 6
 - Added a `controller` property to INBasicTableViewHeaderFooterView
 - Fixed the singleton macro by calling dispatch_once and resetting the once token in destroySharedInstance
+- Added `dateInformationForComponents:` to NSDate+INExtensions to specify which components to load
 
 
 ## 3.0
