@@ -96,9 +96,9 @@
  */
 #define INSingletonDefinition \
 static id __singletonInstance = nil; \
+static dispatch_once_t __singletonInstanceOnceToken; \
 + (id)sharedInstance { \
-    static dispatch_once_t onceToken; \
-    dispatch_once(&onceToken, ^{ \
+    dispatch_once(&__singletonInstanceOnceToken, ^{ \
         __singletonInstance = [[self alloc] init]; \
     }); \
     return __singletonInstance; \
@@ -106,6 +106,7 @@ static id __singletonInstance = nil; \
 \
 + (void)destroySharedInstance { \
     __singletonInstance = nil; \
+    __singletonInstanceOnceToken = 0; \
 }
 
 
