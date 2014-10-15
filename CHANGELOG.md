@@ -2,9 +2,9 @@
 
 ## 3.1a
 
-- Added a dispatch_once call to the singleton macro
 - Fixes INBasicTableViewHeaderFooterView for iOS 8 and Xcode 6
 - Added a `controller` property to INBasicTableViewHeaderFooterView
+- Fixed the singleton macro by calling dispatch_once and resetting the once token in destroySharedInstance
 
 
 ## 3.0
