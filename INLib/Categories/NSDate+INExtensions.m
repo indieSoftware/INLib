@@ -125,7 +125,7 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
     return [self dateInformationForComponents:components];
 }
 
-- (INDateInformation)dateInformationForComponents:(NSUInteger)components {
+- (INDateInformation)dateInformationForComponents:(NSCalendarUnit)components {
     INDateInformation info;
     
     NSCalendar *gregorian = [NSDate cachedGregorianCalendar];

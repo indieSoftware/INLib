@@ -98,11 +98,15 @@ static NSMutableDictionary *__dictINBasicTableViewHeaderFooterViewStats;
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self == nil) return self;
     
+    // add content view
     UIView *content = [self.class contentViewFromNibForOwner:self];
     [self.contentView addSubview:content];
-    NSDictionary *bindings = NSDictionaryOfVariableBindings(content);
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:0 views:bindings]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[content]|" options:0 metrics:0 views:bindings]];
+
+    // add constraints
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:content attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0f constant:0.0f]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:content attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0f constant:0.0f]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:content attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0f constant:0.0f]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:content attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f]];
     
     return self;
 }

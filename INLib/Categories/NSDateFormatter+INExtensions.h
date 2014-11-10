@@ -31,6 +31,16 @@
  
  If there is no date formatter for the given format a new formatter will be created.
  Creating a new NSDateFormatter is time expensive so use this method for reusing old formatters.
+ When using background threads the date formatter should be locked with a synchronized command.
+ 
+    NSString *string;
+    NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"yyyy"];
+    @synchronized(dateFormatter) {
+        string = [dateFormatter stringFromDate:self];
+    }
+
+ For information about the date format pattern see:
+ http://unicode.org/reports/tr35/tr35-10.html#Date_Format_Patterns
  
  @return A cached date formatter for the given format.
  */

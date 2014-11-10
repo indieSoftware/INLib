@@ -83,7 +83,7 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
  @return The date information struct.
  */
-- (INDateInformation)dateInformationForComponents:(NSUInteger)components;
+- (INDateInformation)dateInformationForComponents:(NSCalendarUnit)components;
 
 
 /**
