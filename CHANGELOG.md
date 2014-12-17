@@ -6,6 +6,7 @@
 - Added a `controller` property to INBasicTableViewHeaderFooterView
 - Fixed the singleton macro by calling dispatch_once and resetting the once token in destroySharedInstance
 - Added `dateInformationForComponents:` to NSDate+INExtensions to specify which components to load
+- Added the `CoreData` subspec with extensions and classes for Core Data
 
 
 ## 3.0

@@ -39,6 +39,12 @@ A little iOS Library with common operations, extensions and UI additions.
 - INDirectory-functions for easy access to the documents, caches and tmp directory.
 - INRound, INCeil and INFloor functions which operates on positions after the period, i.e. INRound(6.66, 1) = 6.7
 
+### CoreData
+- A separated subspec (to include add to the podfile: `pod "INLib/CoreData"`)
+- NSManagedObject: Some shortcut methods for creating new managed objects and retrieving the object's name.
+- NSManagedObjectModel: Some helper methods for creating a model, a specific model version and check some compatibility states.
+- CoreDataManager: A class which helps migrating over multiple versions and manages the Core Data Stack.
+
 
 ## Examples
 
