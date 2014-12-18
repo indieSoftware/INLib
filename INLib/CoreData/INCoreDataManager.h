@@ -29,14 +29,15 @@
 /**
  A core data manager which creates and handles the model, it's versions, the context and a SQLite store and its coordinator.
  
- Create the manager with the initWithName: method and the name of the model to manage.
+ Create the manager with the initWithName:storeLocation: method and the name of the model to manage.
  The model's name is the name of the directory in the project with the xcdatamodeld extension
  while the version files of a model are those inside of this directory and have a xcdatamodel extension.
  It is mandatory that the version files follow a naming convention in which they have the same name as the model's version itself
  followed by an underscore and the version number without leading zeros.
  
  Only SQLite stores are supported and only one per model.
- The store file will be named the same as the model and will resists in the Documents folder of the app, i.e. 'Documents/MyModel.sqlite'.
+ The store file will be named the same as the model and will resists in the given folder of the app indicated when calling the init method, i.e. 'Documents/MyModel.sqlite'.
+ Beware of the other files corresponding to the store on iOS 7+, which have the extensions 'sqlite-shm' and 'sqlite.wal'.
  
  As an example if the model is named 'MyModel' the model's directory is 'MyModel.xcdatamodeld'.
  The initial version is therefore called 'MyModel_1.xcdatamodel' and is found inside of 'MyModel.xcdatamodeld'.
@@ -48,7 +49,7 @@
  Check if a given store needs to be migrated and perform the migration if necessary before using the core data stack.
  By accessing the model, context or the store coordinator properties the corresponding instances will be created and returned.
  
-    INCoreDataManager *manager = [[INCoreDataManager alloc] initWithName:@"MyModel"];
+    INCoreDataManager *manager = [[INCoreDataManager alloc] initWithName:@"MyModel" storeLocation:INDirectoryDocuments()];
     if ([manager isMigrationNeeded]) {
         if (![manager performMigration:^(NSInteger fromVersion, NSInteger toVersion, BOOL successfullyMigrated) {
             NSLog(@"Store from %ld to %ld %@", (long)fromVersion, (long)toVersion, (successfullyMigrated ? @"migrated" : @"not migrated"));
@@ -64,15 +65,27 @@
 /// @name Initializer
 
 /**
- Initializes the manager with a model name.
+ Initializes the manager with a model name and a store location.
  
  The manager handles the model, context and a store coordinator, thus the store is of the type SQLite.
  The model's name is the name of the directory in the project with the xcdatamodeld extension.
+ The store location is the folder in which the store will be created, mostly the documents folder of the app.
+
+ As an example the following call will use the core data model 'MyModel' and the store at /Documents/MyModel.sqlite.
  
+    INCoreDataManager *manager = [[INCoreDataManager alloc] initWithName:@"MyModel" storeLocation:INDirectoryDocuments()];
+
  @param name The model's name.
+ @param storeLocation The directory of the SQLite store file(s).
  @return The initialized instance.
  */
-- (instancetype)initWithName:(NSString *)name;
+- (instancetype)initWithName:(NSString *)name storeLocation:(NSString *)storeLocation;
+
+/// The model's name.
+@property (nonatomic, copy, readonly) NSString *modelName;
+
+/// The URL to the SQLite store.
+@property (nonatomic, strong, readonly) NSURL *storeUrl;
 
 
 /// @name Core Data Stack
@@ -135,6 +148,27 @@
  @return True if the migration could be performed without any errors, otherwise false.
 */
 - (BOOL)performMigration:(void (^)(NSInteger fromVersion, NSInteger toVersion, BOOL successfullyMigrated))progressBlock;
+
+/**
+ Duplicates the current store files to another location.
+ 
+ This done by `[NSPersistentStoreCoordinator migratePersistentStore:toURL:options:withType:error:]` instead of copying any files on disc directly.
+ 
+ @param url The URL which includes the new store's file name.
+ @return True if the store could be duplicated, false if an error occured.
+*/
+- (BOOL)duplicateStoreToUrl:(NSURL *)url;
+
+/**
+ Deletes the corresponding SQLite store file(s).
+ 
+ Each file at the store's directory which begins with the model's name and followed by '.sqlite' will be deleted.
+ This will not only delete the .sqlite file itself, but also the .sqlite-shm and .sqlite-wal files.
+ Other files or in subdirectories will not be affected.
+ 
+ @return False if an error occured while deleting the files, otherwise true.
+*/
+- (BOOL)deleteStore;
 
 
 @end

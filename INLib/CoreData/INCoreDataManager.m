@@ -22,7 +22,6 @@
 
 
 #import "INCoreDataManager.h"
-#import "INCMethods.h"
 #import "INCoreData.h"
 
 #import <CoreData/CoreData.h>
@@ -34,15 +33,15 @@
 @property (nonatomic, strong, readwrite) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readwrite) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-@property (nonatomic, copy) NSString *modelName;
-@property (nonatomic, strong) NSURL *storeUrl;
+@property (nonatomic, copy, readwrite) NSString *modelName;
+@property (nonatomic, strong, readwrite) NSURL *storeUrl;
 
 @end
 
 
 @implementation INCoreDataManager
 
-- (instancetype)initWithName:(NSString *)name {
+- (instancetype)initWithName:(NSString *)name storeLocation:(NSString *)storeLocation {
     self = [super init];
     if (self == nil) return self;
     
@@ -50,7 +49,7 @@
 
     // get store URL
     NSString *storeFile = [NSString stringWithFormat:@"%@.sqlite", self.modelName];
-    NSString *storePath = [INDirectoryDocuments() stringByAppendingPathComponent:storeFile];
+    NSString *storePath = [storeLocation stringByAppendingPathComponent:storeFile];
     self.storeUrl = [NSURL fileURLWithPath:storePath isDirectory:NO];
 
     return self;
@@ -136,6 +135,33 @@
     
     // still failed to migrate, so give up
     return NO;
+}
+
+- (BOOL)duplicateStoreToUrl:(NSURL *)url {
+    return [self.persistentStoreCoordinator migratePersistentStore:self.persistentStoreCoordinator.persistentStores.lastObject toURL:url options:nil withType:NSSQLiteStoreType error:NULL] != nil;
+}
+
+- (BOOL)deleteStore {
+    // close all connections to the store
+    self.persistentStoreCoordinator = nil;
+    self.managedObjectContext = nil;
+    self.managedObjectModel = nil;
+    
+    // delete all corresponding files
+    NSString *matchingFilename = [NSString stringWithFormat:@"%@.sqlite", self.modelName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *path = [[self.storeUrl URLByDeletingLastPathComponent] path];
+    NSDirectoryEnumerator *filesEnumerator = [fileManager enumeratorAtPath:path];
+    NSString *file;
+    while (file = [filesEnumerator nextObject]) {
+        if ([file hasPrefix:matchingFilename]) {
+            NSString *filePath = [path stringByAppendingPathComponent:file];
+            if (![fileManager removeItemAtPath:filePath error:NULL]) {
+                return NO;
+            }
+        }
+    }
+    return YES;
 }
 
 

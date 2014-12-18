@@ -31,7 +31,6 @@ Pod::Spec.new do |s|
 
   s.subspec 'CoreData' do |coredata|
     coredata.source_files = 'INLib/CoreData/**/*.{h,m}'
-    coredata.dependency 'INLib/CMethods'
   	coredata.frameworks = 'CoreData'
   end
   
