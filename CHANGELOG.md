@@ -1,6 +1,6 @@
 # INLib CHANGELOG
 
-## 3.1a
+## 3.1
 
 - Fixes INBasicTableViewHeaderFooterView for iOS 8 and Xcode 6
 - Added a `controller` property to INBasicTableViewHeaderFooterView
