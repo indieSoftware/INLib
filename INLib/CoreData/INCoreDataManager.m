@@ -41,6 +41,9 @@
 
 @implementation INCoreDataManager
 
+
+#pragma mark - Instance creation
+
 - (instancetype)initWithName:(NSString *)name storeLocation:(NSString *)storeLocation {
     self = [super init];
     if (self == nil) return self;
@@ -56,7 +59,7 @@
 }
 
 
-#pragma mark - migration
+#pragma mark - Version
 
 - (NSInteger)storeVersion {
     return [NSManagedObjectModel versionNumberOfModelNamed:self.modelName forStoreAtUrl:self.storeUrl];
@@ -70,6 +73,9 @@
     // the sqlite file should exist on the given path if the store has prior been created
     return [[NSFileManager defaultManager] fileExistsAtPath:self.storeUrl.path];
 }
+
+
+#pragma mark - Migration
 
 - (BOOL)isMigrationNeeded {
     if (![self storeExists]) {
@@ -136,6 +142,9 @@
     // still failed to migrate, so give up
     return NO;
 }
+
+
+#pragma mark - Store manipulation
 
 - (BOOL)duplicateStoreToUrl:(NSURL *)url {
     return [self.persistentStoreCoordinator migratePersistentStore:self.persistentStoreCoordinator.persistentStores.lastObject toURL:url options:nil withType:NSSQLiteStoreType error:NULL] != nil;

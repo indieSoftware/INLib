@@ -98,7 +98,7 @@
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 
-/// @name Versions and store migration
+/// @name Versions
 
 /**
  Returns the current store's model version.
@@ -109,12 +109,16 @@
 */
 - (NSInteger)storeVersion;
 
+
 /**
  Returns the currently used model's version.
  
  @return The current model's version.
 */
 - (NSInteger)modelVersion;
+
+
+/// @name Migration
 
 /**
  Returns true if a SQLite store file could be found on disc.
@@ -123,12 +127,14 @@
 */
 - (BOOL)storeExists;
 
+
 /**
  Returns true if there is a SQLite store file and the current model can't be used for it, thus the store needs to be updated.
  
  @return True if the store needs to be migrated to a newer version.
 */
 - (BOOL)isMigrationNeeded;
+
 
 /**
  Performs a migration of a SQLite store.
@@ -149,6 +155,9 @@
 */
 - (BOOL)performMigration:(void (^)(NSInteger fromVersion, NSInteger toVersion, BOOL successfullyMigrated))progressBlock;
 
+
+/// @name Store manipulation
+
 /**
  Duplicates the current store files to another location.
  
@@ -158,6 +167,7 @@
  @return True if the store could be duplicated, false if an error occured.
 */
 - (BOOL)duplicateStoreToUrl:(NSURL *)url;
+
 
 /**
  Deletes the corresponding SQLite store file(s).
