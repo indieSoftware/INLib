@@ -1,4 +1,4 @@
-// INClasses.h
+// INScrollView.m
 //
 // Copyright (c) 2014 Sven Korset
 //
@@ -21,13 +21,35 @@
 // THE SOFTWARE.
 
 
-#import "INAlertView.h"
-#import "INBasicViewController.h"
-#import "INBasicTableViewCell.h"
-#import "INBasicTableViewHeaderFooterCell.h"
-#import "INLocalizer.h"
-#import "INNavigationController.h"
-#import "INRandom.h"
 #import "INScrollView.h"
-#import "INTableView.h"
-#import "INWindow.h"
+
+
+@interface INScrollView ()
+
+@end
+
+
+@implementation INScrollView
+
+- (BOOL)touchesShouldCancelInContentView:(UIView *)view {
+    // cancel view if it's class' name is in the list
+    for (NSString *className in self.classesToCancelTouchesOn) {
+        NSString *viewClassName = NSStringFromClass([view class]);
+        if ([className isEqualToString:viewClassName]) {
+            return YES;
+        }
+    }
+    
+    // cancel view if it's in the list itself
+    for (UIView *viewInList in self.viewsToCancelTouchesOn) {
+        if ([viewInList isEqual:view]) {
+            return YES;
+        }
+    }
+    
+    // use UIScrollView's default implementation
+    return [super touchesShouldCancelInContentView:view];
+}
+
+
+@end

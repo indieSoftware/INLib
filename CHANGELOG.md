@@ -1,5 +1,13 @@
 # INLib CHANGELOG
 
+## 3.2
+
+- Added INRandom methods for random unsigned Integers
+- Added a `randomObject` method in NSArray+INExtensions
+- Added the classes INScrollView and INTableView with the ability to cancel touches on certain or all views when dragging
+- ...
+
+
 ## 3.1
 
 - Fixes INBasicTableViewHeaderFooterView for iOS 8 and Xcode 6

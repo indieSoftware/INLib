@@ -15,6 +15,8 @@ A little iOS Library with common operations, extensions and UI additions.
 - INLocalizer: A class for switching the language during runtime and retrieving the corresponding strings from a Localizable.strings file.
 - INNavigationController: A UINavigationController substitution which forwards all rotation requests to the current top view controller and may forward any segue for unwinding calls to the destination segue.
 - INRandom: A randomizer class which uses arc4random().
+- INScrollView: A UIScrollView subclass which can cancel touches on certain view or on views of specific classes.
+- INTableView: A UITableView subclass which can cancel touches on certain views or on views of specific classes.
 - INWindow: A UIWindow subclass which can ignore special events received by asking a delegate.
 
 ### Categories

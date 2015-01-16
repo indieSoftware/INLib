@@ -151,4 +151,14 @@
 - (NSArray *)arrayWithRandomizedOrder;
 
 
+/**
+ Returns a random object from this array.
+ 
+ Uses INRandom for generating the random index.
+ 
+ @return An object from this array or nil if the array is empty.
+ */
+- (id)randomObject;
+
+
 @end

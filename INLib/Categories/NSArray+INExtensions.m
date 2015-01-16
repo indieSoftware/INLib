@@ -124,5 +124,14 @@
     return resultArray;
 }
 
+- (id)randomObject {
+    if (self.count == 0) {
+        return nil;
+    }
+    
+    NSUInteger index = [INRandom integerWithin:0 and:self.count-1];
+    return self[index];
+}
+
 
 @end
