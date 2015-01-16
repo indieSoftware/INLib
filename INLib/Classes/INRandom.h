@@ -38,7 +38,7 @@
 /**
  Returns a random unsigned integer.
  
- @return A random integer.
+ @return A random unsigned integer.
  */
 + (NSUInteger)integer;
 
@@ -49,10 +49,30 @@
  (max - min + 1) has to be within 0 and INRANDOM_MAX_VALUE - 1, so the sum has to be a 32 bit unsigned integer.
  
  @param min The minimum value for the random value to generate.
- @param max The maximum value for the random value to generate.
- @return A random integer.
+ @param max The maximum value for the random value to generate, has to be greater than min.
+ @return A random unsigned integer.
  */
 + (NSUInteger)integerWithin:(NSUInteger)min and:(NSUInteger)max;
+
+
+/**
+ Returns a random signed integer.
+ 
+ @return A random signed integer.
+ */
++ (NSInteger)signedInteger;
+
+
+/**
+ Returns a random signed integer within a given range, inclusive.
+ 
+ (max - min + 1) has to be within 0 and INRANDOM_MAX_VALUE - 1, so the sum has to be a 32 bit unsigned integer.
+ 
+ @param min The minimum value for the random value to generate, may also be negative.
+ @param max The maximum value for the random value to generate, may also be negative but has to be greater than min.
+ @return A random signed integer.
+ */
++ (NSInteger)signedIntegerWithin:(NSInteger)min and:(NSInteger)max;
 
 
 /**

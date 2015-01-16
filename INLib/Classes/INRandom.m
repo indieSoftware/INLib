@@ -33,6 +33,14 @@
     return arc4random_uniform((u_int32_t)(max - min + 1)) + min;
 }
 
++ (NSInteger)signedInteger {
+    return (NSInteger)arc4random();
+}
+
++ (NSInteger)signedIntegerWithin:(NSInteger)min and:(NSInteger)max {
+    return ((NSInteger)arc4random_uniform((u_int32_t)(max - min + 1))) + min;
+}
+
 + (CGFloat)float {
     return (CGFloat)arc4random() / INRANDOM_MAX_VALUE;
 }
@@ -42,7 +50,7 @@
 }
 
 + (NSInteger)sign {
-    return ((arc4random_uniform(2) == 0) ? 1.0 : -1.0);
+    return ((arc4random_uniform(2) == 0) ? 1 : -1);
 }
 
 
