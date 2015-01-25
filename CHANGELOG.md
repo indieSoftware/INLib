@@ -6,6 +6,7 @@
 - Added a `randomObject` method in NSArray+INExtensions
 - Added the classes INScrollView and INTableView with the ability to cancel touches on certain or all views when dragging
 - Fixes monthsBetweenDate: in NSDate+INExtensions
+- Added the possibility to instantiate an INCoreDataManager instance with a specific model version
 - ...
 
 

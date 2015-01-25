@@ -20,7 +20,7 @@ A little iOS Library with common operations, extensions and UI additions.
 - INWindow: A UIWindow subclass which can ignore special events received by asking a delegate.
 
 ### Categories
-- NSArray: arrayWithSet:, arrayReversed, firstObjectPassingTest:, arrayWithRandomizedOrder, descriptionWithStart:elementFormatter:lastElementFormatter:end:
+- NSArray: arrayWithSet:, arrayReversed, firstObjectPassingTest:, arrayWithRandomizedOrder, descriptionWithStart:elementFormatter:lastElementFormatter:end: 
 - NSBundle: direct shortcut accessors for the bundle identifier and version
 - NSDate: Date detail accessing, cached formatters, date comparison, date manipulation, date difference calculations
 - NSDictionary / NSMutableDictionary: type safe accessors / setter, custom description method

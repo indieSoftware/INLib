@@ -35,6 +35,7 @@
 
 @property (nonatomic, copy, readwrite) NSString *modelName;
 @property (nonatomic, strong, readwrite) NSURL *storeUrl;
+@property (nonatomic, assign) NSInteger versionForNewModel; // default is 0 = model's default version
 
 @end
 
@@ -54,7 +55,23 @@
     NSString *storeFile = [NSString stringWithFormat:@"%@.sqlite", self.modelName];
     NSString *storePath = [storeLocation stringByAppendingPathComponent:storeFile];
     self.storeUrl = [NSURL fileURLWithPath:storePath isDirectory:NO];
+    self.versionForNewModel = 0;
+    
+    return self;
+}
 
+- (instancetype)initWithName:(NSString *)name version:(NSInteger)modelVersion storeLocation:(NSString *)storeLocation {
+    self = [super init];
+    if (self == nil) return self;
+    
+    self.modelName = name;
+    
+    // get store URL
+    NSString *storeFile = [NSString stringWithFormat:@"%@.sqlite", self.modelName];
+    NSString *storePath = [storeLocation stringByAppendingPathComponent:storeFile];
+    self.storeUrl = [NSURL fileURLWithPath:storePath isDirectory:NO];
+    self.versionForNewModel = modelVersion;
+    
     return self;
 }
 
@@ -193,7 +210,11 @@
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
-    _managedObjectModel = [NSManagedObjectModel modelNamed:self.modelName];
+    if (self.versionForNewModel > 0) {
+        _managedObjectModel = [NSManagedObjectModel modelNamed:self.modelName version:self.versionForNewModel];
+    } else {
+        _managedObjectModel = [NSManagedObjectModel modelNamed:self.modelName];
+    }
     return _managedObjectModel;
 }
 

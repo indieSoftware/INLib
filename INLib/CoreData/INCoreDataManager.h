@@ -81,6 +81,19 @@
  */
 - (instancetype)initWithName:(NSString *)name storeLocation:(NSString *)storeLocation;
 
+/**
+ Initializes the manager with a model name and a store location.
+ 
+ This method does the same as initWithName:storeLocation: except that it sets the desired model to a specific version.
+ 
+ @param name The model's name.
+ @param modelVersion The model's version number greater than 0. If 0 the model's default version will be used.
+ @param storeLocation The directory of the SQLite store file(s).
+ @return The initialized instance.
+ @see initWithName:storeLocation:
+ */
+- (instancetype)initWithName:(NSString *)name version:(NSInteger)modelVersion storeLocation:(NSString *)storeLocation;
+
 /// The model's name.
 @property (nonatomic, copy, readonly) NSString *modelName;
 
@@ -130,6 +143,9 @@
 
 /**
  Returns true if there is a SQLite store file and the current model can't be used for it, thus the store needs to be updated.
+ 
+ When creating a manager instance for a specific model version the persistent store coordinator for this model version will be also created,
+ so calling isMigrationNeeded on the manager for a lower model version will return NO for a store with the specific version.
  
  @return True if the store needs to be migrated to a newer version.
 */
