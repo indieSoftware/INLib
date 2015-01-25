@@ -463,8 +463,7 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 /**
  Returns the number of months between this and another date.
  
- Between 31.3.2014 and 1.5.2014 is one month, same between 1.3.2014 and 31.5.2014, 
- but no months between 1.3.2014 and 30.4.2014.
+ Returns a negative number if the other date is before this one.
  
  @param otherDate The other date to compare with.
  @return Number of months between the two dates.
@@ -474,6 +473,8 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 /**
  Returns the number of days between this and the another date.
+ 
+ Returns a negative numbers if the other date is before this one.
  
  @param otherDate The other date to compare with.
  @return Number of days between the two dates.

@@ -80,18 +80,18 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
 }
 
 + (NSString *)stringRepresentationForSeconds:(NSInteger)seconds printSign:(BOOL)printSign printSeconds:(BOOL)printSeconds {
-	int hour = (seconds / 3600) % 24;
-	int rest = seconds % 3600;
-	int min = rest / 60;
-	int secs = rest % 60;
+	NSInteger hour = (seconds / 3600) % 24;
+	NSInteger rest = seconds % 3600;
+	NSInteger min = rest / 60;
+	NSInteger secs = rest % 60;
 	NSString *prefix = @"";
 	if (printSign && seconds >= 0) prefix = @"+";
 	else if (printSign && seconds < 0) prefix = @"-";
 	NSString *time = nil;
 	if (printSeconds) {
-		time = [NSString stringWithFormat:@"%@%.2d:%.2d:%.2d", prefix, abs(hour), abs(min), abs(secs)];
+		time = [NSString stringWithFormat:@"%@%.2ld:%.2ld:%.2ld", prefix, (long)fabs(hour), (long)fabs(min), (long)fabs(secs)];
 	} else {
-		time = [NSString stringWithFormat:@"%@%.2d:%.2d", prefix, abs(hour), abs(min)];
+		time = [NSString stringWithFormat:@"%@%.2ld:%.2ld", prefix, (long)fabs(hour), (long)fabs(min)];
 	}
 	return time;
 }
@@ -213,13 +213,13 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
 - (NSDate *)dateWithLastOfMonth {
 	INDateInformation info = [self dateInformation];
     NSDate *temp;
-    for (int i = 0; i < 4; i++) {
+    for (NSInteger i = 0; i < 4; i++) {
         info.day = 31 - i;
         info.minute = 0;
         info.second = 0;
         info.hour = 0;
         temp = [NSDate dateWithDateInformation:info];
-        if (temp.dayNumberOfMonth == 31 - i) {
+        if ([temp dayNumberOfMonth] == 31 - i) {
             break;
         }
     }
@@ -442,31 +442,13 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
 }
 
 - (NSInteger)monthsBetweenDate:(NSDate *)otherDate {
-	if (otherDate == nil) return 0;
-	
-	NSDate *firstDate = self;
-	NSDate *lastDate = otherDate;
-	if ([firstDate compare:lastDate] == NSOrderedDescending) {
-		firstDate = otherDate;
-		lastDate = self;
-	}
-	
-	NSInteger startYear = [firstDate yearNumber];
-	NSInteger endYear = [lastDate yearNumber];
-	NSInteger startMonth = [firstDate monthNumber];
-	NSInteger endMonth = [lastDate monthNumber];
-	NSInteger totalMonths = 0;
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitMonth fromDate:self toDate:otherDate options:0];
+    }
     
-	if (endYear > startYear) {
-		totalMonths += (endYear - startYear - 1) * 12;
-	}
-	if (endMonth > startMonth) {
-		totalMonths += endMonth - startMonth;
-	} else if (endMonth < startMonth) {
-		totalMonths += 12 - (startMonth - endMonth);
-	}
-    
-	return totalMonths;
+    return [comps month];
 }
 
 - (NSInteger)daysBetweenDate:(NSDate *)otherDate {
