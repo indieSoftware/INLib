@@ -177,7 +177,10 @@
 /**
  Duplicates the current store files to another location.
  
- This done by `[NSPersistentStoreCoordinator migratePersistentStore:toURL:options:withType:error:]` instead of copying any files on disc directly.
+ Before calling this method any pending modifications should be saved.
+ 
+ This is done by copying any files on disc directly to the new location instead of using `[NSPersistentStoreCoordinator migratePersistentStore:toURL:options:withType:error:]`, because we want to continue the old store and not the new migrated one.
+ Each file at the current store's location with the same name of the model name will be copied, which will be not only the .sqlite file, but also the .sqlite-shm and .sqlite-wal files.
  
  @param url The URL which includes the new store's file name.
  @return True if the store could be duplicated, false if an error occured.

@@ -164,7 +164,29 @@
 #pragma mark - Store manipulation
 
 - (BOOL)duplicateStoreToUrl:(NSURL *)url {
-    return [self.persistentStoreCoordinator migratePersistentStore:self.persistentStoreCoordinator.persistentStores.lastObject toURL:url options:nil withType:NSSQLiteStoreType error:NULL] != nil;
+    // close all connections to the store
+    self.persistentStoreCoordinator = nil;
+    self.managedObjectContext = nil;
+    self.managedObjectModel = nil;
+    
+    // copy all corresponding files
+    NSString *matchingFilename = [NSString stringWithFormat:@"%@.sqlite", self.modelName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *sourcePath = [[self.storeUrl URLByDeletingLastPathComponent] path];
+    NSString *destinationPath = [url path];
+    NSDirectoryEnumerator *filesEnumerator = [fileManager enumeratorAtPath:sourcePath];
+    NSString *file;
+    while (file = [filesEnumerator nextObject]) {
+        if ([file hasPrefix:matchingFilename]) {
+            NSString *sourceFilePath = [sourcePath stringByAppendingPathComponent:file];
+            NSString *destinationFilePath = [destinationPath stringByAppendingPathComponent:file];
+            NSError *error;
+            if (![fileManager copyItemAtPath:sourceFilePath toPath:destinationFilePath error:&error]) {
+                return NO;
+            }
+        }
+    }
+    return YES;
 }
 
 - (BOOL)deleteStore {
