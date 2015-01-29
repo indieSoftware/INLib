@@ -8,7 +8,6 @@
 - Fixes monthsBetweenDate: in NSDate+INExtensions
 - Added the possibility to instantiate an INCoreDataManager instance with a specific model version
 - Fixed the duplicateStoreToUrl: method in INCoreDataManager
-- ...
 
 
 ## 3.1
