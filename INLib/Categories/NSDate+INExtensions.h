@@ -295,6 +295,14 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 
 /**
+ Creates a date with the time zeroed and the day and month set to the first of the year.
+ 
+ @return A date object which represents the first of the year.
+ */
+- (NSDate *)dateWithFirstOfYear;
+
+
+/**
  Creates a date with the day set to the first day of the week.
 
  @param daynumber The first day in the week as a number (1=Sun, 2=Mon, ...)
@@ -459,6 +467,17 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 #pragma mark - Date difference calculations
 /// @name Date difference calculations
+
+/**
+ Returns the number of years between this and another date.
+ 
+ Returns a negative number if the other date is before this one.
+ 
+ @param otherDate The other date to compare with.
+ @return Number of years between the two dates.
+ */
+- (NSInteger)yearsBetweenDate:(NSDate *)otherDate;
+
 
 /**
  Returns the number of months between this and another date.

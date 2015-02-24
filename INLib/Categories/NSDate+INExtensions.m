@@ -256,6 +256,16 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
     return date;
 }
 
+- (NSDate *)dateWithFirstOfYear {
+    INDateInformation info = [self dateInformation];
+    info.month = 1;
+    info.day = 1;
+    info.minute = 0;
+    info.second = 0;
+    info.hour = 0;
+    return [NSDate dateWithDateInformation:info];
+}
+
 - (NSDate *)dateWithWeekstart:(NSInteger)daynumber {
     INDateInformation dateInfo = [self dateInformation];
     NSInteger daysToSub = (dateInfo.weekday - daynumber + 7) % 7;
@@ -439,6 +449,16 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
         string = [dateFormatter stringFromDate:self];
     }
     return string;
+}
+
+- (NSInteger)yearsBetweenDate:(NSDate *)otherDate {
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitYear fromDate:self toDate:otherDate options:0];
+    }
+    
+    return [comps year];
 }
 
 - (NSInteger)monthsBetweenDate:(NSDate *)otherDate {

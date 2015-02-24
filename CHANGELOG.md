@@ -1,5 +1,11 @@
 # INLib CHANGELOG
 
+## 3.3
+
+- Added some year calculation methods to the NSDate category.
+- ...
+
+
 ## 3.2
 
 - Added INRandom methods for random unsigned Integers
