@@ -24,7 +24,7 @@
 /**
  The maximum value of a returned random call. This is a 32 bit unsigned integer.
  */
-#define INRANDOM_MAX_VALUE 0xFFFFFFFFu
+static NSUInteger const INRandomMaxValue = 0xFFFFFFFFu;
 
 
 /**

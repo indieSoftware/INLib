@@ -26,8 +26,6 @@
  */
 @protocol INWindowDelegate <NSObject>
 
-@optional
-
 /**
  An optional call back method which will be called when the window object receives an event.
  

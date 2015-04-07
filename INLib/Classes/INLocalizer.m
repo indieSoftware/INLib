@@ -24,6 +24,11 @@
 #import "INLocalizer.h"
 
 
+NSString *INLocalizeString(NSString *string) {
+    return [[INLocalizer sharedInstance] localizeString:string];
+}
+
+
 @implementation UIView (INLocalize)
 
 - (void)localizeStrings {
@@ -176,6 +181,10 @@ INSingletonDefinition
         return nil;
     }
 	return [self.bundle localizedStringForKey:string value:string table:nil];
+}
+
++ (NSString *)localizeString:(NSString *)string {
+    return [[INLocalizer sharedInstance] localizeString:string];
 }
 
 

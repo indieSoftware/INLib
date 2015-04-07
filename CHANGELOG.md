@@ -3,7 +3,10 @@
 ## 3.3
 
 - Added some year calculation methods to the NSDate category.
-- ...
+- INLocalizer replaced the macro with a global function for compatibility with swift and added +localizeString: as an alternative
+- Deprecated INAlertView
+- INWindowDelegate made the optional method mandatory
+- INBasicTableViewCell made NSStringFromClass swift compatible
 
 
 ## 3.2

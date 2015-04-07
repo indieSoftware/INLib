@@ -25,6 +25,11 @@
 #import "INLocalizer.h"
 
 
+
+NSString * const INBasicViewControllerShouldUpdateNotification = @"INBasicViewControllerShouldUpdateNotification";
+
+
+
 @interface INBasicViewController ()
 
 @property (nonatomic, readwrite, getter=isActiveController) BOOL activeController;

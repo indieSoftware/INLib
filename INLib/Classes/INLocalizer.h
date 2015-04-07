@@ -24,13 +24,18 @@
 #import "INMacros.h"
 
 
+
 /**
- Shortcut macro for localizing a string with INLocalizer.
+ Global function for localizing a string with INLocalizer.
  
- @param _string_ The NSString to localize.
+ Shortcut for:
+ 
+    [[INLocalizer sharedInstance] localizeString:string]
+ 
+ @param string The NSString to localize.
  @return A localized NSString.
  */
-#define INLocalizeString(_string_) [[INLocalizer sharedInstance] localizeString:_string_]
+NSString *INLocalizeString(NSString *string);
 
 
 
@@ -86,6 +91,21 @@ INSingletonDeclaration
 - (NSString *)localizeString:(NSString *)string;
 
 
+/**
+ Localizes a string.
+ 
+ The given string will be localized by the singleton.
+
+ Same as calling:
+ 
+    [[INLocalizer sharedInstance] localizeString:string]
+ 
+ @param string The string to localize.
+ @return The localized string.
+ */
++ (NSString *)localizeString:(NSString *)string;
+
+
 @end
 
 
@@ -128,4 +148,6 @@ INSingletonDeclaration
 - (void)localizeStrings;
 
 @end
+
+
 

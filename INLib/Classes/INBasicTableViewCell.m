@@ -50,7 +50,9 @@ static NSMutableDictionary *__dictINBasicTableViewCellStats;
 #pragma mark - public 
 
 + (instancetype)cell {
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil];
+    NSString *className = NSStringFromClass(self);
+    className = [className componentsSeparatedByString:@"."].lastObject;
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:className owner:nil options:nil];
 	id cell = [nib objectAtIndex:0];
     return cell;
 }
@@ -72,6 +74,7 @@ static NSMutableDictionary *__dictINBasicTableViewCellStats;
         __dictINBasicTableViewCellStats = [NSMutableDictionary dictionary];
     }
     NSString *className = NSStringFromClass(self);
+    className = [className componentsSeparatedByString:@"."].lastObject;
     INBasicTableViewCellStats *cellStats = [__dictINBasicTableViewCellStats objectForKey:className];
     if (cellStats == nil) {
         cellStats = [[INBasicTableViewCellStats alloc] init];
@@ -90,7 +93,9 @@ static NSMutableDictionary *__dictINBasicTableViewCellStats;
 }
 
 + (void)registerAtTableView:(UITableView *)tableView {
-    [tableView registerNib:[UINib nibWithNibName:NSStringFromClass(self) bundle:nil] forCellReuseIdentifier:[self cellIdentifier]];
+    NSString *className = NSStringFromClass(self);
+    className = [className componentsSeparatedByString:@"."].lastObject;
+    [tableView registerNib:[UINib nibWithNibName:className bundle:nil] forCellReuseIdentifier:[self cellIdentifier]];
 }
 
 

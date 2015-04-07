@@ -29,7 +29,7 @@
  
  when the model's data has changed and the view controller needs to update the view.
  */
-static NSString * const INBasicViewControllerShouldUpdateNotification = @"INBasicViewControllerShouldUpdateNotification";
+extern NSString * const INBasicViewControllerShouldUpdateNotification;
 
 
 

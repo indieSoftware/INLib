@@ -42,11 +42,11 @@
 }
 
 + (CGFloat)float {
-    return (CGFloat)arc4random() / INRANDOM_MAX_VALUE;
+    return (CGFloat)arc4random() / INRandomMaxValue;
 }
 
 + (CGFloat)floatWithin:(CGFloat)min and:(CGFloat)max {
-    return ((CGFloat)arc4random() / INRANDOM_MAX_VALUE) * (max - min) + min;
+    return ((CGFloat)arc4random() / INRandomMaxValue) * (max - min) + min;
 }
 
 + (NSInteger)sign {
