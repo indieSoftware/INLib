@@ -23,7 +23,10 @@
 
 /**
  A UIAlertView which dismisses itself automatically when the app goes to the background. At plus this alert view class uses blocks instead of the delegate protocol.
+ 
+ @deprecated Use UIAlertController instead
  */
+__deprecated
 @interface INAlertView : UIAlertView
 
 /**

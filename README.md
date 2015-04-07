@@ -8,7 +8,6 @@ A little iOS Library with common operations, extensions and UI additions.
 ## Features
 
 ### Classes
-- INAlertView: A UIAlertView which dismisses itself automatically when the app goes to the background. At plus this alert view class uses blocks instead of the delegate protocol.
 - INBasicTableViewCell: A basic table view cell class for deriving from instead of UITableViewCell to get class methods for loading from a xib file, accessing the cell identifier and registering at a table view.
 - INBasicTableViewHeaderFooterView: A basic table header/footer view class for deriving from instead of UITableViewHeaderFooterView which adds some static methods for creation and determination.
 - INBasicViewController: A basic view controller which introduces a updateView method for subclasses, has a parentController property and can be loaded from a xib file with a static method.
