@@ -1,5 +1,11 @@
 # INLib CHANGELOG
 
+## 3.3.1
+
+- Bugfix: UI_USER_INTERFACE_IDIOM is in iOS 8.3 no macro anymore
+- Repaced some "(long)fabs()" to "labs()"
+
+
 ## 3.3
 
 - Added some year calculation methods to the NSDate category.

@@ -89,9 +89,9 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
 	else if (printSign && seconds < 0) prefix = @"-";
 	NSString *time = nil;
 	if (printSeconds) {
-		time = [NSString stringWithFormat:@"%@%.2ld:%.2ld:%.2ld", prefix, (long)fabs(hour), (long)fabs(min), (long)fabs(secs)];
+		time = [NSString stringWithFormat:@"%@%.2ld:%.2ld:%.2ld", prefix, labs(hour), labs(min), labs(secs)];
 	} else {
-		time = [NSString stringWithFormat:@"%@%.2ld:%.2ld", prefix, (long)fabs(hour), (long)fabs(min)];
+		time = [NSString stringWithFormat:@"%@%.2ld:%.2ld", prefix, labs(hour), labs(min)];
 	}
 	return time;
 }

@@ -27,11 +27,7 @@
 @implementation UIDevice (INExtensions)
 
 - (BOOL)isIPad {
-#ifdef UI_USER_INTERFACE_IDIOM
     return UI_USER_INTERFACE_IDIOM();
-#else
-    return NO;
-#endif
 }
 
 - (void)simulateMemoryWarning {
