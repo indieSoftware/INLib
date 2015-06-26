@@ -52,7 +52,7 @@ static NSMutableDictionary *__dictINBasicTableViewCellStats;
 + (instancetype)cell {
     NSString *className = NSStringFromClass(self);
     className = [className componentsSeparatedByString:@"."].lastObject;
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:className owner:nil options:nil];
+    NSArray *nib = [[NSBundle bundleForClass:self] loadNibNamed:className owner:nil options:nil];
 	id cell = [nib objectAtIndex:0];
     return cell;
 }

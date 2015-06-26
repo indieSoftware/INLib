@@ -1,5 +1,10 @@
 # INLib CHANGELOG
 
+## 
+
+- Bugfix: Using [NSBundle bundleForClass:self] instead of [NSBundle mainBundle], so INLocalizer can also be used in an IBDesignable view
+
+
 ## 3.3.1
 
 - Bugfix: UI_USER_INTERFACE_IDIOM is in iOS 8.3 no macro anymore

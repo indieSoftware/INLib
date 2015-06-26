@@ -53,7 +53,7 @@ static NSMutableDictionary *__dictINBasicTableViewHeaderFooterViewStats;
 }
 
 + (UIView *)contentViewFromNibForOwner:(id)owner {
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
+    NSArray *nib = [[NSBundle bundleForClass:self] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
     UIView *view = [nib objectAtIndex:0];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     return view;
