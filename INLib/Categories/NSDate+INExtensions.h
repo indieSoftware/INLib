@@ -61,6 +61,19 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 @interface NSDate (INExtensions)
 
+#pragma mark - Cached Calendar
+/// @name Cache Calendar
+
+/**
+ Returns a cached gregorian calendar which is used by many methods of this extension.
+
+ The default calendar is set up with the current locale.
+
+ @return The cached calendar.
+ */
++ (NSCalendar *)cachedGregorianCalendar;
+
+
 #pragma mark - DateInformation
 /// @name DateInformation
 
@@ -339,39 +352,21 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 
 /**
- Returns the weeknumber of the year, i.e. 20.
+ Returns the weeknumber of the year, i.e. 20 for the 20th week.
  
- The weeknumber is depending from the first weekday which is in ISO 8601 monday, but in US it is sunday, so the same day may be in different weeks for US and Europe.
- Calling this method will change the currently used first day for subsequent weekNumberOfYear calls.
-
- @param firstWeekday The first weekday, sunday = 1, monday = 2, etc.
- @return The week as a number.
- @see weekNumberOfYear
- */
-- (NSInteger)weekNumberOfYearBeginningWithFirstWeekday:(NSUInteger)firstWeekday;
-
-
-/**
- Returns the weeknumber of the year, i.e. 20.
+ The weeknumber is depending of the first weekday which is in ISO 8601 monday, but in US it is sunday, so the same day may be in different weeks for US and europe.
  
- The weeknumber is depending from the first weekday which is in ISO 8601 monday, but in US it is sunday, so the same day may be in different weeks for US and europe.
- The first weekday will be determined from the current locale.
- Changing the first weekday by calling weekNumberOfYearBeginningWithFirstWeekday: will change the currently used first day.
+ The first weekday will be determined from the current locale, and can be changed with the calendar's `firstWeekday` property.
+ Change the first weekday by assigning `firstWeekday` from the `cachedGregorianCalendar` within a synchronized block, but beware that the cached calender will be used also by all other methods of this extension.
+ 
+    NSCalendar *calendar = [NSDate cachedGregorianCalendar];
+    @synchronized(calendar) {
+        calendar.firstWeekday = 2; // Set to monday
+    }
 
  @return The week as a number.
- @see weekNumberOfYearBeginningWithFirstWeekday:
  */
 - (NSInteger)weekNumberOfYear;
-
-
-/**
- Returns the first weekday used by the week number of year date formatter.
-
- The Dateformatter of the methods weekNumberOfYear and weekNumberOfYearBeginningWithFirstWeekday: will be used for determining the currently set first weekday number.
-
- @return The first week day number. 1 = Sunday, 2 = Monday, ..., 7 = Saturday.
- */
-+ (NSUInteger)firstWeekdayUsedForWeekNumberDateFormatter;
 
 
 /**
@@ -383,7 +378,7 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 
 /**
- Returns the day number of the month, i.e. 31.
+ Returns the day number of the month, i.e. 31 for January the 31st.
  
  @return The day as a number. Ranged from 1 to 31.
  */
@@ -391,7 +386,7 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 
 /**
- Returns the day number of the year, i.e. 365.
+ Returns the day number of the year, i.e. 365 for the 365th day of this year.
  
  @return The day as a number. Ranged from 1 to 366.
  */
@@ -399,9 +394,9 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 
 /**
- Returns the day number of the week, i.e. 7.
+ Returns the day number of the week, i.e. 2 for the 2nd Wed in July.
  
- @return The day as a number. Ranged from 1 to 7.
+ @return The ordinal day of week in month as a number. Ranged from 1 to 6.
  */
 - (NSInteger)dayNumberOfWeekInMonth;
 

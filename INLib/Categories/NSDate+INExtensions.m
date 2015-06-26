@@ -47,29 +47,23 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 // use a static gregorian calendar for performance purposes because creating it at runtime is time expensive
 static NSCalendar *__defaultCachedGregorianCalendar = nil;
-// the last used weekday number as the first weekday in a week for the weekday calculating method
-static NSUInteger __lastUsedFirstWeekday = 1; // sunday is apple's default for the U.S.
-// the static date formatter for the weekday calculating method
-static NSDateFormatter *__dateFormatterForWeekday = nil;
 
 
 @implementation NSDate (IExtensions)
 
-
-#pragma mark - private methods
+#pragma mark - public methods
 
 + (NSCalendar *)cachedGregorianCalendar {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         // create the calendar
-        __defaultCachedGregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        [__defaultCachedGregorianCalendar setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        [calendar setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
+        calendar.locale = [NSLocale currentLocale];
+        __defaultCachedGregorianCalendar = calendar;
     });
     return __defaultCachedGregorianCalendar;
 }
-
-
-#pragma mark - public methods
 
 + (NSInteger)secondsForDays:(NSInteger)days hours:(NSInteger)hours minutes:(NSInteger)minutes seconds:(NSInteger)seconds {
 	return (days * 86400 + hours * 3600 + minutes * 60 + seconds);
@@ -85,8 +79,11 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
 	NSInteger min = rest / 60;
 	NSInteger secs = rest % 60;
 	NSString *prefix = @"";
-	if (printSign && seconds >= 0) prefix = @"+";
-	else if (printSign && seconds < 0) prefix = @"-";
+    if (printSign && seconds >= 0) {
+        prefix = @"+";
+    } else if (printSign && seconds < 0) {
+        prefix = @"-";
+    }
 	NSString *time = nil;
 	if (printSeconds) {
 		time = [NSString stringWithFormat:@"%@%.2ld:%.2ld:%.2ld", prefix, labs(hour), labs(min), labs(secs)];
@@ -274,155 +271,116 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
 }
 
 
-// see http://unicode.org/reports/tr35/tr35-10.html#Date_Format_Patterns
-
 - (NSInteger)yearNumber {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"yyyy"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitYear fromDate:self];
     }
-	return [string intValue];
+    return comps.year;
 }
 
 - (NSInteger)monthNumber {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"MM"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitMonth fromDate:self];
     }
-	return [string intValue];
+    return comps.month;
 }
 
 - (NSInteger)quarterNumber {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"q"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitQuarter fromDate:self];
     }
-	return [string intValue];
-}
-
-+ (void)createDateFormatterForWeekdateIfNeeded {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // create the date formatter
-        __dateFormatterForWeekday = [[NSDateFormatter alloc] init];
-        [__dateFormatterForWeekday setDateFormat:@"ww"];
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        [gregorian setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
-        [gregorian setLocale:[NSLocale currentLocale]]; // use to determine first weekday
-        __lastUsedFirstWeekday = gregorian.firstWeekday;
-        __dateFormatterForWeekday.calendar = gregorian;
-    });
-}
-
-- (NSInteger)weekNumberOfYearBeginningWithFirstWeekday:(NSUInteger)firstWeekday {
-    // use static date formatter for performance purposes
-    [NSDate createDateFormatterForWeekdateIfNeeded];
-    
-    // change weekday only if necessary
-    if (__lastUsedFirstWeekday != firstWeekday) {
-        @synchronized(__dateFormatterForWeekday) {
-            NSCalendar *gregorian = __dateFormatterForWeekday.calendar;
-            [gregorian setFirstWeekday:firstWeekday];
-            __dateFormatterForWeekday.calendar = gregorian; // needs to be assigned back
-            __lastUsedFirstWeekday = firstWeekday;
-        }
-    }
-    
-    // get the value
-	NSString *string = [__dateFormatterForWeekday stringFromDate:self];
-	return [string intValue];
+    return comps.quarter;
 }
 
 - (NSInteger)weekNumberOfYear {
-    // use static date formatter for performance purposes
-    [NSDate createDateFormatterForWeekdateIfNeeded];
-    
-    // get the value
-	NSString *string = [__dateFormatterForWeekday stringFromDate:self];
-	return [string intValue];
-}
-
-+ (NSUInteger)firstWeekdayUsedForWeekNumberDateFormatter {
-    // use static date formatter for performance purposes
-    [NSDate createDateFormatterForWeekdateIfNeeded];
-    
-    return __dateFormatterForWeekday.calendar.firstWeekday;
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitWeekOfYear fromDate:self];
+    }
+    return comps.weekOfYear;
 }
 
 - (NSInteger)weekNumberOfMonth {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"W"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitWeekOfMonth fromDate:self];
     }
-	return [string intValue];
+    return comps.weekOfMonth;
 }
 
 - (NSInteger)dayNumberOfMonth {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"dd"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitDay fromDate:self];
     }
-	return [string intValue];
+    return comps.day;
 }
 
 - (NSInteger)dayNumberOfYear {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"DDD"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSInteger dayOfYear;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        dayOfYear = [gregorian ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:self];
     }
-	return [string intValue];
+    return dayOfYear;
 }
 
 - (NSInteger)dayNumberOfWeekInMonth {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"F"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitWeekdayOrdinal fromDate:self];
     }
-	return [string intValue];
+    return comps.weekdayOrdinal;
 }
 
 - (NSInteger)weekdayNumber {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"e"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitWeekday fromDate:self];
     }
-	return [string intValue];
+    return comps.weekday;
 }
 
 - (NSInteger)hourNumber {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"HH"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitHour fromDate:self];
     }
-	return [string intValue];
+    return comps.hour;
 }
 
 - (NSInteger)minuteNumber {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"mm"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitMinute fromDate:self];
     }
-	return [string intValue];
+    return comps.minute;
 }
 
 - (NSInteger)secondNumber {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"ss"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
+    NSDateComponents *comps;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        comps = [gregorian components:NSCalendarUnitSecond fromDate:self];
     }
-	return [string intValue];
+    return comps.second;
 }
+
+
+// see http://unicode.org/reports/tr35/tr35-10.html#Date_Format_Patterns
 
 - (NSString *)stringWithMonthName {
 	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"MMMM"];
@@ -480,6 +438,7 @@ static NSDateFormatter *__dateFormatterForWeekday = nil;
     
     return [comps day];
 }
+
 
 + (NSDate *)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
     NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"yyyy-MM-dd"];
