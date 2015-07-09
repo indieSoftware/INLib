@@ -372,6 +372,8 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 /**
  Returns the week number of the month, i.e. 4.
  
+ This value is dependant of the calendar's first weekday.
+ 
  @return The week as a number. Ranged from 1 to 5.
  */
 - (NSInteger)weekNumberOfMonth;
