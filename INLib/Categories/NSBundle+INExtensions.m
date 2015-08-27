@@ -30,6 +30,10 @@
 	return [NSBundle bundleValueForKey:@"CFBundleVersion"];
 }
 
++ (NSString*)bundleShortVersion {
+    return [NSBundle bundleValueForKey:@"CFBundleShortVersionString"];
+}
+
 + (NSString*)bundleIdentifier {
 	return [[NSBundle mainBundle] bundleIdentifier];
 }

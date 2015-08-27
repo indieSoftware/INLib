@@ -3,8 +3,12 @@
 ## 4.0
 
 - Bugfix: Using [NSBundle bundleForClass:self] instead of [NSBundle mainBundle], so INLocalizer can also be used in an IBDesignable view
-- Bugfix: Using NSDateComponents instead of NSDateFormatter for various NSDate extension methods
 - Removed the weekNumberOfYearBeginningWithFirstWeekday: method from the NSDate extension and introduced a cachedGregorianCalendar
+- Bugfix: Using NSDateComponents instead of NSDateFormatter for various NSDate extension methods and other bugfixes in NSDate+INExtension
+- Removed the stringifying methods from NSDate+INExtension
+- Added Tests for NSDate+INExtensions
+- Added [NSBundle bundleShortVersion] to get the short version number.
+- ...
 
 
 ## 3.3.1

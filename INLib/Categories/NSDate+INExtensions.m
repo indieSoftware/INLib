@@ -58,7 +58,7 @@ static NSCalendar *__defaultCachedGregorianCalendar = nil;
     dispatch_once(&onceToken, ^{
         // create the calendar
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        [calendar setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
+//        [calendar setMinimumDaysInFirstWeek:4]; // US starts with 1, ISO 8601 starts with 4
         calendar.locale = [NSLocale currentLocale];
         __defaultCachedGregorianCalendar = calendar;
     });
@@ -94,25 +94,19 @@ static NSCalendar *__defaultCachedGregorianCalendar = nil;
 }
 
 - (BOOL)isToday {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    [calendar setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
-
-    NSUInteger components = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
-    NSDateComponents *comp1 = [calendar components:components fromDate:self];
-    NSDateComponents *comp2 = [calendar components:components fromDate:[NSDate date]];
-
-    // isToday if day, month and year of NSDate are equal
-    return [comp1 day] == [comp2 day] && [comp1 month] == [comp2 month] && [comp1 year] == [comp2 year];
+    return [self isSameDay:[NSDate date]];
 }
 
 - (BOOL)isSameDay:(NSDate *)otherDate {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
-    [calendar setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
-    
-    NSUInteger components = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
-	NSDateComponents *comp1 = [calendar components:components fromDate:self];
-	NSDateComponents *comp2 = [calendar components:components fromDate:otherDate];
-    
+    NSDateComponents *comp1;
+    NSDateComponents *comp2;
+    NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
+    @synchronized(gregorian) {
+        NSUInteger components = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
+        comp1 = [gregorian components:components fromDate:self];
+        comp2 = [gregorian components:components fromDate:otherDate];
+    }
+    // isToday if day, month and year are equal
     return [comp1 day] == [comp2 day] && [comp1 month] == [comp2 month] && [comp1 year] == [comp2 year];
 } 
 
@@ -139,26 +133,6 @@ static NSCalendar *__defaultCachedGregorianCalendar = nil;
     }
     
     return info;
-}
-
-- (INDateInformation)dateInformationWithTimeZone:(NSTimeZone *)timeZone {
-	INDateInformation info;
-	
-	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    [gregorian setMinimumDaysInFirstWeek:4]; // iOS 5 workaround
-	[gregorian setTimeZone:timeZone];
-    NSUInteger components = NSCalendarUnitMonth | NSCalendarUnitMinute | NSCalendarUnitYear | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitSecond;
-	NSDateComponents *comp = [gregorian components:components fromDate:self];
-    
-	info.year = [comp year];
-	info.month = [comp month];
-	info.day = [comp day];
-	info.weekday = [comp weekday];
-	info.hour = [comp hour];
-	info.minute = [comp minute];
-	info.second = [comp second];
-	
-	return info;
 }
 
 + (NSDate *)dateWithDateInformation:(INDateInformation)dateInfo timeZone:(NSTimeZone*)timeZone {
@@ -290,12 +264,15 @@ static NSCalendar *__defaultCachedGregorianCalendar = nil;
 }
 
 - (NSInteger)quarterNumber {
+    return ([self monthNumber] - 1) / 3 + 1;
+/*  // *Workaround* The code should be the following, but it seems there is a bug in iOS, so we calculate the quarter from the month instead.
     NSDateComponents *comps;
     NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
     @synchronized(gregorian) {
         comps = [gregorian components:NSCalendarUnitQuarter fromDate:self];
     }
     return comps.quarter;
+*/
 }
 
 - (NSInteger)weekNumberOfYear {
@@ -380,35 +357,6 @@ static NSCalendar *__defaultCachedGregorianCalendar = nil;
 }
 
 
-// see http://unicode.org/reports/tr35/tr35-10.html#Date_Format_Patterns
-
-- (NSString *)stringWithMonthName {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"MMMM"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
-    }
-    return string;
-}
-
-- (NSString *)stringWithWeekdayName {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"eeee"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
-    }
-    return string;
-}
-
-- (NSString *)stringWithWeekdayNameShort {
-	NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"eee"];
-    NSString *string = nil;
-    @synchronized(dateFormatter) {
-        string = [dateFormatter stringFromDate:self];
-    }
-    return string;
-}
-
 - (NSInteger)yearsBetweenDate:(NSDate *)otherDate {
     NSDateComponents *comps;
     NSCalendar *gregorian = [NSDate cachedGregorianCalendar];
@@ -441,32 +389,21 @@ static NSCalendar *__defaultCachedGregorianCalendar = nil;
 
 
 + (NSDate *)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
-    NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"yyyy-MM-dd"];
-    NSDate *date = nil;
-    @synchronized(dateFormatter) {
-        NSString *string = [[NSString alloc] initWithFormat:@"%ld-%02ld-%02ld", (long)year, (long)month, (long)day];
-        date = [dateFormatter dateFromString:string];
-    }
-	return date;
+    INDateInformation dateInfo = INDateInformationMake(year, month, day, 0, 0, 0);
+    NSDate *date = [NSDate dateWithDateInformation:dateInfo];
+    return date;
 }
 
 + (NSDate *)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second {
-    NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date = nil;
-    @synchronized(dateFormatter) {
-        NSString *string = [[NSString alloc] initWithFormat:@"%ld-%02ld-%02ld %02ld:%02ld:%02ld", (long)year, (long)month, (long)day, (long)hour, (long)minute, (long)second];
-        date = [dateFormatter dateFromString:string];
-    }
-	return date;
+    INDateInformation dateInfo = INDateInformationMake(year, month, day, hour, minute, second);
+    NSDate *date = [NSDate dateWithDateInformation:dateInfo];
+    return date;
 }
 
 - (NSDate *)dateWithTimeZeroed {
-    NSDateFormatter *dateFormatter = [NSDateFormatter cachedDateFormatterForFormat:@"yyyy-MM-dd"];
-    NSDate *date = nil;
-    @synchronized(dateFormatter) {
-        NSString *string = [dateFormatter stringFromDate:self];
-        date = [dateFormatter dateFromString:string];
-    }
+    NSUInteger components = NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitDay;
+    INDateInformation dateInfo = [self dateInformationForComponents:components];
+    NSDate *date = [NSDate dateWithDateInformation:dateInfo];
     return date;
 }
 

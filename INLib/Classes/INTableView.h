@@ -40,6 +40,7 @@
  
  This list may be used in conjunction with viewsToCancelTouchesOn and offers the possibility to cancel all types of objects at once.
  The string will be compared with the string of the view's class name, so there won't be an exception if the given class name doesn't exist.
+ However, due to the string comparision the exact class name has to be added to the array, including all sublcasses, i.e. a custom UIButton subclass has also be added otherwise it won't trigger.
  
  @see viewsToCancelTouchesOn
  */

@@ -68,6 +68,12 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
  Returns a cached gregorian calendar which is used by many methods of this extension.
 
  The default calendar is set up with the current locale.
+ When you want to change any calendar's properties like the locale or the minimum of days in the first week you should do this in a synchronized block guarding the cached calendar.
+
+    NSCalendar *calendar = [NSDate cachedGregorianCalendar];
+    @synchronized(calendar) {
+        [calendar setMinimumDaysInFirstWeek:4];
+    }
 
  @return The cached calendar.
  */
@@ -86,6 +92,8 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
     NSUInteger components = NSCalendarUnitMonth | NSCalendarUnitMinute | NSCalendarUnitYear | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitSecond;
     [self dateInformationForComponents:components];
  
+ Uses the cached Gregorian Calendar.
+ 
  @return The date information struct.
  */
 - (INDateInformation)dateInformation;
@@ -94,24 +102,17 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 /**
  Creates a date information struct from this NSDate only initialized with the given components.
 
+ Uses the cached Gregorian Calendar.
+ 
  @return The date information struct.
  */
 - (INDateInformation)dateInformationForComponents:(NSCalendarUnit)components;
 
 
 /**
- Creates a date information struct from this NSDate.
-
- For the different TimeZones see [this Stackoverflow posting](http://stackoverflow.com/questions/5985468/iphone-differences-among-time-zone-convenience-methods).
-
- @param timeZone The time zone for this date.
- @return The date information struct.
- */
-- (INDateInformation)dateInformationWithTimeZone:(NSTimeZone *)timeZone;
-
-
-/**
  Creates a new NSDate out of a date information struct.
+ 
+ Uses the cached Gregorian Calendar.
  
  @param dateInfo The date information struct.
  @return The new NSDate object.
@@ -120,12 +121,14 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 
 /**
- Creates a new NSDate out of a date information struct.
+ Creates a new NSDate out of a date information struct in context of a time zone.
  
  For the different TimeZones see [this Stackoverflow posting](http://stackoverflow.com/questions/5985468/iphone-differences-among-time-zone-convenience-methods).
 
+ Uses the cached Gregorian Calendar.
+ 
  @param dateInfo The date information struct.
- @param timeZone The time zone for this date.
+ @param timeZone The time zone for the date info data.
  @return The new NSDate object.
  */
 + (NSDate *)dateWithDateInformation:(INDateInformation)dateInfo timeZone:(NSTimeZone *)timeZone;
@@ -159,7 +162,7 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 + (instancetype)dateWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second;
 
 
-#pragma mark - Manipulating seconds
+#pragma mark - Seconds calculations
 /// @name Manipulating seconds
 
 /**
@@ -354,14 +357,17 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 /**
  Returns the weeknumber of the year, i.e. 20 for the 20th week.
  
- The weeknumber is depending of the first weekday which is in ISO 8601 monday, but in US it is sunday, so the same day may be in different weeks for US and europe.
+ The weeknumber is depending on the first weekday and on the start of the first week in the year.
+ In ISO 8601 the week starts with monday and the first week is the one with the 4th January, but in US it is Sunday and the first week starts with the 1st January, so the same day may be in different weeks for US and Europe.
  
  The first weekday will be determined from the current locale, and can be changed with the calendar's `firstWeekday` property.
  Change the first weekday by assigning `firstWeekday` from the `cachedGregorianCalendar` within a synchronized block, but beware that the cached calender will be used also by all other methods of this extension.
+ When changing the first weekday you maybe may also want to change the minimum of days in the first week, because in ISO 8601 it's 4, but in US it's 1.
  
     NSCalendar *calendar = [NSDate cachedGregorianCalendar];
     @synchronized(calendar) {
-        calendar.firstWeekday = 2; // Set to monday
+        calendar.firstWeekday = 2; // Monday
+        [calendar setMinimumDaysInFirstWeek:4]; // 4 days in the year's first week
     }
 
  @return The week as a number.
@@ -372,9 +378,10 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 /**
  Returns the week number of the month, i.e. 4.
  
- This value is dependant of the calendar's first weekday.
+ This value is depending on the calendar's first weekday and the start of the first week in the year.
  
  @return The week as a number. Ranged from 1 to 5.
+ @see weekNumberOfYear
  */
 - (NSInteger)weekNumberOfMonth;
 
@@ -433,33 +440,6 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
  @return The second as a number. Ranged from 0 to 59.
  */
 - (NSInteger)secondNumber;
-
-
-#pragma mark - Date strings
-/// @name Date strings
-
-/**
- Returns the localized month's name as a string, i.e. "Dezember".
- 
- @return The month's name.
- */
-- (NSString *)stringWithMonthName;
-
-
-/**
- Returns the localized weekday's name as a string, i.e. "Tuesday".
- 
- @return The day's name.
- */
-- (NSString *)stringWithWeekdayName;
-
-
-/**
- Returns the localized weekday's name as a short string, i.e. "Tues".
- 
- @return The day's shortened name.
- */
-- (NSString *)stringWithWeekdayNameShort;
 
 
 #pragma mark - Date difference calculations

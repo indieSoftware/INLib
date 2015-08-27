@@ -21,7 +21,7 @@ A little iOS Library with common operations, extensions and UI additions.
 ### Categories
 - NSArray: arrayWithSet:, arrayReversed, firstObjectPassingTest:, arrayWithRandomizedOrder, descriptionWithStart:elementFormatter:lastElementFormatter:end:, ...
 - NSBundle: direct shortcut accessors for the bundle identifier and version
-- NSDate: Date detail accessing, cached formatters, date comparison, date manipulation, date difference calculations
+- NSDate: Date detail accessing, date comparison, date manipulation, date difference calculations
 - NSDictionary / NSMutableDictionary: type safe accessors / setter, custom description method
 - NSLocale: shortcut methods for the system's language and country code
 - NSObject: Storing an object at runtime, NSNull comparison, a performSelector implementation

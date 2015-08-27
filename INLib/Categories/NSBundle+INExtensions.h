@@ -24,13 +24,23 @@
 @interface NSBundle (INExtensions)
 
 /**
- Returns the main bundle version, i.e. "1.0".
+ Returns the main bundle version, i.e. "31".
  
  Uses the flag CFBundleVersion.
 
  @return The bundle version number.
  */
 + (NSString*)bundleVersion;
+
+
+/**
+ Returns the main bundle short version, i.e. "1.0".
+ 
+ Uses the flag CFBundleShortVersionString.
+ 
+ @return The bundle short version number.
+ */
++ (NSString*)bundleShortVersion;
 
 
 /**
