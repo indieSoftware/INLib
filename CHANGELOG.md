@@ -8,7 +8,6 @@
 - Removed the stringifying methods from NSDate+INExtension
 - Added Tests for NSDate+INExtensions
 - Added [NSBundle bundleShortVersion] to get the short version number.
-- ...
 
 
 ## 3.3.1
