@@ -33,6 +33,7 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
     info.hour = hour;
     info.minute = minute;
     info.second = second;
+    info.weekday = 0;
     return info;
 }
 
