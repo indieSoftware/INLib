@@ -71,7 +71,7 @@
     }
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     if (self.forwardRotation && self.topViewController != nil) {
         return [self.topViewController supportedInterfaceOrientations];
     } else {

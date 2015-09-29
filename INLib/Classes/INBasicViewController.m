@@ -136,7 +136,7 @@ NSString * const INBasicViewControllerShouldUpdateNotification = @"INBasicViewCo
     return UIInterfaceOrientationIsPortrait(interfaceOrientation);
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
