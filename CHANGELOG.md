@@ -1,5 +1,11 @@
 # INLib CHANGELOG
 
+## 4.1+
+
+- Added forwarding the status bar style from the top view controller by INNavigationController.
+- Minor Bugfixes
+
+
 ## 4.0
 
 - Bugfix: Using [NSBundle bundleForClass:self] instead of [NSBundle mainBundle], so INLocalizer can also be used in an IBDesignable view

@@ -23,6 +23,7 @@
 
 /**
  A UINavigationController substitution which forwards all rotation requests to the current top view controller and may forward any segue for unwinding calls to the destination segue.
+ It also forwards the status bar style from the top view controller.
  */
 @interface INNavigationController : UINavigationController
 

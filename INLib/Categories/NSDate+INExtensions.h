@@ -446,8 +446,9 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 /// @name Date difference calculations
 
 /**
- Returns the number of years between this and another date.
+ Returns the number of years between this and the other date.
  
+ Counts only full years.
  Returns a negative number if the other date is before this one.
  
  @param otherDate The other date to compare with.
@@ -457,8 +458,9 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 
 /**
- Returns the number of months between this and another date.
+ Returns the number of months between this and the other date.
  
+ Counts only full months.
  Returns a negative number if the other date is before this one.
  
  @param otherDate The other date to compare with.
@@ -468,8 +470,9 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
 
 
 /**
- Returns the number of days between this and the another date.
+ Returns the number of days between this and the other date.
  
+ Counts only full days.
  Returns a negative numbers if the other date is before this one.
  
  @param otherDate The other date to compare with.
