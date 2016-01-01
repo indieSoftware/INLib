@@ -157,7 +157,7 @@ INSingletonDefinition
     self = [super init];
     if (self == nil) return self;
     
-    self.bundle = [NSBundle bundleForClass:self.class];
+    self.bundle = [NSBundle mainBundle];
     
     return self;
 }
@@ -165,11 +165,11 @@ INSingletonDefinition
 - (void)setLanguage:(NSString *)language {
 	NSString *path = nil;
     if (language != nil) {
-        path = [[NSBundle bundleForClass:self.class] pathForResource:language ofType:@"lproj"];
+        path = [[NSBundle mainBundle] pathForResource:language ofType:@"lproj"];
     }
 	if (path == nil) {
 		// the desired language does not exist, reset localizer
-        self.bundle = [NSBundle bundleForClass:self.class];
+        self.bundle = [NSBundle mainBundle];
 	} else {
         // load new bundle with the desired language
 		self.bundle = [NSBundle bundleWithPath:path];
