@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "INLib"
-  s.version          = "4.0"
+  s.version          = "4.0.1"
   s.summary          = "A little iOS Library with common tasks."
   s.homepage         = "https://github.com/indieSoftware/INLib"
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '6.0'
   s.requires_arc     = true
 
-  s.source           = { :git => "https://github.com/indieSoftware/INLib.git", :tag => "4.0" }
+  s.source           = { :git => "https://github.com/indieSoftware/INLib.git", :tag => "4.0.1" }
   s.source_files     = 'INLib/*.h'
   s.default_subspecs = 'CMethods', 'Macros', 'Classes', 'Categories'
 	

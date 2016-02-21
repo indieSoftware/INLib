@@ -1,6 +1,6 @@
 # INLib CHANGELOG
 
-## 4.1+
+## 4.0.1
 
 - Added forwarding the status bar style from the top view controller by INNavigationController.
 - Minor Bugfixes
