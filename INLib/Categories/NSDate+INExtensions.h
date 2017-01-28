@@ -79,6 +79,26 @@ INDateInformation INDateInformationMake(NSInteger year, NSInteger month, NSInteg
  */
 + (NSCalendar *)cachedGregorianCalendar;
 
+/**
+ Sets the cached gregorian calendar which is used by many methods of this extension.
+ 
+ When you want to change any calendar's properties like the locale or the minimum of days in the first week you should do this in a synchronized block guarding the cached calendar.
+ 
+    NSCalendar *calendar = [NSDate cachedGregorianCalendar];
+    @synchronized(calendar) {
+        [calendar setMinimumDaysInFirstWeek:4];
+    }
+ 
+ In Swift you have to set it back with this method otherwise the changes won't be persisted.
+
+    var cachedCalendar = NSDate.cachedGregorianCalendar()
+    cachedCalendar?.firstWeekday = weekStartIndex
+    cachedCalendar?.minimumDaysInFirstWeek = minimumDaysInFirstWeek
+    NSDate.setCachedGregorianCalendar(cachedCalendar)
+
+ */
++ (void)setCachedGregorianCalendar:(NSCalendar *)calendar;
+
 
 #pragma mark - DateInformation
 /// @name DateInformation

@@ -66,6 +66,10 @@ static NSCalendar *__defaultCachedGregorianCalendar = nil;
     return __defaultCachedGregorianCalendar;
 }
 
++ (void)setCachedGregorianCalendar:(NSCalendar *)calendar {
+    __defaultCachedGregorianCalendar = calendar;
+}
+
 + (NSInteger)secondsForDays:(NSInteger)days hours:(NSInteger)hours minutes:(NSInteger)minutes seconds:(NSInteger)seconds {
 	return (days * 86400 + hours * 3600 + minutes * 60 + seconds);
 }
